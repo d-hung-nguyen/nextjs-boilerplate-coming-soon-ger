@@ -1,8 +1,13 @@
 import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
-import Alta from  "./alta
+import Alta from "next/font/local"
 import "./globals.css"
 
+const alta = Alta({
+	src: "../public/Alta.otf",
+	variable: "--font-alta",
+	display: "swap",
+})
 const geistSans = Geist({
 	variable: "--font-geist-sans",
 	subsets: ["latin"],
@@ -25,7 +30,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>{children}</body>
+			<body className={`${alta.className} ${geistMono.variable} antialiased`}>{children}</body>
 		</html>
 	)
 }
