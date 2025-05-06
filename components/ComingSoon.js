@@ -33,7 +33,6 @@ const ComingSoon = () => {
 						objectFit: "cover",
 						zIndex: -1,
 					}}>
-					<source src="/public/1.mp4" type="video/mp4" />
 					<source
 						src="https://cdn.prod.website-files.com/66df2740774eab1cc398361c/66df2741774eab1cc39836b4_pexels-taryn-elliott-6473325-transcode.webm"
 						type="video/webm"
@@ -46,8 +45,9 @@ const ComingSoon = () => {
 					style={{ maxWidth: "300px", marginBottom: "40px" }}
 				/>
 				<h1 style={{ fontSize: "3rem", fontWeight: 700, marginBottom: "10px" }}>Coming Soon</h1>
+				<h2 style={{ fontSize: "3rem", fontWeight: 700, marginBottom: "10px" }}>Let's Talk</h2>
 				<p style={{ fontWeight: 300, fontSize: "1.2rem", maxWidth: "500px", margin: "0 auto 30px" }}>
-					We are crafting something exceptional in bespoke luxury hospitality. Stay tuned for the launch of our new digital experience.
+					Contact us today to evaluate bespoke opportunities through a new lense!{" "}
 				</p>
 				<div style={{ fontSize: "0.9rem", opacity: 0.7 }}>
 					<p>
