@@ -6,12 +6,12 @@ const ComingSoon = () => {
 			{/* Hero Section */}
 			<section className="relative h-screen flex flex-col justify-center items-center text-center">
 				<video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover object-center opacity-80 -z-10">
-					<source src="/public/1-2.webm" type="video/webm" />
+					<source src="/video/background-video.webm" type="video/webm" />
 				</video>
 				{/* Dark overlay for readability */}
 				<div className="absolute inset-0 bg-black/50" />
-				<img src="/public/logo.png" alt="Global Elite Logo" className="max-w-[300px] mb-10" />
-				<h1 className="text-7xl font-bold">Coming Soon</h1>
+				<img src="/images/global-elite-logo.png" alt="Global Elite Logo" className="max-w-[300px] mb-10" />
+				<h1 className="text-5xl font-bold">Coming Soon</h1>
 			</section>
 
 			{/* Contact Section */}
