@@ -2,70 +2,48 @@ import React from "react"
 
 const ComingSoon = () => {
 	return (
-		<div>
-			<div
-				style={{
-					fontFamily: "Alta, Montserrat, sans-serif",
-					// backgroundColor removed to prevent white overlay on the video background
-					color: "#fff",
-					height: "100vh",
-					display: "flex",
-					flexDirection: "column",
-					justifyContent: "center",
-					alignItems: "center",
-					textAlign: "center",
-					position: "relative",
-				}}>
-				<video
-					autoPlay
-					loop
-					muted
-					playsInline
-					style={{
-						position: "fixed",
-						top: 0,
-						left: 0,
-						width: "100%",
-						height: "100%",
-						objectPosition: "center",
-						opacity: 0.8,
-
-						objectFit: "cover",
-						zIndex: -1,
-					}}>
+		<div className="font-[Alta,_Montserrat,_sans-serif] text-white">
+			{/* Hero Section */}
+			<section className="relative h-screen flex flex-col justify-center items-center text-center">
+				<video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover object-center opacity-80 -z-10">
 					<source
 						src="https://cdn.prod.website-files.com/66df2740774eab1cc398361c/66df2741774eab1cc39836b4_pexels-taryn-elliott-6473325-transcode.webm"
 						type="video/webm"
 					/>
 				</video>
-				<div style={{ position: "absolute", top: 0, left: 0, right: 0, bottom: 0, backgroundColor: "rgba(0, 0, 0, 0.5)" }} />
+				{/* Dark overlay for readability */}
+				<div className="absolute inset-0 bg-black/50" />
 				<img
 					src="https://cdn.prod.website-files.com/66df2740774eab1cc398361c/66fa9e7e3edb846efe8e9920_2.png"
 					alt="Global Elite Logo"
-					style={{ maxWidth: "300px", marginBottom: "40px" }}
+					className="max-w-[300px] mb-10"
 				/>
-				<h1 style={{ fontSize: "3rem", fontWeight: 700, marginBottom: "10px" }}>Coming Soon</h1>
-				<h2 style={{ fontSize: "3rem", fontWeight: 700, marginBottom: "10px" }}>Let's Talk</h2>
-				<p style={{ fontWeight: 300, fontSize: "1.2rem", maxWidth: "500px", margin: "0 auto 30px" }}>
-					Contact us today to evaluate bespoke opportunities through a new lense!{" "}
+				<h1 className="text-7xl font-bold">Coming Soon</h1>
+			</section>
+
+			{/* Contact Section */}
+			<section className="bg-black py-16 px-4 text-center">
+				<h2 className="text-4xl font-bold mb-4">Let's Talk</h2>
+				<p className="font-light text-lg max-w-xl mx-auto mb-8">
+					Contact us today to evaluate bespoke opportunities through a new lens!
 				</p>
-				<div style={{ fontSize: "0.9rem", opacity: 0.7 }}>
+				<div className="text-sm opacity-80 space-y-2">
 					<p>
-						Patricia de Mayer -{" "}
-						<a href="mailto:pdemayer@globaleliteassociates.com" style={{ color: "#fff" }}>
+						Patricia de Mayer –{" "}
+						<a href="mailto:pdemayer@globaleliteassociates.com" className="underline">
 							pdemayer@globaleliteassociates.com
 						</a>{" "}
-						- +49 173 3064859
+						– +49&nbsp;173&nbsp;306&nbsp;4859
 					</p>
 					<p>
-						Hung Nguyen -{" "}
-						<a href="mailto:hung@globaleliteassociates.com" style={{ color: "#fff" }}>
+						Hung Nguyen –{" "}
+						<a href="mailto:hung@globaleliteassociates.com" className="underline">
 							hung@globaleliteassociates.com
 						</a>{" "}
-						- +49 1622 655243
+						– +49&nbsp;1622&nbsp;655&nbsp;243
 					</p>
 				</div>
-			</div>
+			</section>
 		</div>
 	)
 }
