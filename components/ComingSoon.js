@@ -5,7 +5,7 @@ const ComingSoon = () => {
 		<div className="font-[Alta,_Montserrat,_sans-serif] text-white">
 			{/* Hero Section */}
 			<section className="relative h-screen flex flex-col justify-center items-center text-center">
-				<video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover object-center opacity-80 -z-10">
+				<video autoPlay loop muted playsInline className="fixed inset-0 w-full h-full object-cover object-center opacity-90 -z-10">
 					<source src="/video/background-video.webm" type="video/webm" />
 				</video>
 				{/* Dark overlay for readability */}
@@ -41,7 +41,7 @@ const ComingSoon = () => {
 						</p>
 						<p>+49&nbsp;1622&nbsp;655&nbsp;243</p>
 					</div>
-					<p className="text-sm md:text-base font-light text-gray-400 mt-10">
+					<p className="text-sm md:text-base text-gray-50 font-semibold mt-10">
 						<span className="font-semibold">Global Elite & Associates</span> is a leading European company specializing in
 						representing luxury hospitality brands. We offer tailored services to enhance the visibility of exclusive hotels in key
 						European markets. Our offices are strategically located in Frankfurt, London, Paris, and Bucharest.
