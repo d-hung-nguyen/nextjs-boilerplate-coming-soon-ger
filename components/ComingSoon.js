@@ -10,8 +10,8 @@ const ComingSoon = () => {
 				</video>
 				{/* Dark overlay for readability */}
 				<div className="absolute inset-0 bg-black/50" />
-				<img src="/images/global-elite-logo.png" alt="Global Elite Logo" className="max-w-[600px] mb-10" />
-				<h1 className="text-5xl font-bold">Coming Soon</h1>
+				<img src="/images/global-elite-logo.png" alt="Global Elite Logo" className="max-w-[400px] mb-10" />
+				<h1 className="text-4xl font-bold">Coming Soon</h1>
 			</section>
 
 			{/* Contact Section */}
