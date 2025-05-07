@@ -10,7 +10,7 @@ const ComingSoon = () => {
 				</video>
 				{/* Dark overlay for readability */}
 				<div className="absolute inset-0 bg-black/50" />
-				<img src="/images/global-elite-logo.png" alt="Global Elite Logo" className="max-w-[300px] mb-10" />
+				<img src="/images/global-elite-logo.png" alt="Global Elite Logo" className="max-w-[600px] mb-10" />
 				<h1 className="text-5xl font-bold">Coming Soon</h1>
 			</section>
 
@@ -41,6 +41,11 @@ const ComingSoon = () => {
 						</p>
 						<p>+49&nbsp;1622&nbsp;655&nbsp;243</p>
 					</div>
+					<p className="text-sm md:text-base font-light text-gray-400 mt-10">
+						<span className="font-semibold">Global Elite & Associates</span> is a leading European company specializing in
+						representing luxury hospitality brands. We offer tailored services to enhance the visibility of exclusive hotels in key
+						European markets. Our offices are strategically located in Frankfurt, London, Paris, and Bucharest.
+					</p>
 				</div>
 			</section>
 		</div>
