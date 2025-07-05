@@ -2,6 +2,7 @@ import type { Metadata } from "next"
 import Alta from "next/font/local"
 import Lagusans from "next/font/local"
 import "@/./src/styles/globals.css"
+import { Analytics } from "@vercel/analytics/next"
 
 const lagusans = Lagusans({
 	src: "@/../lagusans-light.otf",
@@ -28,7 +29,9 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en">
-			<body className={`${lagusans.variable} ${alta.variable} font-sans bg-gray-50 text-gray-900`}>{children}</body>
+			<body className={`${lagusans.variable} ${alta.variable} font-sans bg-gray-50 text-gray-900`}>
+				{children} <Analytics />
+			</body>
 		</html>
 	)
 }
