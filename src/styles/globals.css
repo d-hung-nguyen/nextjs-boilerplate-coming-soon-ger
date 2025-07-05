@@ -3,7 +3,7 @@
 
 :root {
 	/* #FFFFFF, Pure white */ /* #8D887E, Soft warm gray */
-	--card: oklch(1 0 0); /* #FFFDFD, Near white with slight tint */
+	--card: /* #FFFDFD, Near white with slight tint */
 	--card-foreground: oklch(0.145 0 0); /* #8D887E, Soft warm gray */
 	--popover: oklch(1 0 0); /* #FFFFFF, Pure white */
 	--popover-foreground: oklch(0.145 0 0); /* #8D887E, Soft warm gray */
@@ -36,8 +36,8 @@
 	--sidebar-ring: oklch(0.708 0 0); /* #B6AFA6, Light taupe/beige tone */
 	--font-family-sans: "alta", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
 	--font-family-serif: "lagusans-light", "Times New Roman", Times, serif;
-	--background: oklch(1 0 0);
-	--foreground: oklch(0.145 0 0);
+	--background: rgb(242, 242, 242); 
+	--foreground: rgb(242, 242, 242);
 }
 
 h1,
