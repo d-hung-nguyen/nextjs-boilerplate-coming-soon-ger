@@ -9,11 +9,13 @@ import Image from "next/image"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { motion } from "framer-motion"
 import Hero from "@/components/Hero"
+import Form from "@/components/Form"
 
 export default function LTPPortal() {
 	const features = [
 		{
 			img: "/images/a1.webp",
+
 			title: "By Invitation Only",
 			desc: "An exclusive, invitation-only network of elite travel consultants globally",
 		},
@@ -37,6 +39,7 @@ export default function LTPPortal() {
 	return (
 		<RootLayout>
 			<Hero />
+			<Form />
 			<Separator className="my-10" />
 			{/* Hero Section */}
 			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10 ">
