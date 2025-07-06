@@ -6,9 +6,14 @@ import Link from "next/link"
 export default function Hero() {
 	return (
 		<>
-			<section className="relative w-full h-svh overflow-hidden flex items-start justify-center bg-black">
+			<section className="relative w-full h-svh overflow-hidden flex items-start justify-center bg-blue-800">
 				{/* Background Video */}
-				<video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full opacity-35 object-cover object-center z-0">
+				<video
+					autoPlay
+					muted
+					loop
+					playsInline
+					className="absolute inset-0 w-full h-full opacity-70 object-cover object-center  brightness-60 z-0">
 					<source
 						src="https://www-addresshotels-com.azureedge.net/wp-content/uploads/2024/11/Address-Hotels-Landscape-Video.mp4"
 						type="video/mp4"

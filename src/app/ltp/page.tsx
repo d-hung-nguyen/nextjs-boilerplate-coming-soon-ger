@@ -2,8 +2,7 @@
 
 import React from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card1"
-import { CardFooter } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import RootLayout from "@/src/app/layout"
 import Image from "next/image"
@@ -13,30 +12,6 @@ import Hero from "@/components/Hero"
 import Form from "@/components/Form"
 
 export default function LTPPortal() {
-	const features = [
-		{
-			img: "/images/a1.webp",
-
-			title: "By Invitation Only",
-			desc: "An exclusive, invitation-only network of elite travel consultants globally",
-		},
-		{
-			img: "/images/a2.webp",
-			title: "Rewarding Loyalty",
-			desc: "Your clients will enjoy a series of benefits and so will you. Our way to recognise you and your clients in more ways than one",
-		},
-		{
-			img: "/images/a3.webp",
-			title: "Bookings Made Easy",
-			desc: "Book via our website or via GDS, your choice!",
-		},
-		{
-			img: "/images/a4.webp",
-			title: "Unique Value-Added Benefits",
-			desc: "From VIP status to flexible perks and dedicated concierge support",
-		},
-	]
-
 	return (
 		<RootLayout>
 			<Hero />
@@ -45,37 +20,27 @@ export default function LTPPortal() {
 			{/* Hero Section */}
 			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10 ">
 				<CardHeader className="text-center mb-6">
-					<CardTitle className="text-2xl font-semibold">
+					<CardTitle>
 						<h2 className="text-4xl font-bold">Luxury Travel Partner Programme</h2>
 					</CardTitle>
-					<p className="text-lg mt-4 text-muted-foreground">
-						Join the exclusive network of elite travel consultants with Address Hotels + Resorts.
-					</p>
 				</CardHeader>
 
 				<CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					{features.map(({ img, title, desc }) => (
+					{features.map((feature, index) => (
 						<motion.div
-							key={img}
+							key={`feature-${index}`}
 							className="relative overflow-hidden rounded-lg shadow-lg"
 							whileHover={{ scale: 1.05 }}
 							whileTap={{ scale: 0.95 }}>
-							<CardContent className="p-0">
-								<AspectRatio ratio={4 / 3} className="w-full">
-									<Image
-										src={img}
-										alt={title}
-										className="object-cover w-full h-full"
-										fill
-										sizes="(max-width: 768px) 100vw, 50vw"
-										priority
-									/>
+							<div className="p-0">
+								<AspectRatio ratio={4 / 3}>
+									<Image src={feature.img} alt={feature.title} fill className="object-cover" />
 								</AspectRatio>
-								<CardContent className="p-4 bg-white/80 backdrop-blur-sm">
-									<h3 className="text-lg font-semibold">{title}</h3>
-									<p className="text-sm mt-1">{desc}</p>
-								</CardContent>
-							</CardContent>
+								<div className="p-4 bg-white/80 backdrop-blur-sm">
+									<h3>{feature.title}</h3>
+									<p>{feature.desc}</p>
+								</div>
+							</div>
 						</motion.div>
 					))}
 				</CardContent>
@@ -94,9 +59,13 @@ export default function LTPPortal() {
 					</CardHeader>
 
 					<Card>
+						<CardHeader className="text-center">{/* First card content */}</CardHeader>
+					</Card>
+
+					<Card>
 						<CardHeader>
-							<CardTitle className="text-2xl font-semibold">
-								<h2>Rooms</h2>
+							<CardTitle>
+								<h2 className="text-2xl font-semibold">Rooms</h2>
 							</CardTitle>
 						</CardHeader>
 						<CardContent className="text-left">
@@ -120,42 +89,42 @@ export default function LTPPortal() {
 							<h2 className="text-4xl font-bold">Meet Your Local Team</h2>
 						</CardTitle>
 					</CardHeader>
+					<CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						<Card>
+							<Image
+								src="/images/pde.png"
+								alt="Local Team Member 1"
+								width={1200}
+								height={1200}
+								className="w-1/2 mx-auto mb-4 object-contain aspect-square shadow-lg rounded "
+							/>
+							<CardDescription className="p-4">
+								<h3 className="text-lg font-semibold"> Patricia de Mayer</h3>
+								<p className="text-sm mt-1">Founder & MD</p>
+								<p>+49 173 306 4859</p>
+								<p>pdemayer@globaleliteassociates.com</p>
+							</CardDescription>
+						</Card>
+						<Card>
+							<Image
+								src="/images/hung.png"
+								alt="Local Team Member 1"
+								width={1200}
+								height={1200}
+								className="w-1/2 mx-auto mb-4 object-contain aspect-square shadow-lg rounded "
+							/>
+							<CardDescription className="p-4">
+								<h3 className="text-lg font-semibold">Hung Nguyen</h3>
+								<p className="text-sm mt-1">Director of Sales</p>
+								<p>+49 162 265 5243</p>
+								<p>hung@globaleliteassociates.com</p>
+							</CardDescription>
+						</Card>
+					</CardContent>
 				</Card>
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					<Card>
-						<Image
-							src="/images/pde.png"
-							alt="Local Team Member 1"
-							width={1200}
-							height={1200}
-							className="w-1/2 mx-auto mb-4 object-contain aspect-square shadow-lg rounded "
-						/>
-						<CardDescription className="p-4">
-							<h3 className="text-lg font-semibold"> Patricia de Mayer</h3>
-							<p className="text-sm mt-1">Founder & MD</p>
-							<p>+49 173 306 4859</p>
-							<p>pdemayer@globaleliteassociates.com</p>
-						</CardDescription>
-					</Card>
-					<Card>
-						<Image
-							src="/images/hung.png"
-							alt="Local Team Member 1"
-							width={1200}
-							height={1200}
-							className="w-1/2 mx-auto mb-4 object-contain aspect-square shadow-lg rounded "
-						/>
-						<CardDescription className="p-4">
-							<h3 className="text-lg font-semibold">Hung Nguyen</h3>
-							<p className="text-sm mt-1">Director of Sales</p>
-							<p>+49 162 265 5243</p>
-							<p>hung@globaleliteassociates.com</p>
-						</CardDescription>
-					</Card>
-				</CardContent>
 				<p>
 					<a href="https://globaleliteassociates.com" className="text-primary underline">
-						globaleliteassociates.com
+						Visit our website
 					</a>
 				</p>
 			</section>
@@ -178,7 +147,7 @@ export default function LTPPortal() {
 							alt="Global Elite Logo"
 							width={200}
 							height={50}
-							className="w-1/3 mx-auto mb-18 object-contain "
+							className="w-1/3 mx-auto mb-8 object-contain"
 						/>
 					</div>
 
@@ -196,3 +165,20 @@ export default function LTPPortal() {
 		</RootLayout>
 	)
 }
+const features = [
+	{
+		img: "/images/a1.webp",
+		title: "Exclusive Access",
+		desc: "Gain access to exclusive offers and benefits at Address Hotels + Resorts.",
+	},
+	{
+		img: "/images/a2.webp",
+		title: "Personalized Service",
+		desc: "Enjoy personalized service tailored to your travel needs.",
+	},
+	{
+		img: "/images/a3.webp",
+		title: "Luxury Experiences",
+		desc: "Experience luxury like never before with our curated experiences.",
+	},
+]
