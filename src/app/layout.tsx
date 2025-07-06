@@ -22,7 +22,7 @@ const alta = Alta({
 	variable: "--font-alta",
 	display: "swap",
 })
-export const metadata: Metadata = {
+const metadata: Metadata = {
 	title: "Global Elite | Coming Soon",
 	description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
 	openGraph: {
