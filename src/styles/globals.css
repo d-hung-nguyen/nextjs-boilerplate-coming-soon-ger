@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+
 :root {
 	/* #FFFFFF, Pure white */ /* #8D887E, Soft warm gray */
 	--card: /* #FFFDFD, Near white with slight tint */
@@ -101,65 +102,10 @@ body {
 }
 
 html {
-	--font-family-sans: var(--font-family-sans);
-	--font-family-serif: var(--font-family-serif);
-	--font-family-alt: var(--font-family-alt);
-	--font-family-heading: var(--font-family-heading);
-	--font-family-logo: var(--font-family-logo);
-	--font-family-lagusans: var(--font-family-lagusans);
-	--font-family-montserrat: var(--font-family-montserrat);
-	--font-family-alta: var(--font-family-alta);
-	--font-size-base: 16px;
-	--font-size-lg: 18px;
-	--font-size-xl: 20px;
-	--font-size-2xl: 24px;
-	--font-size-3xl: 30px;
-	--font-size-4xl: 36px;
-	--font-size-5xl: 48px;
-	--font-size-6xl: 64px;
-	--font-size-7xl: 72px;
-	--font-size-8xl: 96px;
-	--font-size-9xl: 128px;
-	--line-height-base: 1.5;
-	--line-height-lg: 1.6;
-	--line-height-xl: 1.7;
-	--line-height-2xl: 1.8;
-	--line-height-3xl: 1.9;
-	--line-height-4xl: 2;
-	--line-height-5xl: 2.2;
-	--line-height-6xl: 2.4;
-	--line-height-7xl: 2.6;
-	--line-height-8xl: 2.8;
-	--line-height-9xl: 3;
-}
 
-body {
-	background-color: var(--color-background);
-	font-size: var(--font-size-base);
-	line-height: var(--line-height-base);
-
-	font-weight: 400;
-	letter-spacing: 0;
-	text-decoration: none;
-	-webkit-font-smoothing: antialiased;
-	-webkit-text-size-adjust: 100%;
-	-moz-text-size-adjust: 100%;
-	-webkit-tap-highlight-color: transparent;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-
-	--transition: background-color 0.3s ease, color 0.3s ease;
-	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	--transition-delay: 0.1s;
-	--transition-duration: 0.3s;
-
-	overflow-x: hidden;
-	--transition: background-color 0.3s ease, color 0.3s ease;
-	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-	--transition-delay: 0.1s;
-	--transition-duration: 0.3s;
-	--transition-property: background-color, color;
-}
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
 @theme inline {
 	--radius-sm: calc(var(--radius) - 4px);
@@ -199,45 +145,32 @@ body {
 	--color-sidebar-ring: var(--sidebar-ring);
 }
 
-.dark {
-	--background: oklch(0.145 0 0);
-	--foreground: oklch(0.985 0 0);
-	--card: oklch(0.205 0 0);
-	--card-foreground: oklch(0.985 0 0);
-	--popover: oklch(0.205 0 0);
-	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.922 0 0);
-	--primary-foreground: oklch(0.205 0 0);
-	--secondary: oklch(0.269 0 0);
-	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.269 0 0);
-	--muted-foreground: oklch(0.708 0 0);
-	--accent: oklch(0.269 0 0);
-	--accent-foreground: oklch(0.985 0 0);
-	--destructive: oklch(0.704 0.191 22.216);
-	--border: oklch(1 0 0 / 10%);
-	--input: oklch(1 0 0 / 15%);
-	--ring: oklch(0.556 0 0);
-	--chart-1: oklch(0.488 0.243 264.376);
-	--chart-2: oklch(0.696 0.17 162.48);
-	--chart-3: oklch(0.769 0.188 70.08);
-	--chart-4: oklch(0.627 0.265 303.9);
-	--chart-5: oklch(0.645 0.246 16.439);
-	--sidebar: oklch(0.205 0 0);
-	--sidebar-foreground: oklch(0.985 0 0);
-	--sidebar-primary: oklch(0.488 0.243 264.376);
-	--sidebar-primary-foreground: oklch(0.985 0 0);
-	--sidebar-accent: oklch(0.269 0 0);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
-	--sidebar-border: oklch(1 0 0 / 10%);
-	--sidebar-ring: oklch(0.556 0 0);
 }
 
-@layer base {
-	* {
-		@apply border-border outline-ring/50;
-	}
-	body {
-		@apply bg-background text-foreground;
-	}
+body {
+	background-color: var(--color-background);
+	font-size: var(--font-size-base);
+	line-height: var(--line-height-base);
+
+	font-weight: 400;
+	letter-spacing: 0;
+	text-decoration: none;
+	-webkit-font-smoothing: antialiased;
+	-webkit-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-tap-highlight-color: transparent;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+
+	--transition: background-color 0.3s ease, color 0.3s ease;
+	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-delay: 0.1s;
+	--transition-duration: 0.3s;
+
+	overflow-x: hidden;
+	--transition: background-color 0.3s ease, color 0.3s ease;
+	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	--transition-delay: 0.1s;
+	--transition-duration: 0.3s;
+	--transition-property: background-color, color;
 }

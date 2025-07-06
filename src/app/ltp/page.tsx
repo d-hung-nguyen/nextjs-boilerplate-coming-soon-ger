@@ -2,7 +2,8 @@
 
 import React from "react"
 import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card1"
+import { CardFooter } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import RootLayout from "@/src/app/layout"
 import Image from "next/image"
@@ -112,14 +113,8 @@ export default function LTPPortal() {
 			</section>
 
 			<Separator className="my-10" />
-			{/* Travel Agent Benefits */}
-
-			<Separator className="my-10" />
-			{/* Support & Commitments */}
-
-			{/* Local Team */}
 			<section className="max-w-5xl mx-auto px-4 text-center space-y-6">
-				<Card className="bg-white  rounded-lg p-6">
+				<Card className="rounded-lg p-6">
 					<CardHeader className="text-center">
 						<CardTitle className="text-2xl font-semibold">
 							<h2 className="text-4xl font-bold">Meet Your Local Team</h2>
@@ -172,6 +167,31 @@ export default function LTPPortal() {
 					“When it comes to luxury, you deserve more. Stay, unwind, indulge and unlock your benefits.”
 				</blockquote>
 				<Button className="text-lg">Join Today</Button>
+			</section>
+			<Separator className="my-10" />
+			{/* Footer */}
+			<section className="max-w-5xl mx-auto px-4  space-y-6 py-10 bg-[var(--background)]">
+				<CardFooter className="flex flex-col items-center justify-center ">
+					<div>
+						<Image
+							src="/images/ge1.png"
+							alt="Global Elite Logo"
+							width={200}
+							height={50}
+							className="w-1/3 mx-auto mb-18 object-contain "
+						/>
+					</div>
+
+					<div className="prose *:not-prose text-center text-sm text-muted-foreground">
+						<p>| Privacy Policy | Cookies |</p>
+					</div>
+					<div className="prose *:not-prose text-center text-sm text-muted-foreground">
+						<p>
+							© {new Date().getFullYear()} Global Elite Associates. All rights reserved.{" "}
+							<a href="https://globaleliteassociates.com" className="text-primary underline"></a>
+						</p>
+					</div>
+				</CardFooter>
 			</section>
 		</RootLayout>
 	)

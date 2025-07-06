@@ -3,6 +3,7 @@ import Alta from "next/font/local"
 import Lagusans from "next/font/local"
 import "@/./src/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next"
+import React from "react"
 
 const lagusans = Lagusans({
 	src: "@/../lagusans-light.otf",
@@ -21,6 +22,25 @@ const alta = Alta({
 	variable: "--font-alta",
 	display: "swap",
 })
+export const metadata: Metadata = {
+	title: "Global Elite | Coming Soon",
+	description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
+	openGraph: {
+		title: "Global Elite | Coming Soon",
+		description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
+		url: "https://global-elite.com",
+		siteName: "Global Elite",
+		type: "website",
+		images: [
+			{
+				url: "/images/",
+				width: 1200,
+				height: 630,
+				alt: "Global Elite Logo",
+			},
+		],
+	},
+}
 
 export default function RootLayout({
 	children,
