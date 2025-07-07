@@ -1,10 +1,8 @@
 "use client"
 
-import React from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, CardFooter } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
-import RootLayout from "@/src/app/layout"
 import Image from "next/image"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { motion } from "framer-motion"
@@ -13,38 +11,42 @@ import Form from "@/components/Form"
 
 export default function LTPPortal() {
 	return (
-		<RootLayout>
+		<>
 			<Hero />
 			<Form />
 			<Separator className="my-10" />
-			{/* Hero Section */}
-			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10 ">
-				<CardHeader className="text-center mb-6">
-					<CardTitle>
-						<h2 className="text-4xl font-bold">Luxury Travel Partner Programme</h2>
-					</CardTitle>
-				</CardHeader>
 
-				<CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
-					{features.map((feature, index) => (
-						<motion.div
-							key={`feature-${index}`}
-							className="relative overflow-hidden rounded-lg shadow-lg"
-							whileHover={{ scale: 1.05 }}
-							whileTap={{ scale: 0.95 }}>
-							<div className="p-0">
-								<AspectRatio ratio={4 / 3}>
-									<Image src={feature.img} alt={feature.title} fill className="object-cover" />
-								</AspectRatio>
-								<div className="p-4 bg-white/80 backdrop-blur-sm">
-									<h3>{feature.title}</h3>
-									<p>{feature.desc}</p>
+			{/* Hero Section */}
+			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10">
+				<Card>
+					<CardHeader className="text-center mb-6">
+						<CardTitle>
+							<h2 className="text-4xl font-bold">Luxury Travel Partner Programme</h2>
+						</CardTitle>
+					</CardHeader>
+
+					<CardContent className="grid grid-cols-1 md:grid-cols-2 gap-6">
+						{features.map((feature, index) => (
+							<motion.div
+								key={`feature-${index}`}
+								className="relative overflow-hidden rounded-lg shadow-lg"
+								whileHover={{ scale: 1.05 }}
+								whileTap={{ scale: 0.95 }}>
+								<div className="p-0">
+									<AspectRatio ratio={4 / 3}>
+										<Image src={feature.img} alt={feature.title} fill className="object-cover" />
+									</AspectRatio>
+									<div className="p-4 bg-white/80 backdrop-blur-sm">
+										<h3 className="text-xl font-semibold">{feature.title}</h3>
+										<p className="text-gray-600">{feature.desc}</p>
+									</div>
 								</div>
-							</div>
-						</motion.div>
-					))}
-				</CardContent>
+							</motion.div>
+						))}
+					</CardContent>
+				</Card>
 			</section>
+
 			<Separator className="my-10" />
 			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 py-10 bg-[var(--background)]">
 				<Card className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -162,9 +164,10 @@ export default function LTPPortal() {
 					</div>
 				</CardFooter>
 			</section>
-		</RootLayout>
+		</>
 	)
 }
+
 const features = [
 	{
 		img: "/images/a1.webp",
