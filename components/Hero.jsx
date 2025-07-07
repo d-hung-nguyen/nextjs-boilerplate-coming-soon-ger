@@ -6,8 +6,17 @@ import Link from "next/link"
 export default function Hero() {
 	return (
 		<>
-			<section className="relative w-full h-svh overflow-hidden flex items-start justify-center bg-blue-800">
-				{/* Background Video */}
+			<section className="relative w-full h-svh overflow-hidden flex items-start justify-center bg-black">
+				{/*
+				 Background Video */}
+				<Image
+					src="/images/e1.jpg"
+					alt="Address Hotels + Resorts"
+					width={200}
+					height={100}
+					className="absolute inset-0 w-full h-full opacity-90 object-cover object-center   z-0"
+				/>
+				{/* 
 				<video
 					autoPlay
 					muted
@@ -20,7 +29,7 @@ export default function Hero() {
 					/>
 				</video>
 
-				{/* Overlay Content */}
+				Overlay Content */}
 
 				<div className="relative z-10 text-white text-center px-4 md:px-8 lg:px-16 xl:px-32">
 					<div className="my-6 flex justify-center">
