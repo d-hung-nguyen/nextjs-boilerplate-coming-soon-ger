@@ -17,6 +17,13 @@ const nextConfig: NextConfig = {
 		minimumCacheTTL: 31536000, // 1 year cache
 		dangerouslyAllowSVG: true,
 		contentSecurityPolicy: "default-src 'self'; script-src 'none'; sandbox;",
+		unoptimized: false,
+		remotePatterns: [
+			{
+				protocol: "https",
+				hostname: "**",
+			},
+		],
 	},
 
 	// Turbopack configuration (moved from experimental.turbo)
@@ -31,7 +38,6 @@ const nextConfig: NextConfig = {
 
 	// Performance optimizations
 	experimental: {
-		optimizeCss: true,
 		optimizePackageImports: ["lucide-react", "framer-motion"],
 		serverComponentsHmrCache: true,
 	},
