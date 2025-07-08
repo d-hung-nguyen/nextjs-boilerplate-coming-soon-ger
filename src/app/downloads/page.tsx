@@ -4,39 +4,25 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import DownloadHero from "@/src/components/DownloadHero"
 import { ExternalLink, Download, Calendar } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function DownloadCenter() {
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
+		<div className="min-h-screen ">
 			{/* Header */}
-			<section className="bg-background shadow-sm border-b border-border">
-				<div className="max-w-7xl mx-auto px-4 py-8">
-					<div className="flex items-center justify-between">
-						<div>
-							<h1 className="text-4xl font-bold text-foreground font-alta">
-								Photography & Information Center
-							</h1>
-							<div className="flex items-center mt-2 text-muted-foreground">
-								<Calendar className="w-4 h-4 mr-2" />
-								<span className="text-sm">Updated: 20.06.2025</span>
-							</div>
-						</div>
-						<Link href="/ltp">
-							<Button variant="outline" className="border-border text-foreground">
-								← Back to LTP
-							</Button>
-						</Link>
-					</div>
-				</div>
-			</section>
+			<DownloadHero />
+			<div className="flex px-4 py-8">
+				<Calendar className="w-4 h-4 mr-2" />
+				<span className="text-sm">Updated: 20.06.2025</span>
+			</div>
 
 			<div className="max-w-7xl mx-auto px-4 py-8">
 				{/* Hotel Brand Tabs */}
 				<Tabs defaultValue="armani" className="w-full">
-					<TabsList className="grid w-full grid-cols-4 mb-8">
+					<TabsList className="grid w-full grid-cols-4 ">
 						<TabsTrigger value="armani" className="flex items-center gap-2">
 							Armani Hotels
 						</TabsTrigger>
@@ -50,6 +36,7 @@ export default function DownloadCenter() {
 							Rove Hotels
 						</TabsTrigger>
 					</TabsList>
+					<Separator className="mb-8" />
 
 					<TabsContent value="armani" className="space-y-6">
 						<HotelBrandSection
