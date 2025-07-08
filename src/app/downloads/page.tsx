@@ -3,67 +3,86 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { ExternalLink, Download, Calendar } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 
 export default function DownloadCenter() {
 	return (
-		<div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
+		<div className="min-h-screen bg-gradient-to-br from-background to-muted/20">
 			{/* Header */}
-			<section className="bg-white shadow-sm">
+			<section className="bg-background shadow-sm border-b border-border">
 				<div className="max-w-7xl mx-auto px-4 py-8">
 					<div className="flex items-center justify-between">
 						<div>
-							<h1 className="text-4xl font-bold text-gray-900 font-alta">
+							<h1 className="text-4xl font-bold text-foreground font-alta">
 								Photography & Information Center
 							</h1>
-							<div className="flex items-center mt-2 text-gray-600">
+							<div className="flex items-center mt-2 text-muted-foreground">
 								<Calendar className="w-4 h-4 mr-2" />
 								<span className="text-sm">Updated: 20.06.2025</span>
 							</div>
 						</div>
 						<Link href="/ltp">
-							<Button variant="outline">← Back to LTP</Button>
+							<Button variant="outline" className="border-border text-foreground">
+								← Back to LTP
+							</Button>
 						</Link>
 					</div>
 				</div>
 			</section>
 
-			<div className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-				{/* ARMANI HOTELS & RESORTS */}
-				<HotelBrandSection
-					brandName="ARMANI HOTELS & RESORTS"
-					brandLogo="/images/armani-logo.png"
-					hotels={armaniHotels}
-				/>
+			<div className="max-w-7xl mx-auto px-4 py-8">
+				{/* Hotel Brand Tabs */}
+				<Tabs defaultValue="armani" className="w-full">
+					<TabsList className="grid w-full grid-cols-4 mb-8">
+						<TabsTrigger value="armani" className="flex items-center gap-2">
+							Armani Hotels
+						</TabsTrigger>
+						<TabsTrigger value="address" className="flex items-center gap-2">
+							Address Hotels
+						</TabsTrigger>
+						<TabsTrigger value="vida" className="flex items-center gap-2">
+							Vida Hotels
+						</TabsTrigger>
+						<TabsTrigger value="rove" className="flex items-center gap-2">
+							Rove Hotels
+						</TabsTrigger>
+					</TabsList>
 
-				<Separator className="my-8" />
+					<TabsContent value="armani" className="space-y-6">
+						<HotelBrandSection
+							brandName="ARMANI HOTELS & RESORTS"
+							brandLogo="/images/am-l.svg"
+							hotels={armaniHotels}
+						/>
+					</TabsContent>
 
-				{/* ADDRESS HOTELS + RESORTS */}
-				<HotelBrandSection
-					brandName="ADDRESS HOTELS + RESORTS"
-					brandLogo="/images/address-logo.png"
-					hotels={addressHotels}
-				/>
+					<TabsContent value="address" className="space-y-6">
+						<HotelBrandSection
+							brandName="ADDRESS HOTELS + RESORTS"
+							brandLogo="/images/a-l.svg"
+							hotels={addressHotels}
+						/>
+					</TabsContent>
 
-				<Separator className="my-8" />
+					<TabsContent value="vida" className="space-y-6">
+						<HotelBrandSection
+							brandName="VIDA HOTELS & RESORTS"
+							brandLogo="/images/v-l.svg"
+							hotels={vidaHotels}
+						/>
+					</TabsContent>
 
-				{/* VIDA HOTELS & RESORTS */}
-				<HotelBrandSection
-					brandName="VIDA HOTELS & RESORTS"
-					brandLogo="/images/vida-logo.png"
-					hotels={vidaHotels}
-				/>
-
-				<Separator className="my-8" />
-
-				{/* ROVE HOTELS */}
-				<HotelBrandSection
-					brandName="ROVE HOTELS"
-					brandLogo="/images/rove-logo.png"
-					hotels={roveHotels}
-				/>
+					<TabsContent value="rove" className="space-y-6">
+						<HotelBrandSection
+							brandName="ROVE HOTELS"
+							brandLogo="/images/r-l.png"
+							hotels={roveHotels}
+						/>
+					</TabsContent>
+				</Tabs>
 			</div>
 		</div>
 	)
@@ -81,12 +100,18 @@ function HotelBrandSection({
 }) {
 	return (
 		<section>
-			<div className="flex items-center mb-6">
-				<div className="w-16 h-16 relative mr-4">
-					<Image src={brandLogo} alt={`${brandName} Logo`} fill className="object-contain" />
+			{/* <div className="flex items-center gap-4 mb-6">
+				<div className="w-16 h-16 relative flex-shrink-0">
+					<Image
+						src={brandLogo}
+						alt={`${brandName} Logo`}
+						fill
+						className="object-contain"
+						sizes="64px"
+					/>
 				</div>
-				<h2 className="text-3xl font-bold text-gray-900 font-alta">{brandName}</h2>
-			</div>
+				<h3 className="text-2xl font-bold text-foreground font-alta">{brandName}</h3>
+			</div> */}
 
 			<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 				{hotels.map((hotel, index) => (
