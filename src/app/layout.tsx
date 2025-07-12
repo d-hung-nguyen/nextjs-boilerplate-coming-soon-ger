@@ -48,6 +48,18 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
+			<head>
+				{/* Add this script to handle extension errors */}
+				<script
+					dangerouslySetInnerHTML={{
+						__html: `
+              if (typeof chrome !== 'undefined' && chrome.runtime) {
+                chrome.runtime.onMessage.addListener(() => {});
+              }
+            `,
+					}}
+				/>
+			</head>
 			<body
 				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground`}
 			>

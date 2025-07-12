@@ -91,9 +91,6 @@ export default function LTPPortal() {
 			<section className="bg-background border-b border-border ">
 				<Menubar className="bg-background border-b border-border items-center flex-row justify-end gap-7">
 					<MenubarMenu>
-						<Link href="/ltp/programme" className="menu-item">
-							Programme Info
-						</Link>
 						<Link href="/join-ltp" className="menu-item">
 							Join Now
 						</Link>

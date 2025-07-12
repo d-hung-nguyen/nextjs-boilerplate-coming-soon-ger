@@ -1,11 +1,78 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
+import { z } from "zod"
 
-// Use service role key for server-side operations
-const supabase = createClient(
-	process.env.NEXT_PUBLIC_SUPABASE_URL!,
-	process.env.SUPABASE_SERVICE_ROLE_KEY! // This bypasses RLS
-)
+// Better approach with validation
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
+const supabaseServiceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
+
+if (!supabaseUrl || !supabaseServiceKey) {
+	throw new Error("Missing Supabase configuration")
+}
+
+const supabase = createClient(supabaseUrl, supabaseServiceKey)
+
+// Add file validation
+function validateFile(file: File, allowedTypes: string[], maxSize: number) {
+	if (!allowedTypes.includes(file.type)) {
+		throw new Error(`Invalid file type. Allowed: ${allowedTypes.join(", ")}`)
+	}
+	if (file.size > maxSize) {
+		throw new Error(`File too large. Max size: ${maxSize / 1024 / 1024}MB`)
+	}
+}
+
+const allowedTypes = ["application/pdf", "image/jpeg", "image/png"]
+const maxSize = 5 * 1024 * 1024 // 5MB
+
+const ltpRegistrationSchema = z.object({
+	agencyName: z.string().min(2).max(100),
+	fullName: z.string().min(2).max(50),
+	email: z.string().email(),
+	phoneNumber: z
+		.string()
+		.regex(/^\+?[\d\s-()]+$/)
+		.min(10)
+		.max(20),
+	vatNumber: z.string().optional(),
+	iataNumber: z.string().optional(),
+	pccCode: z.string().optional(),
+	gdsAccessCode: z.string().optional(),
+	message: z.string().max(1000).optional(),
+})
+
+// Add rate limiting
+const rateLimitMap = new Map()
+
+function checkRateLimit(ip: string) {
+	const now = Date.now()
+	const windowStart = now - 60000 // 1 minute window
+
+	const requests = rateLimitMap.get(ip) || []
+	const recentRequests = requests.filter(time => time > windowStart)
+
+	if (recentRequests.length >= 5) {
+		// 5 requests per minute
+		throw new Error("Rate limit exceeded")
+	}
+
+	recentRequests.push(now)
+	rateLimitMap.set(ip, recentRequests)
+}
+
+// Standardized error responses
+function createErrorResponse(message: string, code: string, status: number) {
+	return NextResponse.json(
+		{
+			error: {
+				message,
+				code,
+				timestamp: new Date().toISOString(),
+			},
+		},
+		{ status }
+	)
+}
 
 export async function POST(request: NextRequest) {
 	try {
@@ -46,7 +113,11 @@ export async function POST(request: NextRequest) {
 
 		// Upload trade license if provided
 		if (tradeLicense && tradeLicense.size > 0) {
-			const tradeLicenseFileName = `trade-license-${Date.now()}-${tradeLicense.name}`
+			validateFile(tradeLicense, allowedTypes, maxSize)
+
+			// Sanitize filename
+			const sanitizedName = tradeLicense.name.replace(/[^a-zA-Z0-9.-]/g, "_")
+			const tradeLicenseFileName = `trade-license-${Date.now()}-${sanitizedName}`
 			const { data: tradeLicenseData, error: tradeLicenseError } = await supabase.storage
 				.from("ltp-documents")
 				.upload(tradeLicenseFileName, tradeLicense)
@@ -103,7 +174,7 @@ export async function POST(request: NextRequest) {
 
 		if (error) {
 			console.error("Database error:", error)
-			return NextResponse.json({ error: "Failed to submit application" }, { status: 500 })
+			return createErrorResponse("Failed to submit application", "DATABASE_ERROR", 500)
 		}
 
 		console.log("Success! Inserted data:", data)
