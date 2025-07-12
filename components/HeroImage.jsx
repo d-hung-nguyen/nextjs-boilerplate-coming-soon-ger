@@ -6,21 +6,21 @@ import { motion } from "framer-motion"
 
 export default function HeroImage({
 	backgroundImage = "/images/av-poster.png",
-	logo1 = "/images/logo.svg",
-	logo2 = "/images/em-l.svg",
-	title = "Partner with us and be part of the selected few",
-	subtitle = "At Address Hotels + Resorts, luxury is not just a promise—it is a lifestyle.",
+	logo1 = "",
+	logo2 = "",
+	title = "",
+	subtitle = "",
 	overlayOpacity = 0.4,
 	showScrollIndicator = false,
-	logoWidth = 200,
-	logoHeight = 100,
+	logoWidth = 40,
+	logoHeight = 40,
 	className = "",
-	classNameLogo1 = "h-10 md:h-15 w-auto brightness-0 invert logo-white",
-	classNameLogo2 = "h-30 md:h-40 w-auto brightness-0 invert",
+	classNameLogo1 = "",
+	classNameLogo2 = "",
 	alt = "Hero Background",
 }) {
 	return (
-		<div className={`relative w-full h-[50vh] overflow-hidden ${className}`}>
+		<div className={`relative w-full h-auto py-8 overflow-hidden ${className}`}>
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
@@ -40,7 +40,7 @@ export default function HeroImage({
 				<div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
 
 				{/* Content */}
-				<div className="relative z-10 flex h-full items-center justify-center">
+				<div className="relative z-10 flex h-full items-center justify-center mt-20">
 					<div className="container mx-auto px-4 text-center text-white">
 						{/* Main content */}
 						<div className="space-y-5 px-4">

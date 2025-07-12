@@ -127,7 +127,7 @@ export default function GlobalElitePage() {
 					muted={true}
 					controls={false}
 					showScrollIndicator={false}
-					className="fixed h-screen -z-10"
+					className="relative h-screen -z-10"
 				></FullscreenVideoWrapper>
 			</div>
 

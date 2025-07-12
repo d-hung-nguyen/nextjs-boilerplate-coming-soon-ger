@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Menubar, MenubarMenu } from "@/components/ui/menubar"
 import { Badge } from "@/components/ui/badge"
 import { Download, Clock, ArrowUp, Coffee, Star, CreditCard } from "lucide-react"
 import { motion } from "framer-motion"
@@ -14,6 +13,40 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import HeroVideo from "@/components/HeroVideo"
 import Form from "@/components/Form"
+
+const teamMembers = [
+	{
+		id: 1,
+		name: "Patricia de Mayer",
+		title: "Founder & Managing Director",
+		email: "pdemayer@globaleliteassociates.com",
+		image: "/images/pde.png",
+		badge: "Founder & MD",
+		colorScheme: "primary",
+		contacts: [
+			{
+				tel: "+49 173 306 4859",
+				email: "pdemayer@globaleliteassociates.com",
+			},
+		],
+	},
+
+	{
+		id: 2,
+		name: "Hung Nguyen",
+		title: "Director of Sales",
+		email: "hung@globaleliteassociates.com",
+		image: "/images/hung.png",
+		badge: "Director of Sales",
+		colorScheme: "primary",
+		contacts: [
+			{
+				tel: "+49 162 265 5243",
+				email: "hung@globaleliteassociates.com",
+			},
+		],
+	},
+]
 
 // --- MembershipModal Component ---
 function MembershipModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
@@ -88,25 +121,38 @@ export default function LTPPortal() {
 
 	return (
 		<>
-			<section className="bg-background border-b border-border ">
-				<Menubar className="bg-background border-b border-border items-center flex-row justify-end gap-7">
-					<MenubarMenu>
-						<Link href="/join-ltp" className="menu-item">
-							Join Now
-						</Link>
-						<Link href="/admin/dashboard" className="menu-item">
-							Dashboard
-						</Link>
-						<Link href="/downloads" className="menu-item">
-							Downloads
-						</Link>
-					</MenubarMenu>
-				</Menubar>
-			</section>
+			<div className="relative">
+				<HeroVideo />
+				{/* <section className=" absolute bottom-0 left-0 z30">
+					<Menubar className=" border-0 bg-none items-center flex-row justify-end gap-7">
+						<MenubarMenu>
+							<Link href="/join-ltp" className="menu-item">
+								Join Now
+							</Link>
+							<Link href="/admin/dashboard" className="menu-item">
+								Dashboard
+							</Link>
+							<Link href="/downloads" className="menu-item">
+								Downloads
+							</Link>
+						</MenubarMenu>
+					</Menubar>
+				</section> */}
 
-			<HeroVideo />
-
-			<Separator className="my-10" />
+				<section className="absolute bottom-0 left-0 z-30 p-6">
+					<div className="flex items-center space-x-4">
+						<Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/20">
+							<Link href="/join-ltp">Join Now</Link>
+						</Button>
+						<Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/20">
+							<Link href="/admin/dashboard">Dashboard</Link>
+						</Button>
+						<Button variant="ghost" size="sm" asChild className="text-white hover:bg-white/20">
+							<Link href="/downloads">Downloads</Link>
+						</Button>
+					</div>
+				</section>
+			</div>
 
 			{/* Hero Section */}
 			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10">
@@ -1000,9 +1046,111 @@ export default function LTPPortal() {
 				</Card>
 			</section>
 
-			<Separator className="my-10" />
+			{/* Team Section */}
+			<section className="max-w-6xl mx-auto px-4 py-16 bg-background">
+				<div className="text-center mb-12">
+					<motion.div
+						initial={{ opacity: 0, y: 20 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.6 }}
+					>
+						<h2 className="text-4xl font-bold mb-4">Meet the Team</h2>
+						<p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+							Frankfurt Office
+						</p>
+					</motion.div>
+				</div>
 
-			{/* Continue with existing sections... */}
+				{/* Team Members Grid */}
+				<div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
+					{teamMembers.map((member, index) => (
+						<motion.div
+							key={member.id}
+							initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
+							whileInView={{ opacity: 1, x: 0 }}
+							transition={{ duration: 0.6, delay: index * 0.2 }}
+						>
+							<Card className="h-full bg-background hover:border-primary/40 transition-all duration-300 overflow-hidden group">
+								<CardContent className="p-0 bg-accent">
+									{/* Photo Section */}
+									<div className="relative h-80 overflow-hidden">
+										<Image
+											src={member.image}
+											alt={member.name}
+											fill
+											className="object-contain transition-transform duration-300 group-hover:scale-105"
+										/>
+										{/* Gradient overlay for better text readability */}
+										<div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+									</div>
+
+									{/* Content Section */}
+									<div className="p-6 bg-background">
+										<div className="text-left mb-4">
+											<h3 className="text-2xl font-bold text-primary mb-2">{member.name}</h3>
+											<p className="text-lg font-semibold text-muted-foreground">{member.title}</p>
+										</div>
+
+										{/* Contact Areas */}
+										<div className="flex flex-col space-y-3 mb-6">
+											{member.contacts.map((contact, contactIndex) => (
+												<div key={contactIndex} className="flex items-start space-x-3">
+													<div className="text-sm text-muted-foreground">
+														<div>
+															<span className="font-semibold text-foreground">Tel: </span>
+															{contact.tel}
+														</div>
+														{contact.email && (
+															<div>
+																<span className="font-semibold text-foreground">Email: </span>
+																<a
+																	href={`mailto:${contact.email}`}
+																	className="text-primary hover:underline"
+																>
+																	{contact.email}
+																</a>
+															</div>
+														)}
+													</div>
+												</div>
+											))}
+										</div>
+
+										{/* Contact Button */}
+										<div className="text-center">
+											<Button
+												variant="outline"
+												className="border-primary/30 hover:bg-primary/10 w-full"
+												asChild
+											>
+												<a
+													href={`mailto:${member.email}`}
+													className="flex items-center justify-center gap-2"
+												>
+													<svg
+														className="w-4 h-4"
+														fill="none"
+														stroke="currentColor"
+														viewBox="0 0 24 24"
+													>
+														<path
+															strokeLinecap="round"
+															strokeLinejoin="round"
+															strokeWidth={2}
+															d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+														/>
+													</svg>
+													Contact {member.name.split(" ")[0]}
+												</a>
+											</Button>
+										</div>
+									</div>
+								</CardContent>
+							</Card>
+						</motion.div>
+					))}
+				</div>
+			</section>
 
 			<MembershipModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
 		</>

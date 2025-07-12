@@ -42,6 +42,35 @@
 	--foreground: oklch(0.556 0 0); /* #8D887E, Soft warm gray */
 }
 
+/* Better font loading with font-display */
+@font-face {
+	font-family: "alta";
+	src: url("@/public/fonts/Alta.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap; /* Improves loading performance */
+	/* Add your font source declarations here */
+}
+
+@font-face {
+	font-family: "lagusans-light";
+	src: url("@/public/fonts/lagusans-light.otf") format("opentype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+	/* Add your font source declarations here */
+}
+
+/* Enhanced font rendering and typography */
+html {
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	text-rendering: optimizeLegibility;
+	font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+	font-variant-ligatures: common-ligatures;
+	font-kerning: auto;
+}
+
 h1,
 h2,
 h3,
@@ -60,7 +89,7 @@ textarea {
 }
 body {
 	font-family: var(--font-family-serif);
-	line-height: 1.5;
+	line-height: 1.6; /* Improved from 1.5 for better readability */
 }
 
 :root {
@@ -172,6 +201,197 @@ body {
 	--transition-delay: 0.1s;
 	--transition-duration: 0.3s;
 	--transition-property: background-color, color;
+}
+
+/* Enhanced heading typography */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: var(--font-family-sans);
+	font-weight: 600; /* Slightly bolder for better hierarchy */
+	line-height: 1.2; /* Tighter line height for headings */
+	letter-spacing: -0.02em; /* Slight negative tracking for larger text */
+	font-feature-settings: "kern" 1, "liga" 1, "case" 1;
+	text-wrap: balance; /* Better text wrapping for headings */
+}
+
+/* Specific heading improvements */
+h1 {
+	font-size: clamp(2rem, 5vw, 4rem);
+	font-weight: 700;
+	letter-spacing: -0.03em;
+	line-height: 1.1;
+}
+
+h2 {
+	font-size: clamp(1.5rem, 4vw, 3rem);
+	font-weight: 600;
+	letter-spacing: -0.02em;
+	line-height: 1.15;
+}
+
+h3 {
+	font-size: clamp(1.25rem, 3vw, 2rem);
+	font-weight: 600;
+	letter-spacing: -0.01em;
+}
+
+/* Body text improvements */
+p,
+span,
+a,
+button,
+input,
+textarea {
+	font-family: var(--font-family-serif);
+	line-height: 1.7; /* More generous line height for body text */
+	letter-spacing: 0.005em;
+	font-feature-settings: "kern" 1, "liga" 1;
+}
+
+/* Paragraph-specific improvements */
+p {
+	margin-bottom: 1.25em;
+	text-wrap: pretty; /* Better text wrapping */
+	orphans: 2;
+	widows: 2;
+
+	/* Improved readability for longer text */
+	&:has(+ p) {
+		margin-bottom: 1em;
+	}
+}
+
+/* Link improvements */
+a {
+	text-decoration: none;
+	transition: color 0.2s ease, text-decoration-color 0.2s ease;
+	text-underline-offset: 0.2em;
+	text-decoration-thickness: 1px;
+
+	&:hover {
+		text-decoration: underline;
+		text-decoration-color: var(--color-primary);
+	}
+}
+
+/* Button text improvements */
+button {
+	font-feature-settings: "kern" 1, "tnum" 1;
+	letter-spacing: 0.025em;
+	font-weight: 500;
+}
+
+/* Input and textarea improvements */
+input,
+textarea {
+	font-feature-settings: "kern" 1, "liga" 0;
+	letter-spacing: 0.01em;
+}
+
+/* Large text improvements */
+.text-xl,
+.text-2xl,
+.text-3xl,
+.text-4xl,
+.text-5xl,
+.text-6xl {
+	letter-spacing: -0.02em;
+	font-feature-settings: "kern" 1, "liga" 1, "case" 1;
+	text-wrap: balance;
+}
+
+/* Small text improvements */
+.text-sm,
+.text-xs {
+	letter-spacing: 0.02em;
+	font-feature-settings: "kern" 1, "tnum" 1;
+}
+
+/* Luxury brand specific improvements */
+.luxury-text {
+	font-feature-settings: "kern" 1, "liga" 1, "swsh" 1, "calt" 1;
+	letter-spacing: 0.05em;
+	word-spacing: 0.1em;
+	line-height: 1.8;
+}
+
+/* Code and monospace improvements */
+code,
+pre {
+	font-feature-settings: "kern" 0, "liga" 0, "calt" 0, "tnum" 1, "zero" 1;
+	letter-spacing: -0.01em;
+}
+
+/* Print styles for better typography */
+@media print {
+	body {
+		font-size: 12pt;
+		line-height: 1.4;
+		color: #000;
+	}
+
+	h1,
+	h2,
+	h3,
+	h4,
+	h5,
+	h6 {
+		page-break-after: avoid;
+		break-after: avoid;
+	}
+
+	p {
+		orphans: 3;
+		widows: 3;
+	}
+}
+
+/* High DPI display optimizations */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+	body {
+		-webkit-font-smoothing: subpixel-antialiased;
+	}
+}
+
+/* Dark mode font adjustments */
+@media (prefers-color-scheme: dark) {
+	body {
+		font-weight: 350; /* Slightly lighter weight for dark backgrounds */
+		letter-spacing: 0.02em; /* More letter spacing for dark mode */
+	}
+}
+
+/* Motion preferences */
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition-duration: 0.01ms !important;
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+	}
+}
+
+/* Focus improvements for accessibility */
+:focus-visible {
+	outline: 2px solid var(--color-primary);
+	outline-offset: 2px;
+	border-radius: 2px;
+}
+
+/* Selection styling */
+::selection {
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+	text-shadow: none;
+}
+
+::-moz-selection {
+	background-color: var(--color-primary);
+	color: var(--color-primary-foreground);
+	text-shadow: none;
 }
 
 .perspective-1000 {

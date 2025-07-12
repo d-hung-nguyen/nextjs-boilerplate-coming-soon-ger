@@ -20,6 +20,8 @@ export default function JointLTP() {
 				backgroundImage="/images/a7.webp"
 				logo1="/images/em-l.svg"
 				logo2="/images/logo.svg"
+				classNameLogo1="h-7 md:h-10 w-auto brightness-0 invert logo-white"
+				classNameLogo2="h-30 md:h-40 w-auto brightness-0 invert"
 				title="Join the Luxury Travel Partner Program"
 				subtitle="Register now and enjoy exclusive benefits"
 				showScrollIndicator={false}

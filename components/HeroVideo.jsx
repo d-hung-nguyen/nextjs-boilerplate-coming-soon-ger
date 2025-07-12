@@ -44,7 +44,7 @@ export default function HeroVideo() {
 			</div> */}
 
 			{/* Main content */}
-			<div className="space-y-8 px-4">
+			<div>
 				<div className="flex justify-center">
 					<Image
 						src="/images/logo.svg"

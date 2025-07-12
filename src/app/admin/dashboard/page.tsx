@@ -35,6 +35,7 @@ import {
 	FileText,
 	Trash2,
 } from "lucide-react"
+import HeroImage from "@/components/HeroImage"
 
 interface Registration {
 	id: number
@@ -221,354 +222,363 @@ export default function Dashboard() {
 	}
 
 	return (
-		<div className="container mx-auto p-6 space-y-6">
-			{/* Header */}
-			<div className="flex justify-between items-center">
-				<h1 className="text-3xl font-bold">LTP Registrations Dashboard</h1>
-				<Button onClick={exportToCsv} variant="outline">
-					<Download className="w-4 h-4 mr-2" />
-					Export CSV
-				</Button>
-			</div>
+		<>
+			<HeroImage
+				backgroundImage="/images/a8.jpg"
+				title="LTP Registrations 
+			Dashboard"
+				logo1="/images/em-l.svg"
+				classNameLogo1="h-10 md:h-15 w-auto brightness-0 invert logo-white"
+			/>
+			<div className="container mx-auto p-6 space-y-6">
+				{/* Header */}
+				<div className="flex justify-between items-center">
+					<h1 className="text-3xl font-bold"></h1>
+					<Button onClick={exportToCsv} variant="outline">
+						<Download className="w-4 h-4 mr-2" />
+						Export CSV
+					</Button>
+				</div>
 
-			{/* Stats Cards */}
-			<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+				{/* Stats Cards */}
+				<div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+					<Card>
+						<CardContent className="p-4">
+							<div className="flex items-center justify-between">
+								<div>
+									<p className="text-sm text-gray-600">Total Applications</p>
+									<p className="text-2xl font-bold">{stats.total}</p>
+								</div>
+								<Users className="w-8 h-8 text-blue-500" />
+							</div>
+						</CardContent>
+					</Card>
+
+					<Card>
+						<CardContent className="p-4">
+							<div className="flex items-center justify-between">
+								<div>
+									<p className="text-sm text-gray-600">Pending Review</p>
+									<p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
+								</div>
+								<Clock className="w-8 h-8 text-yellow-500" />
+							</div>
+						</CardContent>
+					</Card>
+
+					<Card>
+						<CardContent className="p-4">
+							<div className="flex items-center justify-between">
+								<div>
+									<p className="text-sm text-gray-600">Approved</p>
+									<p className="text-2xl font-bold text-green-600">{stats.approved}</p>
+								</div>
+								<CheckCircle className="w-8 h-8 text-green-500" />
+							</div>
+						</CardContent>
+					</Card>
+
+					<Card>
+						<CardContent className="p-4">
+							<div className="flex items-center justify-between">
+								<div>
+									<p className="text-sm text-gray-600">Rejected</p>
+									<p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
+								</div>
+								<XCircle className="w-8 h-8 text-red-500" />
+							</div>
+						</CardContent>
+					</Card>
+				</div>
+
+				{/* Filters */}
 				<Card>
 					<CardContent className="p-4">
-						<div className="flex items-center justify-between">
-							<div>
-								<p className="text-sm text-gray-600">Total Applications</p>
-								<p className="text-2xl font-bold">{stats.total}</p>
+						<div className="flex flex-col md:flex-row gap-4">
+							<div className="flex-1">
+								<div className="relative">
+									<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+									<Input
+										placeholder="Search by name, agency, or email..."
+										value={searchTerm}
+										onChange={e => setSearchTerm(e.target.value)}
+										className="pl-9"
+									/>
+								</div>
 							</div>
-							<Users className="w-8 h-8 text-blue-500" />
+							<Select value={statusFilter} onValueChange={setStatusFilter}>
+								<SelectTrigger className="w-full md:w-48">
+									<Filter className="w-4 h-4 mr-2" />
+									<SelectValue placeholder="Filter by status" />
+								</SelectTrigger>
+								<SelectContent>
+									<SelectItem value="all">All Status</SelectItem>
+									<SelectItem value="pending">Pending</SelectItem>
+									<SelectItem value="approved">Approved</SelectItem>
+									<SelectItem value="rejected">Rejected</SelectItem>
+								</SelectContent>
+							</Select>
 						</div>
 					</CardContent>
 				</Card>
 
+				{/* Registrations Table */}
 				<Card>
-					<CardContent className="p-4">
-						<div className="flex items-center justify-between">
-							<div>
-								<p className="text-sm text-gray-600">Pending Review</p>
-								<p className="text-2xl font-bold text-yellow-600">{stats.pending}</p>
-							</div>
-							<Clock className="w-8 h-8 text-yellow-500" />
-						</div>
-					</CardContent>
-				</Card>
-
-				<Card>
-					<CardContent className="p-4">
-						<div className="flex items-center justify-between">
-							<div>
-								<p className="text-sm text-gray-600">Approved</p>
-								<p className="text-2xl font-bold text-green-600">{stats.approved}</p>
-							</div>
-							<CheckCircle className="w-8 h-8 text-green-500" />
-						</div>
-					</CardContent>
-				</Card>
-
-				<Card>
-					<CardContent className="p-4">
-						<div className="flex items-center justify-between">
-							<div>
-								<p className="text-sm text-gray-600">Rejected</p>
-								<p className="text-2xl font-bold text-red-600">{stats.rejected}</p>
-							</div>
-							<XCircle className="w-8 h-8 text-red-500" />
-						</div>
-					</CardContent>
-				</Card>
-			</div>
-
-			{/* Filters */}
-			<Card>
-				<CardContent className="p-4">
-					<div className="flex flex-col md:flex-row gap-4">
-						<div className="flex-1">
-							<div className="relative">
-								<Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
-								<Input
-									placeholder="Search by name, agency, or email..."
-									value={searchTerm}
-									onChange={e => setSearchTerm(e.target.value)}
-									className="pl-9"
-								/>
-							</div>
-						</div>
-						<Select value={statusFilter} onValueChange={setStatusFilter}>
-							<SelectTrigger className="w-full md:w-48">
-								<Filter className="w-4 h-4 mr-2" />
-								<SelectValue placeholder="Filter by status" />
-							</SelectTrigger>
-							<SelectContent>
-								<SelectItem value="all">All Status</SelectItem>
-								<SelectItem value="pending">Pending</SelectItem>
-								<SelectItem value="approved">Approved</SelectItem>
-								<SelectItem value="rejected">Rejected</SelectItem>
-							</SelectContent>
-						</Select>
-					</div>
-				</CardContent>
-			</Card>
-
-			{/* Registrations Table */}
-			<Card>
-				<CardHeader>
-					<CardTitle>Applications ({filteredRegistrations.length})</CardTitle>
-				</CardHeader>
-				<CardContent>
-					<div className="overflow-x-auto">
-						<table className="w-full">
-							<thead>
-								<tr className="border-b">
-									<th className="text-left p-2">Agency</th>
-									<th className="text-left p-2">Applicant</th>
-									<th className="text-left p-2">Contact</th>
-									<th className="text-left p-2">Status</th>
-									<th className="text-left p-2">Date</th>
-									<th className="text-left p-2">Actions</th>
-								</tr>
-							</thead>
-							<tbody>
-								{filteredRegistrations.map(registration => (
-									<tr key={registration.id} className="border-b hover:bg-gray-50">
-										<td className="p-2">
-											<div className="font-medium">{registration.agency_name}</div>
-											{registration.iata_number && (
-												<div className="text-xs text-gray-500">
-													IATA: {registration.iata_number}
-												</div>
-											)}
-										</td>
-										<td className="p-2">
-											<div className="font-medium">{registration.full_name}</div>
-										</td>
-										<td className="p-2">
-											<div className="text-sm">{registration.email}</div>
-											<div className="text-xs text-gray-500">{registration.phone_number}</div>
-										</td>
-										<td className="p-2">{getStatusBadge(registration.status)}</td>
-										<td className="p-2">
-											<div className="text-sm">
-												{new Date(registration.created_at).toLocaleDateString()}
-											</div>
-											<div className="text-xs text-gray-500">
-												{new Date(registration.created_at).toLocaleTimeString()}
-											</div>
-										</td>
-										<td className="p-2">
-											<div className="flex gap-2">
-												<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-													<DialogTrigger asChild>
-														<Button
-															size="sm"
-															variant="outline"
-															onClick={() => setSelectedRegistration(registration)}
-														>
-															<Eye className="w-3 h-3" />
-														</Button>
-													</DialogTrigger>
-												</Dialog>
-
-												<Select
-													onValueChange={value => updateStatus(registration.id, value as any)}
-												>
-													<SelectTrigger className="w-24 h-8">
-														<SelectValue placeholder="Status" />
-													</SelectTrigger>
-													<SelectContent>
-														<SelectItem value="pending">Pending</SelectItem>
-														<SelectItem value="approved">Approve</SelectItem>
-														<SelectItem value="rejected">Reject</SelectItem>
-													</SelectContent>
-												</Select>
-
-												<Button
-													size="sm"
-													variant="outline"
-													onClick={() => deleteRegistration(registration.id)}
-													className="text-red-600 hover:text-red-700"
-												>
-													<Trash2 className="w-3 h-3" />
-												</Button>
-											</div>
-										</td>
+					<CardHeader>
+						<CardTitle>Applications ({filteredRegistrations.length})</CardTitle>
+					</CardHeader>
+					<CardContent>
+						<div className="overflow-x-auto">
+							<table className="w-full">
+								<thead>
+									<tr className="border-b">
+										<th className="text-left p-2">Agency</th>
+										<th className="text-left p-2">Applicant</th>
+										<th className="text-left p-2">Contact</th>
+										<th className="text-left p-2">Status</th>
+										<th className="text-left p-2">Date</th>
+										<th className="text-left p-2">Actions</th>
 									</tr>
-								))}
-							</tbody>
-						</table>
+								</thead>
+								<tbody>
+									{filteredRegistrations.map(registration => (
+										<tr key={registration.id} className="border-b hover:bg-gray-50">
+											<td className="p-2">
+												<div className="font-medium">{registration.agency_name}</div>
+												{registration.iata_number && (
+													<div className="text-xs text-gray-500">
+														IATA: {registration.iata_number}
+													</div>
+												)}
+											</td>
+											<td className="p-2">
+												<div className="font-medium">{registration.full_name}</div>
+											</td>
+											<td className="p-2">
+												<div className="text-sm">{registration.email}</div>
+												<div className="text-xs text-gray-500">{registration.phone_number}</div>
+											</td>
+											<td className="p-2">{getStatusBadge(registration.status)}</td>
+											<td className="p-2">
+												<div className="text-sm">
+													{new Date(registration.created_at).toLocaleDateString()}
+												</div>
+												<div className="text-xs text-gray-500">
+													{new Date(registration.created_at).toLocaleTimeString()}
+												</div>
+											</td>
+											<td className="p-2">
+												<div className="flex gap-2">
+													<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+														<DialogTrigger asChild>
+															<Button
+																size="sm"
+																variant="outline"
+																onClick={() => setSelectedRegistration(registration)}
+															>
+																<Eye className="w-3 h-3" />
+															</Button>
+														</DialogTrigger>
+													</Dialog>
 
-						{filteredRegistrations.length === 0 && (
-							<div className="text-center py-8 text-gray-500">
-								No registrations found matching your criteria.
-							</div>
-						)}
-					</div>
-				</CardContent>
-			</Card>
+													<Select
+														onValueChange={value => updateStatus(registration.id, value as any)}
+													>
+														<SelectTrigger className="w-24 h-8">
+															<SelectValue placeholder="Status" />
+														</SelectTrigger>
+														<SelectContent>
+															<SelectItem value="pending">Pending</SelectItem>
+															<SelectItem value="approved">Approve</SelectItem>
+															<SelectItem value="rejected">Reject</SelectItem>
+														</SelectContent>
+													</Select>
 
-			{/* Registration Detail Dialog */}
-			{selectedRegistration && (
-				<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-					<DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-						<DialogHeader>
-							<DialogTitle>Registration Details</DialogTitle>
-						</DialogHeader>
+													<Button
+														size="sm"
+														variant="outline"
+														onClick={() => deleteRegistration(registration.id)}
+														className="text-red-600 hover:text-red-700"
+													>
+														<Trash2 className="w-3 h-3" />
+													</Button>
+												</div>
+											</td>
+										</tr>
+									))}
+								</tbody>
+							</table>
 
-						<div className="space-y-4">
-							<div className="grid grid-cols-2 gap-4">
-								<div>
-									<label className="font-semibold flex items-center gap-2">
-										<Building className="w-4 h-4" />
-										Agency Name
-									</label>
-									<p>{selectedRegistration.agency_name}</p>
+							{filteredRegistrations.length === 0 && (
+								<div className="text-center py-8 text-gray-500">
+									No registrations found matching your criteria.
 								</div>
-								<div>
-									<label className="font-semibold">Full Name</label>
-									<p>{selectedRegistration.full_name}</p>
-								</div>
-							</div>
+							)}
+						</div>
+					</CardContent>
+				</Card>
 
-							<div className="grid grid-cols-2 gap-4">
-								<div>
-									<label className="font-semibold flex items-center gap-2">
-										<Mail className="w-4 h-4" />
-										Email
-									</label>
-									<p>{selectedRegistration.email}</p>
-								</div>
-								<div>
-									<label className="font-semibold flex items-center gap-2">
-										<Phone className="w-4 h-4" />
-										Phone
-									</label>
-									<p>{selectedRegistration.phone_number}</p>
-								</div>
-							</div>
+				{/* Registration Detail Dialog */}
+				{selectedRegistration && (
+					<Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
+						<DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
+							<DialogHeader>
+								<DialogTitle>Registration Details</DialogTitle>
+							</DialogHeader>
 
-							{(selectedRegistration.vat_number || selectedRegistration.iata_number) && (
+							<div className="space-y-4">
 								<div className="grid grid-cols-2 gap-4">
-									{selectedRegistration.vat_number && (
-										<div>
-											<label className="font-semibold">VAT Number</label>
-											<p>{selectedRegistration.vat_number}</p>
-										</div>
-									)}
-									{selectedRegistration.iata_number && (
-										<div>
-											<label className="font-semibold">IATA Number</label>
-											<p>{selectedRegistration.iata_number}</p>
-										</div>
-									)}
+									<div>
+										<label className="font-semibold flex items-center gap-2">
+											<Building className="w-4 h-4" />
+											Agency Name
+										</label>
+										<p>{selectedRegistration.agency_name}</p>
+									</div>
+									<div>
+										<label className="font-semibold">Full Name</label>
+										<p>{selectedRegistration.full_name}</p>
+									</div>
 								</div>
-							)}
 
-							{(selectedRegistration.pcc_code || selectedRegistration.gds_access_code) && (
 								<div className="grid grid-cols-2 gap-4">
-									{selectedRegistration.pcc_code && (
-										<div>
-											<label className="font-semibold">PCC Code</label>
-											<p>{selectedRegistration.pcc_code}</p>
-										</div>
-									)}
-									{selectedRegistration.gds_access_code && (
-										<div>
-											<label className="font-semibold">GDS Access Code</label>
-											<p>{selectedRegistration.gds_access_code}</p>
-										</div>
-									)}
+									<div>
+										<label className="font-semibold flex items-center gap-2">
+											<Mail className="w-4 h-4" />
+											Email
+										</label>
+										<p>{selectedRegistration.email}</p>
+									</div>
+									<div>
+										<label className="font-semibold flex items-center gap-2">
+											<Phone className="w-4 h-4" />
+											Phone
+										</label>
+										<p>{selectedRegistration.phone_number}</p>
+									</div>
 								</div>
-							)}
 
-							{selectedRegistration.message && (
-								<div>
-									<label className="font-semibold">Message</label>
-									<p className="bg-gray-50 p-3 rounded">{selectedRegistration.message}</p>
-								</div>
-							)}
-
-							{(selectedRegistration.trade_license_url ||
-								selectedRegistration.vat_registration_url) && (
-								<div>
-									<label className="font-semibold flex items-center gap-2">
-										<FileText className="w-4 h-4" />
-										Uploaded Documents
-									</label>
-									<div className="space-y-2">
-										{selectedRegistration.trade_license_url && (
+								{(selectedRegistration.vat_number || selectedRegistration.iata_number) && (
+									<div className="grid grid-cols-2 gap-4">
+										{selectedRegistration.vat_number && (
 											<div>
-												<a
-													href={selectedRegistration.trade_license_url}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-blue-600 hover:underline flex items-center gap-2"
-												>
-													<Download className="w-4 h-4" />
-													Trade License
-												</a>
+												<label className="font-semibold">VAT Number</label>
+												<p>{selectedRegistration.vat_number}</p>
 											</div>
 										)}
-										{selectedRegistration.vat_registration_url && (
+										{selectedRegistration.iata_number && (
 											<div>
-												<a
-													href={selectedRegistration.vat_registration_url}
-													target="_blank"
-													rel="noopener noreferrer"
-													className="text-blue-600 hover:underline flex items-center gap-2"
-												>
-													<Download className="w-4 h-4" />
-													VAT Registration
-												</a>
+												<label className="font-semibold">IATA Number</label>
+												<p>{selectedRegistration.iata_number}</p>
 											</div>
 										)}
 									</div>
-								</div>
-							)}
+								)}
 
-							<div className="flex items-center gap-4 pt-4 border-t">
-								<div>
-									<label className="font-semibold flex items-center gap-2">
-										<Calendar className="w-4 h-4" />
-										Submitted
-									</label>
-									<p>{new Date(selectedRegistration.created_at).toLocaleString()}</p>
+								{(selectedRegistration.pcc_code || selectedRegistration.gds_access_code) && (
+									<div className="grid grid-cols-2 gap-4">
+										{selectedRegistration.pcc_code && (
+											<div>
+												<label className="font-semibold">PCC Code</label>
+												<p>{selectedRegistration.pcc_code}</p>
+											</div>
+										)}
+										{selectedRegistration.gds_access_code && (
+											<div>
+												<label className="font-semibold">GDS Access Code</label>
+												<p>{selectedRegistration.gds_access_code}</p>
+											</div>
+										)}
+									</div>
+								)}
+
+								{selectedRegistration.message && (
+									<div>
+										<label className="font-semibold">Message</label>
+										<p className="bg-gray-50 p-3 rounded">{selectedRegistration.message}</p>
+									</div>
+								)}
+
+								{(selectedRegistration.trade_license_url ||
+									selectedRegistration.vat_registration_url) && (
+									<div>
+										<label className="font-semibold flex items-center gap-2">
+											<FileText className="w-4 h-4" />
+											Uploaded Documents
+										</label>
+										<div className="space-y-2">
+											{selectedRegistration.trade_license_url && (
+												<div>
+													<a
+														href={selectedRegistration.trade_license_url}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="text-blue-600 hover:underline flex items-center gap-2"
+													>
+														<Download className="w-4 h-4" />
+														Trade License
+													</a>
+												</div>
+											)}
+											{selectedRegistration.vat_registration_url && (
+												<div>
+													<a
+														href={selectedRegistration.vat_registration_url}
+														target="_blank"
+														rel="noopener noreferrer"
+														className="text-blue-600 hover:underline flex items-center gap-2"
+													>
+														<Download className="w-4 h-4" />
+														VAT Registration
+													</a>
+												</div>
+											)}
+										</div>
+									</div>
+								)}
+
+								<div className="flex items-center gap-4 pt-4 border-t">
+									<div>
+										<label className="font-semibold flex items-center gap-2">
+											<Calendar className="w-4 h-4" />
+											Submitted
+										</label>
+										<p>{new Date(selectedRegistration.created_at).toLocaleString()}</p>
+									</div>
+									<div>
+										<label className="font-semibold">Status</label>
+										<div>{getStatusBadge(selectedRegistration.status)}</div>
+									</div>
 								</div>
-								<div>
-									<label className="font-semibold">Status</label>
-									<div>{getStatusBadge(selectedRegistration.status)}</div>
+
+								<div className="flex gap-2 pt-4">
+									<Button
+										onClick={() => updateStatus(selectedRegistration.id, "approved")}
+										className="bg-green-600 hover:bg-green-700"
+									>
+										<CheckCircle className="w-4 h-4 mr-2" />
+										Approve
+									</Button>
+									<Button
+										onClick={() => updateStatus(selectedRegistration.id, "rejected")}
+										variant="destructive"
+									>
+										<XCircle className="w-4 h-4 mr-2" />
+										Reject
+									</Button>
+									<Button
+										onClick={() => updateStatus(selectedRegistration.id, "pending")}
+										variant="outline"
+									>
+										<Clock className="w-4 h-4 mr-2" />
+										Mark Pending
+									</Button>
 								</div>
 							</div>
-
-							<div className="flex gap-2 pt-4">
-								<Button
-									onClick={() => updateStatus(selectedRegistration.id, "approved")}
-									className="bg-green-600 hover:bg-green-700"
-								>
-									<CheckCircle className="w-4 h-4 mr-2" />
-									Approve
-								</Button>
-								<Button
-									onClick={() => updateStatus(selectedRegistration.id, "rejected")}
-									variant="destructive"
-								>
-									<XCircle className="w-4 h-4 mr-2" />
-									Reject
-								</Button>
-								<Button
-									onClick={() => updateStatus(selectedRegistration.id, "pending")}
-									variant="outline"
-								>
-									<Clock className="w-4 h-4 mr-2" />
-									Mark Pending
-								</Button>
-							</div>
-						</div>
-					</DialogContent>
-				</Dialog>
-			)}
-		</div>
+						</DialogContent>
+					</Dialog>
+				)}
+			</div>
+		</>
 	)
 }
