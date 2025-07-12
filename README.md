@@ -39,30 +39,21 @@ Open [http://localhost:3000](http://localhost:3000) to view the site.
 
 ## 📁 Project Structure
 
-```
-├── src/app/                 # App Router pages and layouts
-│   ├── layout.tsx          # Root layout with fonts and metadata
-│   ├── page.tsx            # Homepage
-│   ├── ltp/                # Luxury Travel Partner portal
-│   └── downloads/          # Photography & marketing materials
-├── components/             # Reusable UI components
-│   ├── ui/                 # Base UI components (buttons, cards, etc.)
-│   ├── Hero.jsx           # Video hero section
-│   ├── Form.jsx           # Partner application form
-│   ├── ComingSoon.jsx     # Coming soon page component
-│   └── Navigation.tsx     # Site navigation
-├── public/                 # Static assets
-│   ├── images/            # Images and logos
-│   └── video/             # Background videos
-└── src/styles/            # Global styles and CSS
-```
-
-## 🎨 Design System
-
 ### Fonts
 
 - **Lagusans Light** - Primary brand font
 - **Alta** - Secondary/accent font
+
+````bash
+# Clone the repository
+git clone [repository-url]
+cd nextjs-boilerplate-coming-soon-ger
+
+# Install dependencies
+npm install
+
+# Start development server with Turbopack
+npm run dev
 
 ### Colors
 
@@ -125,7 +116,7 @@ Create a `.env.local` file:
 ```env
 NEXT_PUBLIC_SITE_URL=https://globaleliteassociates.com
 # Add other environment variables as needed
-```
+````
 
 ### Next.js Config
 
@@ -191,14 +182,14 @@ This website represents the Global Elite luxury travel brand:
 For questions about the Global Elite programme:
 
 - **Website**: [globaleliteassociates.com](https://globaleliteassociates.com)
-- **Founder & MD**: Patricia de Mayer - pdemayer@globaleliteassociates.com
-- **Director of Sales**: Hung Nguyen - hung@globaleliteassociates.com
+- **Founder & MD**: Patricia de Mayer - <pdemayer@globaleliteassociates.com>
+- **Director of Sales**: Hung Nguyen - <hung@globaleliteassociates.com>
 
 ## 🏨 Hotel Brands Included
 
 - **Armani Hotels & Resorts** - Luxury collection
 - **Address Hotels + Resorts** - 14+ premium properties
-- **Vida Hotels & Resorts** - 9+ lifestyle destinations  
+- **Vida Hotels & Resorts** - 9+ lifestyle destinations
 - **Rove Hotels** - Modern lifestyle brand
 
 ## 📝 License
@@ -207,4 +198,5 @@ For questions about the Global Elite programme:
 
 ---
 
-Built with ❤️ using Next.js and modern web technologies for the luxury travel industry.
+- **Founder & MD**: Patricia de Mayer - <pdemayer@globaleliteassociates.com>
+- **Director of Sales**: Hung Nguyen - <hung@globaleliteassociates.com>
