@@ -53,14 +53,14 @@ export default function Footer() {
 					</div>
 
 					{/* Website Link */}
-					<div className="text-center">
+
+					<div className="text-sm text-muted-foreground">
 						<Link
-							href="https://globaleliteassociates.com"
-							className="text-primary underline hover:no-underline transition-all"
+							href="https://www.globaleliteassociates.com"
 							target="_blank"
 							rel="noopener noreferrer"
 						>
-							Visit our website
+							www.globaleliteassociates.com
 						</Link>
 					</div>
 

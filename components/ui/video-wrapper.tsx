@@ -28,23 +28,39 @@ function VideoWrapper({
 	showScrollIndicator = true,
 	...props
 }: VideoWrapperProps) {
+	const [isMounted, setIsMounted] = React.useState(false)
+
+	React.useEffect(() => {
+		setIsMounted(true)
+	}, [])
+
 	return (
 		<div className={cn("relative min-h-screen w-full overflow-hidden", className)} {...props}>
 			{/* Video Background */}
-			<video
-				className="absolute inset-0 h-full w-full object-cover"
-				autoPlay={autoPlay}
-				muted={muted}
-				loop={loop}
-				controls={controls}
-				playsInline
-				poster={posterImage}
-				preload="auto"
-			>
-				<source src={videoSrc} type="video/mp4" />
-				<source src={videoSrc} type="video/webm" />
-				Your browser does not support the video tag.
-			</video>
+			{isMounted ? (
+				<video
+					className="absolute inset-0 h-full w-full object-cover"
+					autoPlay={autoPlay}
+					muted={muted}
+					loop={loop}
+					controls={controls}
+					playsInline
+					poster={posterImage}
+					preload="auto"
+				>
+					<source src={videoSrc} type="video/mp4" />
+					<source src={videoSrc} type="video/webm" />
+					Your browser does not support the video tag.
+				</video>
+			) : (
+				posterImage && (
+					<img
+						src={posterImage}
+						alt="Video placeholder"
+						className="absolute inset-0 h-full w-full object-cover"
+					/>
+				)
+			)}
 
 			{/* Overlay */}
 			<div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />

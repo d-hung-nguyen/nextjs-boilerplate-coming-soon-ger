@@ -13,7 +13,7 @@
 	--secondary-foreground: oklch(0.205 0 0); /* #8D887E, Soft warm gray */
 	--muted: oklch(0.97 0 0); /* #FFFDFD, Near white with slight tint */
 	--muted-foreground: oklch(0.556 0 0); /* #8D887E, Soft warm gray */
-	--accent: oklch(0.97 0 0); /* #B6AFA6, Light taupe/beige tone */
+	--accent: #b6afa6; /* #B6AFA6, Light taupe/beige tone */
 	--accent-foreground: oklch(0.205 0 0); /* #8D887E, Soft warm gray */
 	--destructive: oklch(0.577 0.245 27.325);
 	--destructive-foreground: oklch(0.577 0.245 27.325);
@@ -188,4 +188,8 @@ body {
 
 .transform-gpu {
 	transform: translate3d(0, 0, 0);
+}
+
+.logo-white {
+	filter: brightness(0) saturate(100%) invert(1);
 }

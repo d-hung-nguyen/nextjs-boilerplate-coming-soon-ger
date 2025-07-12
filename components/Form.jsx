@@ -11,13 +11,6 @@ export default function Form() {
 	return (
 		<div className="p-6 max-w-6xl mx-auto space-y-10">
 			{/* Hero Section */}
-			<section className="text-center space-y-4">
-				<h1 className="text-4xl font-bold">Join the Luxury Travel Partner Program</h1>
-				<p className="text-lg text-gray-600">
-					Exclusive rewards, curated stays, priority access. Tailored for top travel professionals.
-				</p>
-				<Button className="text-lg">Apply Now</Button>
-			</section>
 
 			{/* Sign-Up Form */}
 			<section className="bg-white shadow-xl p-8 rounded-2xl">
