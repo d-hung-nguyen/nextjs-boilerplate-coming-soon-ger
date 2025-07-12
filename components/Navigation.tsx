@@ -54,10 +54,10 @@ export default function Navigation() {
 							href="/downloads"
 							className={cn(
 								"text-sm font-medium transition-colors hover:text-primary",
-								pathname === "/downloads" ? "text-primary" : "text-muted-foreground"
+								pathname === "/global-elite" ? "text-primary" : "text-muted-foreground"
 							)}
 						>
-							Downloads
+							Global Elite & Associates
 						</Link>
 					</div>
 
