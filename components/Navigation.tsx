@@ -51,7 +51,7 @@ export default function Navigation() {
 							LTP Portal
 						</Link>
 						<Link
-							href="/downloads"
+							href="/global-elite"
 							className={cn(
 								"text-sm font-medium transition-colors hover:text-primary",
 								pathname === "/global-elite" ? "text-primary" : "text-muted-foreground"
