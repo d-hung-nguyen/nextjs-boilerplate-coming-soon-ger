@@ -26,13 +26,13 @@ const alta = localFont({
 
 export const metadata: Metadata = {
 	metadataBase: new URL("https://globaleliteassociates.com"),
-	title: "Global Elite | Coming Soon",
+	title: "Global Elite & Associates",
 	description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
 	openGraph: {
-		title: "Global Elite | Coming Soon",
-		description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
+		title: "Global Elite & Associates",
+		description: "Bespoke luxury hospitality sales in DACH, Nordics, CEE and UK.",
 		url: "https://globaleliteassociates.com",
-		siteName: "Global Elite",
+		siteName: "Global Elite & Associates",
 		type: "website",
 		images: [
 			{
