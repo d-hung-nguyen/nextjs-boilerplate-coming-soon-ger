@@ -27,7 +27,7 @@ export default function Navigation() {
 	}, [])
 
 	return (
-		<div className="fixed top-0 left-0 w-full h6 z-50">
+		<div className="fixed top-0 left-0 w-full h6 z-50 border-b border-border">
 			<nav
 				className={cn(
 					"sticky top-0 z-50 transition-all duration-700 ease-out",
@@ -48,7 +48,7 @@ export default function Navigation() {
 						</Link>
 
 						{/* Desktop Navigation Links */}
-						<div className="hidden md:flex items-center space-x-8">
+						<div className="hidden md:flex items-center  space-x-8">
 							<Link
 								href="/"
 								className={cn(

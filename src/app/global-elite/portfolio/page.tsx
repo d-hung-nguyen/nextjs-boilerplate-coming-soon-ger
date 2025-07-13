@@ -104,7 +104,7 @@ export default function PortfolioPage() {
 		<div className="min-h-screen bg-accent text-foreground">
 			{/* Hero Section */}
 			<section className="relative bg-gradient-to-r from-primary/20 to-accent/20 py-20">
-				<div className="container mx-auto px-4 text-center">
+				<div className="container mx-auto px-4 mt-20 text-center">
 					<h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Our Hotel Portfolio</h1>
 					<p className="text-lg md:text-xl text-muted-primary max-w-3xl mx-auto mb-8">
 						Discover our curated collection of luxury hotels across Europe and beyond. Each property
@@ -210,68 +210,57 @@ export default function PortfolioPage() {
 						{filteredHotels.map(hotel => (
 							<Card
 								key={hotel.id}
-								className="group overflow-hidden border-0 p-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+								className="flex flex-col h-full overflow-hidden border-0 p-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 bg-white"
 							>
-								<div className="relative h-90 w-auto">
-									{/* Background Image */}
-									<div
-										className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-										style={{
-											backgroundImage: `url(${hotel.image || "/placeholder.jpg"})`,
-										}}
-									>
-										{/* Overlay */}
-										<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
-									</div>
+								{/* Image Section */}
+								<div
+									className="h-64 bg-cover bg-center filter sepia-[0.35] brightness-110 contrast-105 saturate-130 hue-rotate-[-10deg]"
+									style={{
+										backgroundImage: `url(${hotel.image || "/placeholder.jpg"})`,
+									}}
+								></div>
 
-									{/* Content */}
-									<CardContent className="absolute inset-0 p-6 flex flex-col justify-between text-white">
-										{/* Top Badges */}
-										<div className="flex flex-wrap gap-2">
+								{/* Text Section */}
+								<div className="flex flex-col justify-between flex-grow p-1 text-gray-800 space-y-4">
+									<div className="flex flex-wrap gap-2">
+										<Badge
+											variant="secondary"
+											className="bg-primary/10 text-xs text-primary border-primary/20 rounded-none"
+										>
+											{hotel.brand}
+										</Badge>
+										{getHotelRegions(hotel).map(region => (
 											<Badge
-												variant="secondary"
-												className="bg-white/20 text-white border-white/30 backdrop-blur-sm"
+												key={region}
+												variant="outline"
+												className="border-gray-300 text-xs text-gray-600 bg-gray-100 rounded-none"
 											>
-												{hotel.brand}
+												{region}
 											</Badge>
-											{getHotelRegions(hotel).map(region => (
-												<Badge
-													key={region}
-													variant="outline"
-													className="border-white/50 text-white bg-white/10 backdrop-blur-sm"
-												>
-													{region}
-												</Badge>
-											))}
+										))}
+									</div>
+									<div>
+										<h3 className="text-xl font-bold mb-2">{hotel.hotel_name}</h3>
+										<div className="flex items-center gap-2 text-gray-600">
+											<MapPin className="w-4 h-4" />
+											<span className="text-sm">{hotel.location}</span>
 										</div>
-
-										{/* Bottom Content */}
-										<div className="space-y-4">
-											<div>
-												<h3 className="text-xl font-bold mb-2 line-clamp-2">{hotel.hotel_name}</h3>
-												<div className="flex items-center gap-2 text-white/90">
-													<MapPin className="w-4 h-4" />
-													<span className="text-sm">{hotel.location}</span>
-												</div>
-											</div>
-
-											{/* Explore Button */}
-											<Button
-												size="sm"
-												className="w-full bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-sm text-white transition-all duration-300"
-												asChild
-											>
-												<Link
-													href={hotel.hotel_website || "#"}
-													target="_blank"
-													className="flex items-center justify-center gap-2"
-												>
-													<span>Explore More</span>
-													<ExternalLink className="w-4 h-4" />
-												</Link>
-											</Button>
-										</div>
-									</CardContent>
+									</div>
+									<Button
+										variant="ghost"
+										size="sm"
+										className="w-full bg-muted border border-black rounded-none hover:bg-primarytransition-all duration-300"
+										asChild
+									>
+										<Link
+											href={hotel.hotel_website || "#"}
+											target="_blank"
+											className="flex items-center justify-center gap-2"
+										>
+											<span>Explore More</span>
+											<ExternalLink className="w-4 h-4" />
+										</Link>
+									</Button>
 								</div>
 							</Card>
 						))}
