@@ -30,7 +30,7 @@ import {
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-import { Trash2, Edit, Plus, ExternalLink, Search, Filter } from "lucide-react"
+import { Trash2, Edit, Plus, ExternalLink, Search, Filter, Section } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
@@ -191,17 +191,19 @@ export default function AdminHotelsPage() {
 
 	return (
 		<>
-			<div className="container mx-auto p-6">
-				<div className="flex justify-between items-center mb-6">
-					<div>
-						<h1 className="text-3xl font-bold">Hotels</h1>
-						<p className="text-muted-foreground">Manage your hotel listings</p>
+			<div className="min-h-screen bg-accent text-foreground">
+				{/* Hero Section */}
+				<section className="relative bg-gradient-to-r from-primary/20 to-accent/20 py-20">
+					<div className="container mx-auto px-4 text-center">
+						<h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">
+							Our Hotels Management
+						</h1>
+						<p className="text-lg md:text-xl text-muted-primary max-w-3xl mx-auto mb-8">
+							Manage your hotel portfolio efficiently with our admin panel. Add, edit, and delete
+							hotels easily.
+						</p>
 					</div>
-					<Button onClick={openCreateDialog}>
-						<Plus className="w-4 h-4 mr-2" />
-						Add Hotel
-					</Button>
-				</div>
+				</section>
 
 				{/* Filters */}
 				<Card className="mb-6">
@@ -281,6 +283,10 @@ export default function AdminHotelsPage() {
 					<CardHeader>
 						<CardTitle>Hotels ({filteredHotels.length})</CardTitle>
 					</CardHeader>
+					<Button className="mx-auto" onClick={openCreateDialog}>
+						<Plus className="w-4 h-4 mr-2" />
+						Add Hotel
+					</Button>
 					<CardContent>
 						{loading ? (
 							<div className="text-center py-8">Loading hotels...</div>
@@ -493,8 +499,8 @@ export default function AdminHotelsPage() {
 				</Dialog>
 
 				<Toaster />
+				<Toaster />
 			</div>
-			<Toaster />
 		</>
 	)
 }
