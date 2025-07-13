@@ -127,7 +127,7 @@ export default function GlobalElitePage() {
 					muted={true}
 					controls={false}
 					showScrollIndicator={false}
-					className="relative h-screen -z-10"
+					className="fixed h-screen -z-10"
 				></FullscreenVideoWrapper>
 			</div>
 
@@ -135,7 +135,7 @@ export default function GlobalElitePage() {
 				initial={{ opacity: 0, x: 20 }}
 				whileInView={{ opacity: 1, x: 0 }}
 				transition={{ duration: 0.6 }}
-				className="absolute top-100 left-0 "
+				className="absolute top-70 left-0 "
 			>
 				<div className="relative space-y-6 px-4">
 					<div className="space-y-8 max-w-4xl px-4 text-start">
@@ -143,7 +143,7 @@ export default function GlobalElitePage() {
 							Global Elite & Associates
 						</h3>
 						<p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif">
-							Bespoke <br /> Luxury <br /> Hospitality Sales
+							Bespoke Luxury Hospitality Sales
 						</p>
 						<p className="text-lg md:text-xl text-white/90 mx-auto leading-relaxed font-lagusans">
 							We are a leading European company specializing in representing luxury hospitality
@@ -721,23 +721,23 @@ export default function GlobalElitePage() {
 					</motion.div>
 				</div>
 
-				{/* Contact CTA */}
-				<div className="mt-8 text-center">
-					<div className="bg-background/80 rounded-lg p-6 border border-primary/20">
-						<h4 className="font-semibold mb-2">Ready to Work with Excellence?</h4>
-						<p className="text-sm text-muted-foreground mb-4">
-							Connect with our team to discuss how we can elevate your luxury hospitality strategy
+				{/* Call to Action */}
+				<section className="bg-gradient-to-r from-primary/10 to-accent/10 py-20">
+					<div className="container mx-auto px-4 text-center">
+						<h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
+							Ready to Partner with Excellence?
+						</h2>
+						<p className="text-lg text-muted-white max-w-2xl mx-auto mb-8">
+							Join our exclusive network of luxury hospitality brands and unlock new opportunities
+							in the European market.
 						</p>
-						<div className="flex flex-col sm:flex-row gap-3 justify-center">
-							<Button size="sm" asChild>
-								<a href="mailto:pdemayer@globaleliteassociates.com">Schedule Consultation</a>
-							</Button>
-							<Button variant="outline" size="sm" asChild>
-								<Link href="/join-ltp">Join Our Programme</Link>
+						<div className="flex flex-col sm:flex-row gap-4 justify-center">
+							<Button size="lg" asChild>
+								<Link href="/join-ltp">Let's Talk</Link>
 							</Button>
 						</div>
 					</div>
-				</div>
+				</section>
 			</section>
 		</>
 	)
