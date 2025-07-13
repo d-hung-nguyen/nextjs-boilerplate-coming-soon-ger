@@ -120,7 +120,7 @@ export default function GlobalElitePage() {
 			<div className="relative h-screen overflow-hidden">
 				<FullscreenVideoWrapper
 					videoSrc="/video/by-v.webm"
-					posterImage="/images/by-v-poster.jpg"
+					posterImage="/images/by-v-poster.png"
 					overlayOpacity={0.4}
 					autoPlay={true}
 					loop={true}
