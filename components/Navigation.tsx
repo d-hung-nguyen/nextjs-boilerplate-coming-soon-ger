@@ -60,7 +60,7 @@ export default function Navigation() {
 										: "text-white"
 								)}
 							>
-								Comming Soon
+								Home
 							</Link>
 							<Link
 								href="/ltp"
@@ -89,17 +89,30 @@ export default function Navigation() {
 								Global Elite & Associates
 							</Link>
 							<Link
-								href="/downloads"
+								href="/global-elite/portfolio"
 								className={cn(
 									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/downloads"
+									pathname === "/global-elite/portfolio"
 										? "text-black "
 										: isScrolled
 										? "text-muted-foreground"
 										: "text-white"
 								)}
 							>
-								Downloads
+								Portfolio
+							</Link>
+							<Link
+								href="/admin/hotels"
+								className={cn(
+									"text-sm font-medium transition-all duration-300 hover:text-primary",
+									pathname === "/admin/hotels"
+										? "text-black"
+										: isScrolled
+										? "text-muted-foreground"
+										: "text-white"
+								)}
+							>
+								Hotels Admin
 							</Link>
 						</div>
 
@@ -146,9 +159,7 @@ export default function Navigation() {
 					<div
 						className={cn(
 							"md:hidden border-t px-4 py-2 flex flex-col space-y-2 transition-all duration-300",
-							isScrolled
-								? "bg-background border-border"
-								: "bg-black/20 backdrop-blur-sm border-white/20"
+							isScrolled ? "bg-background border-border" : "bg-accent border-transparent"
 						)}
 					>
 						<Link
@@ -194,10 +205,10 @@ export default function Navigation() {
 							Global Elite & Associates
 						</Link>
 						<Link
-							href="/downloads"
+							href="/global-elite/portfolio"
 							className={cn(
 								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/downloads"
+								pathname === "/global-elite/portfolio"
 									? "text-primary"
 									: isScrolled
 									? "text-muted-foreground"
@@ -205,7 +216,21 @@ export default function Navigation() {
 							)}
 							onClick={() => setIsMobileMenuOpen(false)}
 						>
-							Downloads
+							Portfolio
+						</Link>
+						<Link
+							href="/admin/hotels"
+							className={cn(
+								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
+								pathname === "/admin/hotels"
+									? "text-primary"
+									: isScrolled
+									? "text-muted-foreground"
+									: "text-white"
+							)}
+							onClick={() => setIsMobileMenuOpen(false)}
+						>
+							Hotels Admin
 						</Link>
 					</div>
 				)}
