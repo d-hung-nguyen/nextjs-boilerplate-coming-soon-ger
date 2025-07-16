@@ -73,7 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 				{/* Simplified Cookiebot Styles - Black/White/Gray Theme */}
 				<style>{`
-                    /* Main dialog container */
+                    /* Main dialog container - FIXED */
                     #CybotCookiebotDialog {
                         max-width: 420px !important;
                         width: 90% !important;
@@ -81,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         border-radius: 8px !important;
                         background: white !important;
                         border: 1px solid #e5e7eb !important;
-                        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04) !important;
+                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
                         font-family: var(--font-lagusans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
                     }
 
@@ -100,17 +100,17 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         margin: 0 !important;
                     }
 
-                    /* Title styling */
+                    /* Title styling - FIXED */
                     #CybotCookiebotDialogBodyContentTitle {
                         font-size: 20px !important;
                         font-weight: 600 !important;
                         color: #111827 !important;
                         margin-bottom: 12px !important;
-                        font-family: var(--font-lagusans), sans-serif !important;
+                        font-family: var(--font-alta), sans-serif !important;
                         line-height: 1.2 !important;
                     }
 
-                    /* Description text */
+                    /* Description text - FIXED */
                     #CybotCookiebotDialogBodyContentText {
                         font-size: 14px !important;
                         line-height: 1.5 !important;
@@ -128,7 +128,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         margin-top: 20px !important;
                     }
 
-                    /* Base button styles */
+                    /* Base button styles - FIXED */
                     #CybotCookiebotDialogBodyButtonAccept,
                     #CybotCookiebotDialogBodyButtonDecline,
                     #CybotCookiebotDialogBodyButtonSettings {
@@ -143,7 +143,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         text-decoration: none !important;
                     }
 
-                    /* Accept button - black */
+                    /* Accept button - FIXED */
                     #CybotCookiebotDialogBodyButtonAccept {
                         background-color: #111827 !important;
                         color: white !important;
@@ -153,9 +153,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                     #CybotCookiebotDialogBodyButtonAccept:hover {
                         background-color: #374151 !important;
                         border-color: #374151 !important;
+                        color: white !important;
                     }
 
-                    /* Decline button - white with gray border */
+                    /* Decline button - FIXED */
                     #CybotCookiebotDialogBodyButtonDecline {
                         background-color: white !important;
                         color: #6b7280 !important;
@@ -168,7 +169,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         border-color: #9ca3af !important;
                     }
 
-                    /* Settings button - minimal gray */
+                    /* Settings button */
                     #CybotCookiebotDialogBodyButtonSettings {
                         background-color: transparent !important;
                         color: #9ca3af !important;
@@ -188,7 +189,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         display: none !important;
                     }
 
-                    /* Settings dialog styling */
+                    /* Settings dialog styling - FIXED */
                     #CybotCookiebotDialogDetailBody {
                         font-family: var(--font-lagusans), sans-serif !important;
                         background: white !important;
@@ -199,7 +200,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                         font-family: var(--font-lagusans), sans-serif !important;
                     }
 
-                    /* Tab styling */
+                    /* Tab styling - FIXED */
                     .CybotCookiebotDialogDetailBodyContentTab {
                         background-color: #f9fafb !important;
                         color: #374151 !important;
