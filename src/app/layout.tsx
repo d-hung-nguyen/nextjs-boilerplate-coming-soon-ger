@@ -265,12 +265,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 				{/* Simplified Cookiebot Script */}
 				<Script
-					id="cookiebot"
-					src="https://consent.cookiebot.com/uc.js"
-					data-cbid="0eff1881-d3a9-49af-b46c-7db22a44adaf"
-					data-blockingmode="auto"
-					data-culture="en"
-					strategy="afterInteractive"
+					id="CookieDeclaration"
+					src="https://consent.cookiebot.com/0eff1881-d3a9-49af-b46c-7db22a44adaf/cd.js"
+					type="text/javascript"
+					async
 				/>
 
 				{/* Cookiebot Configuration for Simple Website */}
