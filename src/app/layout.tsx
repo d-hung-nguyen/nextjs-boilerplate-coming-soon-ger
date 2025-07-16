@@ -1,10 +1,11 @@
+// app/layout.tsx
+
 import type { Metadata } from "next"
 import localFont from "next/font/local"
 import "@/src/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next"
-import Navigation from "@/components/Navigation"
-import Footer from "@/components/Footer"
 import ConditionalLayout from "@/components/ConditionalLayout"
+import ChromeRuntimeListener from "@/components/ChromeRuntimeListener"
 
 const lagusans = localFont({
 	src: "./fonts/lagusans-light.otf",
@@ -49,20 +50,39 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 	return (
 		<html lang="en">
 			<head>
-				{/* Add this script to handle extension errors */}
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-              if (typeof chrome !== 'undefined' && chrome.runtime) {
-                chrome.runtime.onMessage.addListener(() => {});
-              }
-            `,
-					}}
+				<meta charSet="utf-8" />
+				<meta name="viewport" content="width=device-width, initial-scale=1" />
+				<meta name="developer" content="Hung Nguyen - Web Developer" />
+				<meta name="author" content="Hung Nguyen" />
+				<title>Global Elite & Associates</title>
+
+				<link
+					rel="preload"
+					href="/fonts/lagusans-light.otf"
+					as="font"
+					type="font/otf"
+					crossOrigin="anonymous"
 				/>
+				<link
+					rel="preload"
+					href="/fonts/Alta.otf"
+					as="font"
+					type="font/otf"
+					crossOrigin="anonymous"
+				/>
+
+				<script
+					id="Cookiebot"
+					src="https://consent.cookiebot.com/uc.js"
+					data-cbid="0eff1881-d3a9-49af-b46c-7db22a44adaf"
+					data-blockingmode="auto"
+					type="text/javascript"
+				></script>
 			</head>
 			<body
 				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground`}
 			>
+				<ChromeRuntimeListener />
 				<ConditionalLayout>
 					{children}
 					<Analytics />

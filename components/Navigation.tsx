@@ -6,6 +6,7 @@ import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
+import { Menu, X } from "lucide-react"
 
 export default function Navigation() {
 	const pathname = usePathname()
@@ -19,221 +20,153 @@ export default function Navigation() {
 	useEffect(() => {
 		const handleScroll = () => {
 			const scrollTop = window.scrollY
-			setIsScrolled(scrollTop > 50) // Change background after 50px scroll
+			setIsScrolled(scrollTop > 50)
 		}
 
 		window.addEventListener("scroll", handleScroll)
 		return () => window.removeEventListener("scroll", handleScroll)
 	}, [])
 
+	// Close mobile menu when clicking outside or on navigation
+	useEffect(() => {
+		const handleClickOutside = (event: MouseEvent) => {
+			const target = event.target as HTMLElement
+			if (!target.closest("nav")) {
+				setIsMobileMenuOpen(false)
+			}
+		}
+
+		if (isMobileMenuOpen) {
+			document.addEventListener("click", handleClickOutside)
+		}
+
+		return () => document.removeEventListener("click", handleClickOutside)
+	}, [isMobileMenuOpen])
+
+	// Close mobile menu on route change
+	useEffect(() => {
+		setIsMobileMenuOpen(false)
+	}, [pathname])
+
+	const navigationItems = [
+		{ href: "/global-elite", label: "Home" },
+		{ href: "/ltp", label: "LTP" },
+		{ href: "/portfolio", label: "Portfolio" },
+		{ href: "/admin/hotels", label: "Hotel Admin" },
+	]
+
 	return (
-		<div className="fixed top-0 left-0 w-full h6 z-50 border-b border-border">
+		<div className="fixed top-0 left-0 w-full z-50">
 			<nav
 				className={cn(
-					"sticky top-0 z-50 transition-all duration-700 ease-out",
-					isScrolled ? "bg-white border-b-1" : "bg-accent/20"
+					"text-white transition-all duration-500 ease-out ",
+					isScrolled
+						? "bg-white shadow-lg border-b border-gray"
+						: "bg-transparent border-b border-gray"
 				)}
 			>
-				<div className="max-w-7xl mx-auto px-4">
-					<div className="flex items-center justify-between h-16">
+				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+					<div className="flex items-center justify-between h-20">
 						{/* Logo */}
-						<Link href="/" className="flex items-center">
-							<Image
-								src={isScrolled ? "/images/ge1.png" : "/images/ge2.png"} // You'll need a white version
-								alt="Global Elite Logo"
-								width={150}
-								height={40}
-								className="h-5 w-auto object-contain transition-all duration-300"
-							/>
+						<Link href="/global-elite" className="flex items-center space-x-3 group">
+							<div className="relative overflow-hidden rounded-lg">
+								<Image
+									src={isScrolled ? "/images/ge1.png" : "/images/ge2.png"}
+									alt="Global Elite Logo"
+									width={160}
+									height={45}
+									className="h-5 w-auto object-contain transition-all duration-500 group-hover:scale-105"
+									priority
+								/>
+							</div>
 						</Link>
 
-						{/* Desktop Navigation Links */}
-						<div className="hidden md:flex items-center  space-x-8">
-							<Link
-								href="/"
-								className={cn(
-									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/"
-										? "text-black "
-										: isScrolled
-										? "text-muted-foreground"
-										: "text-white"
-								)}
-							>
-								Home
-							</Link>
-							<Link
-								href="/ltp"
-								className={cn(
-									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/ltp"
-										? "text-black "
-										: isScrolled
-										? "text-muted-foreground"
-										: "text-white"
-								)}
-							>
-								LTP Portal
-							</Link>
-							<Link
-								href="/global-elite"
-								className={cn(
-									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/global-elite"
-										? "text-black "
-										: isScrolled
-										? "text-muted-foreground"
-										: "text-white"
-								)}
-							>
-								Global Elite & Associates
-							</Link>
-							<Link
-								href="/global-elite/portfolio"
-								className={cn(
-									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/global-elite/portfolio"
-										? "text-black "
-										: isScrolled
-										? "text-muted-foreground"
-										: "text-white"
-								)}
-							>
-								Portfolio
-							</Link>
-							<Link
-								href="/admin/hotels"
-								className={cn(
-									"text-sm font-medium transition-all duration-300 hover:text-primary",
-									pathname === "/admin/hotels"
-										? "text-black"
-										: isScrolled
-										? "text-muted-foreground"
-										: "text-white"
-								)}
-							>
-								Hotels Admin
-							</Link>
+						{/* Desktop Navigation */}
+						<div className="hidden lg:flex items-center text-white space-x-1">
+							{navigationItems.map(item => (
+								<Link
+									key={item.href}
+									href={item.href}
+									className={cn(
+										"px-4 py-2  text-sm text-white font-medium transition-all duration-300 hover:bg-white/10",
+										isScrolled ? "text-black  " : "text-white",
+										isScrolled ? "hover:text-primary" : "hover:text-white"
+									)}
+								>
+									{item.label}
+								</Link>
+							))}
 						</div>
 
-						{/* CTA Button */}
+						{/* CTA Button & Mobile Menu */}
 						<div className="flex items-center space-x-4">
-							<Link href="/join-ltp">
-								<Button
-									size="sm"
-									className={cn(
-										"hidden sm:inline-flex transition-all duration-300",
-										!isScrolled && "bg-white/20 hover:bg-white/30 text-white border-white/30"
-									)}
-									variant={isScrolled ? "default" : "outline"}
-								>
-									Join LTP
-								</Button>
-							</Link>
+							<Button
+								className="btn-secondary w-10 mt-4 h-auto"
+								onClick={() => (window.location.href = "/join-ltp")}
+							>
+								Join JTP
+							</Button>
 
 							{/* Mobile menu button */}
 							<Button
-								variant="ghost"
-								size="sm"
 								className={cn(
-									"md:hidden transition-all duration-300",
-									!isScrolled && "text-white hover:bg-white/20"
+									"lg:hidden p-2 btn.primary rounded-none transition-all duration-300",
+									isScrolled ? "text-gray-700 hover:bg-gray-100" : "text-white hover:bg-white/20"
 								)}
-								onClick={toggleMobileMenu}
+								onClick={e => {
+									e.stopPropagation()
+									toggleMobileMenu()
+								}}
 							>
-								<svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-									<path
-										strokeLinecap="round"
-										strokeLinejoin="round"
-										strokeWidth={2}
-										d={isMobileMenuOpen ? "M6 18L18 6M6 6l12 12" : "M4 6h16M4 12h16M4 18h16"}
-									/>
-								</svg>
+								{isMobileMenuOpen ? (
+									<X className="w-6 h-6 rounded-none" />
+								) : (
+									<Menu className="w-6 h-6 rounded-none" />
+								)}
 							</Button>
 						</div>
 					</div>
 				</div>
 
 				{/* Mobile Navigation Menu */}
-				{isMobileMenuOpen && (
+				<div
+					className={cn(
+						"lg:hidden transition-all duration-300 ease-out overflow-hidden",
+						isMobileMenuOpen ? "max-h-[400px] opacity-100" : "max-h-0 opacity-0"
+					)}
+				>
 					<div
 						className={cn(
-							"md:hidden border-t px-4 py-2 flex flex-col space-y-2 transition-all duration-300",
-							isScrolled ? "bg-background border-border" : "bg-accent border-transparent"
+							"px-4 py-6 space-y-2",
+							isScrolled
+								? "bg-white/95 backdrop-blur-md border-t border-gray-100"
+								: "bg-black/80 backdrop-blur-md border-t border-white/10"
 						)}
+						onClick={e => e.stopPropagation()}
 					>
-						<Link
-							href="/"
-							className={cn(
-								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/"
-									? "text-primary"
-									: isScrolled
-									? "text-muted-foreground"
-									: "text-white"
-							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							Home
+						{navigationItems.map(item => (
+							<Link
+								key={item.href}
+								href={item.href}
+								className={cn(
+									" px-4 py-3 text-sm flex items-center justify-center font-medium transition-all duration-200",
+
+									isScrolled
+										? "text-gray-700 hover:bg-white hover:text-primary"
+										: "text-white hover:bg-white/10"
+								)}
+								onClick={() => setIsMobileMenuOpen(false)}
+							>
+								{item.label}
+							</Link>
+						))}
+						<Link href="/join-ltp" className=" px-4 py-3 text-sm flex items-center justify-center ">
+							<Button className="btn-secondary">Join LTP</Button>
 						</Link>
-						<Link
-							href="/ltp"
-							className={cn(
-								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/ltp"
-									? "text-primary"
-									: isScrolled
-									? "text-muted-foreground"
-									: "text-white"
-							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							LTP Portal
-						</Link>
-						<Link
-							href="/global-elite"
-							className={cn(
-								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/global-elite"
-									? "text-primary"
-									: isScrolled
-									? "text-muted-foreground"
-									: "text-white"
-							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							Global Elite & Associates
-						</Link>
-						<Link
-							href="/global-elite/portfolio"
-							className={cn(
-								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/global-elite/portfolio"
-									? "text-primary"
-									: isScrolled
-									? "text-muted-foreground"
-									: "text-white"
-							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							Portfolio
-						</Link>
-						<Link
-							href="/admin/hotels"
-							className={cn(
-								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
-								pathname === "/admin/hotels"
-									? "text-primary"
-									: isScrolled
-									? "text-muted-foreground"
-									: "text-white"
-							)}
-							onClick={() => setIsMobileMenuOpen(false)}
-						>
-							Hotels Admin
-						</Link>
+
+						{/* Mobile CTA */}
 					</div>
-				)}
+				</div>
 			</nav>
 		</div>
 	)

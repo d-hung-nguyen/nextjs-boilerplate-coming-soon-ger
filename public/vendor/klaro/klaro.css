@@ -1,0 +1,120 @@
+:root {
+	--font-family: "Helvetica Neue", Arial, sans-serif;
+	--font-size: 14px;
+	--background-color: #ffffff;
+	--text-color: #262626;
+	--green1: #1a936f;
+	--green2: #24cc9a;
+	--green3: #48dfb2;
+	--white2: #f2f2f2;
+	--white3: #e6e6e6;
+	--dark1: #0d0d0d;
+	--dark2: #353334;
+	--dark3: #707479;
+	--light1: #fafafa;
+	--light2: #c7c7c7;
+	--light3: #a0a0a0;
+	--blue1: #2581c4;
+	--blue2: #459cdc;
+	--border-style: solid;
+	--border-width: 1px;
+	--border-radius: 4px;
+	--button-text-color: #ffffff;
+}
+
+/* Base Klaro container */
+.klaro {
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	color: var(--text-color);
+}
+
+/* Buttons */
+.klaro .cm-btn {
+	font-family: var(--font-family);
+	font-size: var(--font-size);
+	color: var(--button-text-color);
+	background-color: var(--dark2);
+	border: none;
+	border-radius: var(--border-radius);
+	padding: 0.6em 1.2em;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.klaro .cm-btn:hover {
+	background-color: var(--green1);
+}
+
+.klaro .cm-btn.cm-btn-success {
+	background-color: var(--green1);
+}
+
+.klaro .cm-btn.cm-btn-close {
+	background-color: var(--light2);
+}
+
+/* Modal layout */
+.klaro .cookie-modal {
+	background-color: var(--light1);
+	color: var(--text-color);
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	z-index: 9999;
+	width: 90%;
+	max-width: 600px;
+	padding: 2rem;
+	border-radius: var(--border-radius);
+	box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+}
+
+.klaro .cookie-modal h1 {
+	font-size: 1.8rem;
+	margin-bottom: 1rem;
+}
+
+/* Switch styling */
+.klaro .cm-switch-container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	border-bottom: var(--border-width) var(--border-style) var(--light2);
+	padding: 1rem 0;
+}
+
+.klaro .cm-switch {
+	position: relative;
+	width: 50px;
+	height: 30px;
+	background-color: var(--white2);
+	border-radius: 30px;
+	transition: background-color 0.3s;
+}
+
+.klaro .cm-switch::before {
+	content: "";
+	position: absolute;
+	height: 20px;
+	width: 20px;
+	left: 5px;
+	bottom: 5px;
+	background-color: var(--white3);
+	border-radius: 50%;
+	transition: transform 0.3s;
+}
+
+.klaro .cm-list-input:checked + .cm-list-label .cm-switch {
+	background-color: var(--green1);
+}
+
+.klaro .cm-list-input:checked + .cm-list-label .cm-switch::before {
+	transform: translateX(20px);
+}
+
+/* Link styling */
+.klaro a {
+	color: var(--green2);
+	text-decoration: underline;
+}

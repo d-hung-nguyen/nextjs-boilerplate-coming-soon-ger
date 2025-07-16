@@ -26,25 +26,8 @@ export default function HeroVideo() {
 			controls={false}
 			showScrollIndicator={false}
 		>
-			{/* Top header - outside main content flow 
-			 <div className="absolute top-4 left-0 right-0 z-20 px-4">
-				{" "}
-			
-				<div className="flex justify-center">
-					<Image
-						src="/images/ge2.png"
-						alt="Global Elite"
-						width={200}
-						height={100}
-						className="h-4 sm:h-6 w-auto" // Better mobile sizing
-						priority // Since it's above the fold
-					/>
-				</div>
-				<Separator className="w-full mt-3 sm:mt-5 border-white/50" />
-			</div> */}
-
-			{/* Main content */}
-			<div>
+			<div className="relative">
+				<div className="hero-overlay" />
 				<div className="flex justify-center">
 					<Image
 						src="/images/logo.svg"
@@ -55,7 +38,7 @@ export default function HeroVideo() {
 					/>
 				</div>
 
-				<div className="space-y-6 max-w-4xl mx-auto text-center">
+				<div className="space-y-6 max-w-4xl mx-auto text-center bg-black bg-opacity-50 p-8 rounded-lg relative z-20">
 					<h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight font-alta">
 						Luxury Travel Partner Programme
 					</h1>
@@ -65,8 +48,19 @@ export default function HeroVideo() {
 				</div>
 
 				<div className="flex flex-col sm:flex-row gap-4 justify-center mt-12">
-					<Button size="lg" className="text-lg" onClick={handleJoinProgram}>
+					<Button
+						size="lg"
+						className="btn-primary text-lg relative z-20"
+						onClick={handleJoinProgram}
+					>
 						Join the Programme
+					</Button>
+					<Button
+						size="lg"
+						className="btn-secondary text-lg relative z-20"
+						onClick={handleLearnMore}
+					>
+						Learn More
 					</Button>
 				</div>
 			</div>
