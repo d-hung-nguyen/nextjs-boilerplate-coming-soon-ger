@@ -102,7 +102,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 										</div>
 										<div className="flex flex-row gap-3 space-y-2 mt-4">
 											<Link href={`tel:${teamMember.telefone}`}>
-												<button className="w-60 btn-secondary">Call {teamMember.name}</button>
+												<button className="w-60 btn-primary">Call {teamMember.name}</button>
 											</Link>
 											<Link href={`mailto:${teamMember.email}`}>
 												<button className="w-60 btn-primary">Email {teamMember.name}</button>

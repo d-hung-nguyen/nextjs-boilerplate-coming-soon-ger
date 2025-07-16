@@ -296,7 +296,7 @@ export default function GlobalElitePage() {
 			</section>
 
 			{/* Team Section */}
-			<section className=" bg-gray-100 px-20 min-sm:px-2 md:px-30 pt-40 ">
+			<section className=" bg-gray-100 md:px-30 py-30 flex gap-3 sm:*:gap-8 flex-col md:flex-row mx-0">
 				{" "}
 				<div className="text-center mb-12">
 					<motion.div
@@ -349,7 +349,7 @@ export default function GlobalElitePage() {
 							whileInView={{ opacity: 1, x: 0 }}
 							transition={{ duration: 0.6, delay: i * 0.1 }}
 						>
-							<Card className="  bg-white max-w-sm min-w-sm group overflow-hidden space-y-16">
+							<Card className="  bg-white max-w-sm min-w-sm group overflow-hidden  ">
 								<CardContent className="">
 									<div className="px-4 mb-4overflow-hidden relative">
 										<Image

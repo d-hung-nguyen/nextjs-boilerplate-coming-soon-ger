@@ -4,39 +4,29 @@ import Image from "next/image"
 import React from "react"
 import { motion } from "framer-motion"
 
-export default function HeroImage({
-	backgroundImage = "/images/av-poster.png",
+export default function HeroColor({
+	className = "",
 	logo1 = "",
 	logo2 = "",
 	title = "",
 	subtitle = "",
 	overlayOpacity = 0.4,
 	showScrollIndicator = false,
-	logoWidth = 40,
-	logoHeight = 40,
-	className = "",
+	logoWidth = 200,
+	logoHeight = 80,
 	classNameLogo1 = "",
 	classNameLogo2 = "",
 	alt = "Hero Background",
 }) {
 	return (
-		<div
-			className={`relative w-full h-auto min-h-[calc(100vh*2/3)] py-8 overflow-hidden ${className}`}
-		>
+		<div className={`relative w-full h-auto py-8 overflow-hidden ${className}`}>
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
 				transition={{ duration: 0.8 }}
 			>
-				{/* Background Image */}
-				<Image
-					src={backgroundImage}
-					alt={alt}
-					fill
-					className="object-cover"
-					priority
-					quality={100}
-				/>
+				{/* Background */}
+				<div className="absolute bg-black inset-0" />
 
 				{/* Overlay */}
 				<div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
@@ -46,12 +36,12 @@ export default function HeroImage({
 					<div className="container mx-auto px-4 text-center text-white">
 						{/* Main content */}
 						<div className="space-y-5 px-4">
-							<div className="my-8 ">
+							<div className="my-8">
 								{logo1 && (
-									<div className=" flex justify-center">
+									<div className="flex justify-center">
 										<Image
 											src={logo1}
-											alt="Logo"
+											alt="Logo 1"
 											width={logoWidth}
 											height={logoHeight}
 											className={classNameLogo1}
@@ -62,7 +52,7 @@ export default function HeroImage({
 									<div className="flex justify-center">
 										<Image
 											src={logo2}
-											alt="Logo"
+											alt="Logo 2"
 											width={logoWidth}
 											height={logoHeight}
 											className={classNameLogo2}
@@ -73,7 +63,7 @@ export default function HeroImage({
 							<motion.div
 								initial={{ opacity: 0, y: 20 }}
 								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.8 }}
+								transition={{ duration: 0.8, delay: 0.2 }}
 							>
 								<div className="space-y-6 max-w-4xl mx-auto text-center">
 									{title && (

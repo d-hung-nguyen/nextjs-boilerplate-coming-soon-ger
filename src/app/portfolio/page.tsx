@@ -252,7 +252,7 @@ export default function PortfolioPage() {
 										<div className="flex flex-wrap gap-2">
 											<Badge
 												variant="secondary"
-												className="bg-primary/10 text-xs text-primary border-primary/20 rounded-none"
+												className="bg-primary/10 text-xs text-luxury border-primary/20 rounded-none"
 											>
 												{hotel.brand}
 											</Badge>
@@ -268,7 +268,9 @@ export default function PortfolioPage() {
 										</div>
 
 										<div>
-											<h3 className="text-xl font-bold mb-2">{hotel.hotel_name}</h3>
+											<h3 className="text-xl text-luxury bg-primary font-bold mb-2">
+												{hotel.hotel_name}
+											</h3>
 											<div className="flex items-center gap-2 text-gray-600">
 												<MapPin className="w-4 h-4" />
 												<span className="text-sm">{hotel.location}</span>
@@ -279,11 +281,8 @@ export default function PortfolioPage() {
 											href={hotel.hotel_website || "#"}
 											target="_blank"
 											aria-label={`Explore more about ${hotel.hotel_name}`}
-											className="w-full"
 										>
-											<Button className="btn-secondary w-full">
-												Explore More <ExternalLink className="w-4 h-4 ml-2" />
-											</Button>
+											<Button className="btn-secondary ">Explore More</Button>
 										</Link>
 									</div>
 								</Card>

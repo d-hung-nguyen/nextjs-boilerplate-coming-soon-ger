@@ -3,6 +3,14 @@ import Image from "next/image"
 import Link from "next/link"
 import { Mail, Phone, MapPin, ExternalLink, Linkedin, Globe } from "lucide-react"
 
+declare global {
+	interface Window {
+		Cookiebot?: {
+			show: () => void
+		}
+	}
+}
+
 export default function Footer() {
 	const currentYear = new Date().getFullYear()
 
@@ -147,6 +155,12 @@ export default function Footer() {
 									{link.label}
 								</Link>
 							))}
+							<button
+								className="btn-secondary text-left text-sm text-muted-foreground hover:text-primary transition-colors duration-200 hover:translate-x-1 transform block"
+								onClick={() => window.Cookiebot && window.Cookiebot.show()}
+							>
+								Cookie Settings
+							</button>
 						</nav>
 
 						{/* Website Link */}
