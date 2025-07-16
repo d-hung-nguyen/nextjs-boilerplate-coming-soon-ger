@@ -1,10 +1,10 @@
 "use client"
 
+import HeroImage from "@/components/HeroImage"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import DownloadHero from "@/src/components/DownloadHero"
 import { ExternalLink, Download, Calendar } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
@@ -13,7 +13,11 @@ export default function DownloadCenter() {
 	return (
 		<div className="min-h-screen ">
 			{/* Header */}
-			<DownloadHero />
+			<HeroImage
+				backgroundImage="/images/a6.png"
+				title="Download Center"
+				subtitle="Access high-resolution images and resources for our hotel brands."
+			/>
 			<div className="flex px-4 py-8">
 				<Calendar className="w-4 h-4 mr-2" />
 				<span className="text-sm">Updated: 20.06.2025</span>

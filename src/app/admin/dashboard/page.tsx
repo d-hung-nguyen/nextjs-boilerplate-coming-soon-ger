@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
@@ -75,10 +75,6 @@ export default function Dashboard() {
 		fetchRegistrations()
 	}, [])
 
-	useEffect(() => {
-		filterRegistrations()
-	}, [registrations, searchTerm, statusFilter])
-
 	const fetchRegistrations = async () => {
 		try {
 			const response = await fetch("/api/admin/registrations")
@@ -93,7 +89,7 @@ export default function Dashboard() {
 		}
 	}
 
-	const filterRegistrations = () => {
+	const filterRegistrations = useCallback(() => {
 		let filtered = registrations
 
 		// Filter by search term
@@ -112,7 +108,11 @@ export default function Dashboard() {
 		}
 
 		setFilteredRegistrations(filtered)
-	}
+	}, [registrations, searchTerm, statusFilter])
+
+	useEffect(() => {
+		filterRegistrations()
+	}, [filterRegistrations])
 
 	const updateStatus = async (id: number, newStatus: "pending" | "approved" | "rejected") => {
 		try {

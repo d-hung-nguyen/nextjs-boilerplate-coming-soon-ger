@@ -155,7 +155,7 @@ export default function LTPPortal() {
 			</div>
 
 			{/* Hero Section */}
-			<section className="max-w-5xl mx-auto px-4 text-center space-y-6 bg-[var(--background)] py-10">
+			<section className="max-w-5xl mx-auto px-4 text-center  py-10">
 				<Card className="card">
 					<CardHeader className="text-center mb-6">
 						<CardTitle>

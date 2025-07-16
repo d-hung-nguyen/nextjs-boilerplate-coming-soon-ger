@@ -6,6 +6,7 @@ import "@/src/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import ConditionalLayout from "@/components/ConditionalLayout"
 import ChromeRuntimeListener from "@/components/ChromeRuntimeListener"
+import Script from "next/script"
 
 const lagusans = localFont({
 	src: "./fonts/lagusans-light.otf",
@@ -54,7 +55,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<meta name="viewport" content="width=device-width, initial-scale=1" />
 				<meta name="developer" content="Hung Nguyen - Web Developer" />
 				<meta name="author" content="Hung Nguyen" />
-				<title>Global Elite & Associates</title>
 
 				<link
 					rel="preload"
@@ -70,14 +70,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					type="font/otf"
 					crossOrigin="anonymous"
 				/>
-
-				<script
-					id="Cookiebot"
-					src="https://consent.cookiebot.com/uc.js"
-					data-cbid="0eff1881-d3a9-49af-b46c-7db22a44adaf"
-					data-blockingmode="auto"
-					type="text/javascript"
-				></script>
 			</head>
 			<body
 				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground`}
@@ -87,6 +79,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					{children}
 					<Analytics />
 				</ConditionalLayout>
+
+				{/* Cookiebot Script */}
+				<Script
+					id="cookiebot"
+					src="https://consent.cookiebot.com/uc.js"
+					data-cbid="0eff1881-d3a9-49af-b46c-7db22a44adaf"
+					data-blockingmode="auto"
+					strategy="afterInteractive"
+				/>
 			</body>
 		</html>
 	)

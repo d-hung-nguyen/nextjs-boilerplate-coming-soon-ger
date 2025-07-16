@@ -1,6 +1,6 @@
 "use client"
+import React, { useState, useEffect, useMemo, useCallback } from "react"
 
-import React, { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -80,7 +80,7 @@ export default function AdminHotelsPage() {
 	const supabase = createClientComponentClient()
 
 	// Fetch hotels from Supabase
-	const fetchHotels = async () => {
+	const fetchHotels = useCallback(async () => {
 		try {
 			setLoading(true)
 			let query = supabase.from("hotels").select("*").order("hotel_name", { ascending: true })
@@ -99,11 +99,11 @@ export default function AdminHotelsPage() {
 		} finally {
 			setLoading(false)
 		}
-	}
+	}, [supabase])
 
 	useEffect(() => {
 		fetchHotels()
-	}, [])
+	}, [fetchHotels])
 
 	// Filter hotels based on search and filters
 	const filteredHotels = hotels.filter(hotel => {

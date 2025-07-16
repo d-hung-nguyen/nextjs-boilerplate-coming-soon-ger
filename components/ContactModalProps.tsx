@@ -87,8 +87,8 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 						<div>
 							<div className="grid gap-4">
 								{teamMembers.map((teamMember, index) => (
-									<div>
-										<div key={index} className="p-4 bg-gray-50 rounded-lg">
+									<div key={index}>
+										<div className="p-4 bg-gray-50 rounded-lg">
 											<h4 className="font-bold luxury-text bg-black">{teamMember.name}</h4>
 											<p className="text-sm text-black font-medium mb-2">{teamMember.title}</p>
 											<Link

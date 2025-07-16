@@ -1,16 +1,36 @@
 "use client"
-
 import { useEffect } from "react"
+
+// Type definition for Chrome extension API
+interface ChromeRuntime {
+	onMessage?: {
+		addListener: (callback: Function) => void
+		removeListener: (callback: Function) => void
+	}
+}
+
+declare global {
+	interface Window {
+		chrome?: {
+			runtime?: ChromeRuntime
+		}
+	}
+}
 
 export default function ChromeRuntimeListener() {
 	useEffect(() => {
-		if (typeof chrome !== "undefined" && chrome.runtime?.onMessage) {
+		// Check if we're in a browser environment and chrome extension API exists
+		if (typeof window !== "undefined" && window.chrome?.runtime?.onMessage) {
 			const handler = () => {
 				// no-op or your message logic
 			}
-			chrome.runtime.onMessage.addListener(handler)
+
+			window.chrome.runtime.onMessage.addListener(handler)
+
 			return () => {
-				chrome.runtime.onMessage.removeListener(handler)
+				if (window.chrome?.runtime?.onMessage) {
+					window.chrome.runtime.onMessage.removeListener(handler)
+				}
 			}
 		}
 	}, [])
