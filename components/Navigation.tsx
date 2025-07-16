@@ -101,7 +101,7 @@ export default function Navigation() {
 						{/* CTA Button & Mobile Menu */}
 						<div className="flex items-center space-x-4">
 							<Button
-								className="btn-secondary w-10 mt-4 h-auto"
+								className="btn-secondary w-10 mt-4 h-auto hidden lg:block"
 								onClick={() => (window.location.href = "/join-ltp")}
 							>
 								Join JTP
