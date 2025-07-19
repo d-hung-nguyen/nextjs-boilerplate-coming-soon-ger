@@ -23,75 +23,62 @@ export default function HeroImage({
 		<div
 			className={`relative w-full h-auto min-h-[calc(100vh*2/3)] py-8 overflow-hidden ${className}`}
 		>
-			<motion.div
-				initial={{ opacity: 0, y: 20 }}
-				animate={{ opacity: 1, y: 0 }}
-				transition={{ duration: 0.8 }}
-			>
-				{/* Background Image */}
-				<Image
-					src={backgroundImage}
-					alt={alt}
-					fill
-					className="object-cover"
-					priority
-					quality={100}
-				/>
+			{/* Background Image */}
+			<Image src={backgroundImage} alt={alt} fill className="object-cover" priority quality={100} />
 
-				{/* Overlay */}
-				<div className="absolute inset-0 gradient-navy" style={{ opacity: overlayOpacity }} />
+			{/* Overlay */}
+			<div className="absolute inset-0 gradient-navy" style={{ opacity: overlayOpacity }} />
 
-				{/* Content */}
-				<div className="relative z-10 flex h-full items-center justify-center mt-20">
-					<div className="container mx-auto px-4 text-center text-white">
-						{/* Main content */}
-						<div className="space-y-5 px-4">
-							<div className="my-8 ">
-								{logo1 && (
-									<div className=" flex justify-center">
-										<Image
-											src={logo1}
-											alt="Logo"
-											width={logoWidth}
-											height={logoHeight}
-											className={classNameLogo1}
-										/>
-									</div>
+			{/* Content */}
+			<div className="relative z-10 flex h-full items-center justify-center mt-20">
+				<div className="container mx-auto px-4 text-center text-white">
+					{/* Main content */}
+					<div className="space-y-5 px-4">
+						<div className="my-8 ">
+							{logo1 && (
+								<div className=" flex justify-center">
+									<Image
+										src={logo1}
+										alt="Logo"
+										width={logoWidth}
+										height={logoHeight}
+										className={classNameLogo1}
+									/>
+								</div>
+							)}
+							{logo2 && (
+								<div className="flex justify-center">
+									<Image
+										src={logo2}
+										alt="Logo"
+										width={logoWidth}
+										height={logoHeight}
+										className={classNameLogo2}
+									/>
+								</div>
+							)}
+						</div>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							animate={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8 }}
+						>
+							<div className="space-y-6 max-w-4xl mx-auto text-center">
+								{title && (
+									<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight font-alta">
+										{title}
+									</h1>
 								)}
-								{logo2 && (
-									<div className="flex justify-center">
-										<Image
-											src={logo2}
-											alt="Logo"
-											width={logoWidth}
-											height={logoHeight}
-											className={classNameLogo2}
-										/>
-									</div>
+								{subtitle && (
+									<p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-lagusans">
+										{subtitle}
+									</p>
 								)}
 							</div>
-							<motion.div
-								initial={{ opacity: 0, y: 20 }}
-								animate={{ opacity: 1, y: 0 }}
-								transition={{ duration: 0.8 }}
-							>
-								<div className="space-y-6 max-w-4xl mx-auto text-center">
-									{title && (
-										<h1 className="text-3xl md:text-4xl lg:text-5xl font-bold leading-tight font-alta">
-											{title}
-										</h1>
-									)}
-									{subtitle && (
-										<p className="text-base md:text-lg text-white/90 max-w-2xl mx-auto leading-relaxed font-lagusans">
-											{subtitle}
-										</p>
-									)}
-								</div>
-							</motion.div>
-						</div>
+						</motion.div>
 					</div>
 				</div>
-			</motion.div>
+			</div>
 
 			{/* Scroll Indicator */}
 			{showScrollIndicator && (

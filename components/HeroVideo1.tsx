@@ -25,11 +25,10 @@ export default function HeroVideo1() {
 				loop
 				muted
 				overlayOpacity={0.4}
-				className="fixed  -z-10"
+				className="  -z-10"
 			/>
 			{/* overlay for video */}
 			<motion.div
-				className="fixed w-full h-ful opacity-70"
 				initial={{ opacity: 0 }}
 				animate={{ opacity: 1 }}
 				transition={{ duration: 0.5 }}

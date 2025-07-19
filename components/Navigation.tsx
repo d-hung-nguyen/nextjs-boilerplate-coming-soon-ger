@@ -100,17 +100,15 @@ export default function Navigation() {
 
 						{/* CTA Button & Mobile Menu */}
 						<div className="flex items-center space-x-4">
-							<Button
-								className="btn-secondary w-10 mt-4 h-auto hidden lg:block"
-								onClick={() => (window.location.href = "/join-ltp")}
-							>
-								Join JTP
-							</Button>
-
+							<Link href="/join-ltp" className="hidden lg:inline-flex">
+								<Button variant="secondary" size="sm" className={cn("hidden lg:inline-flex")}>
+									Join JTP
+								</Button>
+							</Link>
 							{/* Mobile menu button */}
-							<Button
+							<span
 								className={cn(
-									"lg:hidden p-2 btn.primary rounded-none transition-all duration-300",
+									"lg:hidden p-2 rounded-none transition-all duration-300",
 									isScrolled ? "text-gray-700 hover:bg-gray-100" : "text-white hover:bg-white/20"
 								)}
 								onClick={e => {
@@ -123,7 +121,7 @@ export default function Navigation() {
 								) : (
 									<Menu className="w-6 h-6 rounded-none" />
 								)}
-							</Button>
+							</span>
 						</div>
 					</div>
 				</div>
@@ -161,7 +159,14 @@ export default function Navigation() {
 							</Link>
 						))}
 						<Link href="/join-ltp" className=" px-4 py-3 text-sm flex items-center justify-center ">
-							<Button className="btn-secondary">Join LTP</Button>
+							<Button
+								variant="secondary"
+								size="sm"
+								className=" text-center"
+								onClick={() => setIsMobileMenuOpen(false)}
+							>
+								Join LTP
+							</Button>
 						</Link>
 
 						{/* Mobile CTA */}

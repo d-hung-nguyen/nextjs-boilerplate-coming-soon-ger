@@ -23,6 +23,15 @@
 			}
 		]
 	},
-	"include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx", "types/**/*.d.ts", "src/app/layout.tsx", "src/app/ltp/page.tsx"],
+	"include": [
+		"next-env.d.ts",
+		".next/types/**/*.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"types/**/*.d.ts",
+		"src/app/layout.tsx",
+		"src/app/ltp/page.tsx",
+		"components/ComingSoon.jsx"
+	],
 	"exclude": ["node_modules"]
 }
