@@ -6,7 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Separator } from "@/components/ui/separator"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
 import { Badge } from "@/components/ui/badge"
-import { Download, Clock, ArrowUp, Coffee, Star, CreditCard } from "lucide-react"
+import { Download, Clock, ArrowUp, Coffee, Star, CreditCard, ArrowRight } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
@@ -54,27 +54,39 @@ function MembershipModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
 	const [error, setError] = useState("")
 	const router = useRouter()
 
-	// List of valid membership numbers
-	const validMembershipNumbers = ["MEMBER123", "MEMBER456", "MEMBER789"]
-
-	function handleSubmit(e: React.FormEvent) {
+	async function handleSubmit(e: React.FormEvent) {
 		e.preventDefault()
-		// Check if the entered membership number is in the valid list
-		if (validMembershipNumbers.includes(membershipNumber)) {
-			setError("")
-			onClose()
-			router.push("/downloads")
-		} else {
-			setError("Invalid membership number. Please try again.")
+		setError("")
+		
+		try {
+			// Validate membership number via API
+			const response = await fetch('/api/validate-membership', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+				},
+				body: JSON.stringify({ membershipNumber }),
+			})
+			
+			const data = await response.json()
+			
+			if (response.ok && data.valid) {
+				onClose()
+				router.push("/downloads")
+			} else {
+				setError(data.error || "Invalid membership number. Please try again.")
+			}
+		} catch (error) {
+			setError("An error occurred. Please try again.")
 		}
 	}
 
 	if (!isOpen) return null
 
 	return (
-		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+		<div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50" role="dialog" aria-modal="true" aria-labelledby="modal-title">
 			<div className="bg-background p-6 rounded shadow-lg w-80">
-				<h2 className="text-xl font-bold mb-4">Enter Membership Number</h2>
+				<h2 id="modal-title" className="text-xl font-bold mb-4">Enter Membership Number</h2>
 				<form onSubmit={handleSubmit}>
 					<input
 						type="text"
@@ -82,8 +94,11 @@ function MembershipModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => 
 						value={membershipNumber}
 						onChange={e => setMembershipNumber(e.target.value)}
 						className="w-full p-2 border border-gray-300 rounded mb-2"
+						aria-label="Enter your membership number"
+						aria-describedby="membership-error"
+						required
 					/>
-					{error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+					{error && <p id="membership-error" className="text-red-500 text-sm mb-2" role="alert">{error}</p>}
 					<div className="flex justify-end space-x-2">
 						<Button type="button" variant="outline" onClick={onClose}>
 							Cancel
@@ -123,21 +138,6 @@ export default function LTPPortal() {
 		<>
 			<div className="relative">
 				<HeroVideo />
-				{/* <section className=" absolute bottom-0 left-0 z30">
-					<Menubar className=" border-0 bg-none items-center flex-row justify-end gap-7">
-						<MenubarMenu>
-							<Link href="/join-ltp" className="menu-item">
-								Join Now
-							</Link>
-							<Link href="/admin/dashboard" className="menu-item">
-								Dashboard
-							</Link>
-							<Link href="/downloads" className="menu-item">
-								Downloads
-							</Link>
-						</MenubarMenu>
-					</Menubar>
-				</section> */}
 
 				<section className="absolute bottom-0 left-0 z-30 p-6">
 					<div className="flex items-center space-x-4">
@@ -155,157 +155,200 @@ export default function LTPPortal() {
 			</div>
 
 			{/* Hero Section */}
-			<section className="max-w-5xl mx-auto px-4 text-center  py-10">
-				<Card className="card">
-					<CardHeader className="text-center mb-6">
-						<CardTitle>
-							<h2 className="text-4xl font-bold">
-								Partner with us and be part of the selected few
-							</h2>
-						</CardTitle>
-					</CardHeader>
-
-					<CardContent className="space-y-8">
-						{/* Programme Overview */}
-						<div className="text-center space-y-4">
-							<p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-								Join our exclusive network of luxury travel partners and unlock extraordinary At
-								Address Hotels + Resorts, luxury is not just a promise—it is a lifestyle. Designed
-								exclusively for elite travel professionals and discerning globetrotters, our Luxury
-								Travel Partner (LTP) Program offers unparalleled access to curated experiences,
-								exclusive benefits, and personalised service across our award- winning destinations.
+			<section className="relative py-24 px-6 overflow-hidden">
+				{/* Background Elements */}
+				<div className="absolute inset-0 gradient-cream opacity-90" />
+				<div className="absolute inset-0 opacity-10">
+					<div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
+					<div className="absolute bottom-1/4 right-1/4 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
+				</div>
+				
+				<div className="relative z-10 max-w-6xl mx-auto text-center">
+					<motion.div
+						initial={{ opacity: 0, y: 30 }}
+						animate={{ opacity: 1, y: 0 }}
+						transition={{ duration: 1, ease: "easeOut" }}
+						className="space-y-8"
+					>
+						{/* Main Heading */}
+						<div className="space-y-8">
+							<h1 className="text-display-xl luxury-text--elegant">
+								<span className="block font-alta text-gray-900">Partner with</span>
+								<span className="block text-luxury-display mt-2">Excellence</span>
+							</h1>
+							
+							<div className="w-32 h-1 gradient-luxury mx-auto rounded-full" />
+							
+							<p className="text-body-xl text-readable max-w-4xl mx-auto">
+								Join our exclusive network of luxury travel partners and unlock extraordinary experiences.
+								<span className="block mt-6 text-luxury-caption">
+									Be part of the selected few who define luxury hospitality.
+								</span>
 							</p>
-							<Link href="/ltp/programme">
-								<Button size="lg" className="mt-4">
-									View Full Programme Details
-								</Button>
-							</Link>
 						</div>
 
-						{/* Features Grid
-						<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-							{features.map((feature, index) => (
-								<motion.div
-									key={`feature-${index}`}
-									className="relative overflow-hidden rounded-lg shadow-lg"
-									whileHover={{ scale: 1.05 }}
-									whileTap={{ scale: 0.95 }}
-								>
-									<div className="p-0">
-										<AspectRatio ratio={4 / 3}>
-											<Image src={feature.img} alt={feature.title} fill className="object-cover" />
-										</AspectRatio>
-										<div className="p-4 bg-background/80 backdrop-blur-sm">
-											<h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
-											{feature.desc && (
-												<p className="text-muted-foreground text-sm">{feature.desc}</p>
-											)}
-										</div>
-									</div>
-								</motion.div>
-							))}
+						{/* Enhanced CTA */}
+						<div className="space-y-6">
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.8, delay: 0.3 }}
+							>
+								<Link href="/ltp/programme">
+									<Button size="lg" className="card-luxury hover-lift group px-10 py-5 text-lg font-medium">
+										<span className="mr-3">Explore Full Programme</span>
+										<ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+									</Button>
+								</Link>
+							</motion.div>
+							
+							{/* Stats Row */}
+							<motion.div 
+								className="flex flex-col sm:flex-row justify-center items-center gap-8 pt-8"
+								initial={{ opacity: 0, y: 20 }}
+								animate={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.8, delay: 0.5 }}
+							>
+								<div className="text-center">
+									<div className="text-3xl font-bold text-gray-900">50+</div>
+									<div className="text-sm text-gray-600 uppercase tracking-wider">Properties</div>
+								</div>
+								<div className="hidden sm:block w-px h-12 bg-gray-300" />
+								<div className="text-center">
+									<div className="text-3xl font-bold text-gray-900">15+</div>
+									<div className="text-sm text-gray-600 uppercase tracking-wider">Countries</div>
+								</div>
+								<div className="hidden sm:block w-px h-12 bg-gray-300" />
+								<div className="text-center">
+									<div className="text-3xl font-bold text-gray-900">1000+</div>
+									<div className="text-sm text-gray-600 uppercase tracking-wider">Partners</div>
+								</div>
+							</motion.div>
 						</div>
-						*/}
-					</CardContent>
-				</Card>
+					</motion.div>
+				</div>
 			</section>
 
 			<Separator className="my-10" />
 
 			{/* Value Added Benefits Section */}
-			<section className="max-w-6xl mx-auto px-4 py-16">
-				<div className="text-center mb-12">
-					<h2 className="text-4xl font-bold mb-4">Our Value Added Benefits</h2>
-					<p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-						Enjoy exclusive privileges and enhanced experiences as a member of our luxury travel
-						programme
-					</p>
+			<section className="relative py-24 px-6 gradient-warm-gray text-white overflow-hidden">
+				{/* Decorative Elements */}
+				<div className="absolute inset-0 opacity-5">
+					<div className="absolute top-0 left-0 w-full h-full" style={{
+						backgroundImage: `radial-gradient(circle at 20% 20%, rgba(212, 175, 55, 0.3) 0%, transparent 40%),
+						                  radial-gradient(circle at 80% 80%, rgba(212, 175, 55, 0.2) 0%, transparent 40%)`
+					}} />
 				</div>
+				
+				<div className="relative z-10 max-w-7xl mx-auto">
+					<motion.div 
+						className="text-center mb-20"
+						initial={{ opacity: 0, y: 30 }}
+						whileInView={{ opacity: 1, y: 0 }}
+						transition={{ duration: 0.8 }}
+						viewport={{ once: true }}
+					>
+						<h2 className="text-display-lg luxury-text--elegant">
+							<span className="font-alta text-white">Exclusive</span>
+							<span className="block text-luxury-display mt-2">Benefits</span>
+						</h2>
+						<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full" />
+						<p className="text-body-lg text-readable-light max-w-3xl mx-auto">
+							Enjoy unparalleled privileges and enhanced experiences as a member of our luxury travel programme
+						</p>
+					</motion.div>
 
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+				<div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
 					{/* ROOMS Benefits */}
 					<motion.div
-						initial={{ opacity: 0, x: -20 }}
+						initial={{ opacity: 0, x: -30 }}
 						whileInView={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.6 }}
+						transition={{ duration: 0.8 }}
+						viewport={{ once: true }}
 					>
-						<Card className="h-full border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 overflow-hidden">
-							<CardHeader className="relative h-48 p-0 m-0">
+						<Card className="card-luxury hover-lift h-full overflow-hidden group">
+							<CardHeader className="relative h-56 p-0 m-0 overflow-hidden">
 								{/* Background Image */}
-								<div className="absolute inset-0">
+								<div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
 									<Image src="/images/a4.webp" alt="Rooms Benefits" fill className="object-cover" />
-									{/* Overlay for better text readability */}
-									<div className="absolute inset-0 bg-black/40" />
+									{/* Luxury Gradient Overlay */}
+									<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 								</div>
 
 								{/* Content on top of background */}
-								<div className="relative z-10 flex items-center justify-between h-full p-6">
-									<CardTitle className="text-2xl font-bold text-white">ROOMS</CardTitle>
-									<Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-										Premium
-									</Badge>
+								<div className="relative z-10 flex flex-col justify-end h-full p-8">
+									<div className="flex items-center justify-between mb-3">
+										<CardTitle className="text-3xl font-bold text-white font-alta tracking-wider">
+											ROOMS
+										</CardTitle>
+										<Badge className="gradient-luxury text-gray-900 border-0 px-3 py-1 font-medium">
+											Premium
+										</Badge>
+									</div>
+									<CardDescription className="text-white/90 text-base">
+										Enhanced benefits for regular room stays
+									</CardDescription>
 								</div>
-
-								<CardDescription className="relative z-10 text-white/80 px-6 pb-4">
-									Enhanced benefits for regular room stays
-								</CardDescription>
 							</CardHeader>
 
-							<CardContent className="space-y-4 p-6">
-								<div className="space-y-4">
+							<CardContent className="p-8 space-y-6">
+								<div className="space-y-6">
 									{/* F&B Credit */}
-									<div className="flex items-start space-x-3">
-										<CreditCard className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">US$100 F&B Credit</p>
-											<p className="text-sm text-muted-foreground">Per stay, per room</p>
-											<p className="text-xs text-amber-600 mt-1">
-												*Exceptions apply: US$50 at Address Istanbul/Address Jabal Omar Makkah
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<CreditCard className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">US$100 F&B Credit</p>
+											<p className="text-gray-600 mb-2">Per stay, per room</p>
+											<p className="text-xs text-amber-700 bg-amber-50 px-3 py-1 rounded-full inline-block">
+												*US$50 at Address Istanbul/Address Jabal Omar Makkah
 											</p>
 										</div>
 									</div>
 
 									{/* Check-in/out */}
-									<div className="flex items-start space-x-3">
-										<Clock className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Flexible Check-in/out</p>
-											<p className="text-sm text-muted-foreground">
-												Early check-in / Late check-out, subject to availability
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Clock className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Flexible Check-in/out</p>
+											<p className="text-gray-600">Early check-in / Late check-out, subject to availability</p>
 										</div>
 									</div>
 
 									{/* Room Upgrade */}
-									<div className="flex items-start space-x-3">
-										<ArrowUp className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Room Upgrade</p>
-											<p className="text-sm text-muted-foreground">
-												One category room upgrade, subject to availability at check-in
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<ArrowUp className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Room Upgrade</p>
+											<p className="text-gray-600">One category room upgrade, subject to availability at check-in</p>
 										</div>
 									</div>
 
 									{/* Breakfast */}
-									<div className="flex items-start space-x-3">
-										<Coffee className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Daily Breakfast</p>
-											<p className="text-sm text-muted-foreground">
-												Complimentary daily breakfast in The Restaurant
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Coffee className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Daily Breakfast</p>
+											<p className="text-gray-600">Complimentary daily breakfast in The Restaurant</p>
 										</div>
 									</div>
 
 									{/* VIP Recognition */}
-									<div className="flex items-start space-x-3">
-										<Star className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">VIP Recognition</p>
-											<p className="text-sm text-muted-foreground">
-												Special recognition by management and staff
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Star className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">VIP Recognition</p>
+											<p className="text-gray-600">Special recognition by management and staff</p>
 										</div>
 									</div>
 								</div>
@@ -315,92 +358,93 @@ export default function LTPPortal() {
 
 					{/* SUITES Benefits */}
 					<motion.div
-						initial={{ opacity: 0, x: 20 }}
+						initial={{ opacity: 0, x: 30 }}
 						whileInView={{ opacity: 1, x: 0 }}
-						transition={{ duration: 0.6, delay: 0.2 }}
+						transition={{ duration: 0.8, delay: 0.2 }}
+						viewport={{ once: true }}
 					>
-						<Card className="h-full border-2 border-accent/20 hover:border-accent/40 transition-all duration-300 overflow-hidden">
-							<CardHeader className="relative h-48 p-0 m-0">
+						<Card className="card-luxury hover-lift h-full overflow-hidden group">
+							<CardHeader className="relative h-56 p-0 m-0 overflow-hidden">
 								{/* Background Image */}
-								<div className="absolute inset-0">
-									<Image
-										src="/images/a5.webp"
-										alt="Suites Benefits"
-										fill
-										className="object-cover"
-									/>
-									{/* Overlay for better text readability */}
-									<div className="absolute inset-0 bg-black/40" />
+								<div className="absolute inset-0 transition-transform duration-700 group-hover:scale-110">
+									<Image src="/images/a5.webp" alt="Suites Benefits" fill className="object-cover" />
+									{/* Luxury Gradient Overlay */}
+									<div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
 								</div>
 
 								{/* Content on top of background */}
-								<div className="relative z-10 flex items-center justify-between h-full p-6">
-									<CardTitle className="text-2xl font-bold text-white">SUITES</CardTitle>
-									<Badge variant="secondary" className="bg-white/20 text-white border-white/30">
-										Luxury
-									</Badge>
+								<div className="relative z-10 flex flex-col justify-end h-full p-8">
+									<div className="flex items-center justify-between mb-3">
+										<CardTitle className="text-3xl font-bold text-white font-alta tracking-wider">
+											SUITES
+										</CardTitle>
+										<Badge className="gradient-luxury text-gray-900 border-0 px-3 py-1 font-medium">
+											Luxury
+										</Badge>
+									</div>
+									<CardDescription className="text-white/90 text-base">
+										Elevated benefits for suite accommodations
+									</CardDescription>
 								</div>
-
-								<CardDescription className="relative z-10 text-white/80 px-6 pb-4">
-									Elevated benefits for suite accommodations
-								</CardDescription>
 							</CardHeader>
 
-							<CardContent className="space-y-4 p-6">
-								<div className="space-y-4">
+							<CardContent className="p-8 space-y-6">
+								<div className="space-y-6">
 									{/* F&B Credit */}
-									<div className="flex items-start space-x-3">
-										<CreditCard className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">US$200 F&B Credit</p>
-											<p className="text-sm text-muted-foreground">Per stay, per room</p>
-											<p className="text-xs text-amber-600 mt-1">
-												*Exceptions apply: US$100 at Address Istanbul
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<CreditCard className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">US$200 F&B Credit</p>
+											<p className="text-gray-600 mb-2">Per stay, per room</p>
+											<p className="text-xs text-amber-700 bg-amber-50 px-3 py-1 rounded-full inline-block">
+												*US$100 at Address Istanbul
 											</p>
 										</div>
 									</div>
 
 									{/* Check-in/out */}
-									<div className="flex items-start space-x-3">
-										<Clock className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Flexible Check-in/out</p>
-											<p className="text-sm text-muted-foreground">
-												Early check-in / Late check-out, subject to availability
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Clock className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Flexible Check-in/out</p>
+											<p className="text-gray-600">Early check-in / Late check-out, subject to availability</p>
 										</div>
 									</div>
 
-									{/* Room Upgrade */}
-									<div className="flex items-start space-x-3">
-										<ArrowUp className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Suite Upgrade</p>
-											<p className="text-sm text-muted-foreground">
-												One category room upgrade, subject to availability at check-in
-											</p>
+									{/* Suite Upgrade */}
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<ArrowUp className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Suite Upgrade</p>
+											<p className="text-gray-600">One category suite upgrade, subject to availability at check-in</p>
 										</div>
 									</div>
 
 									{/* Breakfast */}
-									<div className="flex items-start space-x-3">
-										<Coffee className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">Daily Breakfast</p>
-											<p className="text-sm text-muted-foreground">
-												Complimentary daily breakfast in The Restaurant
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Coffee className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">Daily Breakfast</p>
+											<p className="text-gray-600">Complimentary daily breakfast in The Restaurant</p>
 										</div>
 									</div>
 
 									{/* VIP Recognition */}
-									<div className="flex items-start space-x-3">
-										<Star className="w-5 h-5 text-primary mt-1 flex-shrink-0" />
-										<div>
-											<p className="font-semibold">VIP Recognition</p>
-											<p className="text-sm text-muted-foreground">
-												Special recognition by management and staff
-											</p>
+									<div className="flex items-start space-x-4 group/item hover:bg-gray-50 p-4 rounded-xl transition-colors">
+										<div className="w-12 h-12 gradient-luxury rounded-full flex items-center justify-center flex-shrink-0">
+											<Star className="w-6 h-6 text-gray-900" />
+										</div>
+										<div className="flex-1">
+											<p className="font-bold text-lg text-gray-900">VIP Recognition</p>
+											<p className="text-gray-600">Special recognition by management and staff</p>
 										</div>
 									</div>
 								</div>
@@ -419,162 +463,181 @@ export default function LTPPortal() {
 						</p>
 					</span>
 				</div>
+				</div>
 			</section>
 
 			<Separator className="my-10" />
 
 			{/* LTP Partner Benefits Section */}
-			<section className="max-w-6xl mx-auto px-4 py-16">
-				<div className="text-center mb-12">
-					<h2 className="text-4xl font-bold mb-4">Our Benefits To You As LTP Partner!</h2>
-					<p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-						Unlock exclusive advantages and enhanced earning opportunities with our comprehensive
-						partner programme
-					</p>
+			<section className="relative py-24 px-6 gradient-navy text-white overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-5">
+					<div className="absolute inset-0" style={{
+						backgroundImage: `radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+						                  radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.2) 0%, transparent 50%)`
+					}} />
 				</div>
-
-				<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-					{/* Dedicated Web Access */}
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
+				
+				<div className="relative z-10 max-w-7xl mx-auto">
+					<motion.div 
+						className="text-center mb-20"
+						initial={{ opacity: 0, y: 30 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						transition={{ duration: 0.8 }}
+						viewport={{ once: true }}
 					>
-						<Card className="h-full border-2 border-primary/20 hover:border-primary/40 transition-all duration-300 group">
-							<CardHeader className="text-center">
-								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-									<svg
-										className="w-8 h-8 text-primary-foreground"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"
-										/>
-									</svg>
-								</div>
-								<CardTitle className="text-xl font-bold  tracking-wider">
-									DEDICATED
-									<br />
-									WEB
-									<br />
-									ACCESS
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="p-6 text-center">
-								<div className="space-y-4">
-									<div className="border-primary/20 border   p-4">
-										<p className="font-semibold ">Only bookable directly on Emaar Website</p>
-									</div>
-									<div>
-										<p className="text-sm text-muted-foreground">
-											Reservations through an individual agency web access code or via GDS
-										</p>
-									</div>
-								</div>
-							</CardContent>
-						</Card>
+						<h2 className="text-display-lg luxury-text--elegant">
+							<span className="font-alta text-white">Partner</span>
+							<span className="block text-luxury-display mt-2">Benefits</span>
+						</h2>
+						<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full" />
+						<p className="text-body-lg text-readable-light max-w-3xl mx-auto">
+							Unlock exclusive advantages and enhanced earning opportunities with our comprehensive partner programme
+						</p>
 					</motion.div>
 
-					{/* Rate Level */}
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.2 }}
-					>
-						<Card className="h-full border-2 border-accent/20 hover:border-accent/40 transition-all duration-300 group">
-							<CardHeader className=" text-center">
-								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-									<span className="text-2xl font-bold text-primary-foreground">5%</span>
-								</div>
-								<CardTitle className="text-xl font-bold tracking-wider">
-									RATE LESS LEVEL
-									<br />
-									<span className="text-3xl font-extrabold">5%</span>
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="p-6 text-center">
-								<div className="space-y-4">
-									<div className="border-primary/20 border   p-4">
-										<p className="font-semibold ">Rate level is "Best Available Rate" less 5%!</p>
+					<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+						{/* Dedicated Web Access */}
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.1 }}
+							viewport={{ once: true }}
+						>
+							<Card className="glass-dark hover-lift h-full group text-center">
+								<CardHeader className="p-8">
+									<div className="w-20 h-20 gradient-luxury rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+										<svg
+											className="w-10 h-10 text-gray-900"
+											fill="none"
+											stroke="currentColor"
+											viewBox="0 0 24 24"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9v-9m0-9v9"
+											/>
+										</svg>
 									</div>
-									<div className="flex items-center justify-center space-x-2">
-										<span className="text-sm text-muted-foreground line-through">Regular Rate</span>
-										<span className="text-lg font-bold ">-5% Partner Rate</span>
+									<CardTitle className="text-2xl font-bold text-white font-alta tracking-wider">
+										DEDICATED WEB ACCESS
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="p-8 pt-0">
+									<div className="space-y-6">
+										<div className="bg-white/10 border border-white/20 rounded-xl p-6">
+											<p className="font-semibold text-white">Only bookable directly on Emaar Website</p>
+										</div>
+										<div>
+											<p className="text-white/70 leading-relaxed">
+												Reservations through an individual agency web access code or via GDS
+											</p>
+										</div>
 									</div>
-								</div>
-							</CardContent>
-						</Card>
-					</motion.div>
+								</CardContent>
+							</Card>
+						</motion.div>
 
-					{/* Commission Level */}
-					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.4 }}
-					>
-						<Card className="h-full border-2 border-secondary/20 hover:border-secondary/40 transition-all duration-300 group">
-							<CardHeader className="bg-gradient-to-br from-secondary/10 to-secondary/5 text-center">
-								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary to-primary/80 rounded-full flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
-									<span className="text-xl font-bold text-secondary">10%</span>
-								</div>
-								<CardTitle className="text-xl font-bold text-foreground tracking-wider">
-									COMMISSION
-									<br />
-									LEVEL
-									<br />
-									<span className="text-3xl font-extrabold">10%</span>
-								</CardTitle>
-							</CardHeader>
-							<CardContent className="p-6 text-center">
-								<div className="space-y-4">
-									<div className="border-primary/20 border   p-4">
-										<p className="font-semibold text-foreground">
-											Automatic commission payment upon client departure
-										</p>
+						{/* Rate Level */}
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							viewport={{ once: true }}
+						>
+							<Card className="glass-dark hover-lift h-full group text-center">
+								<CardHeader className="p-8">
+									<div className="w-20 h-20 gradient-luxury rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+										<span className="text-3xl font-bold text-gray-900">5%</span>
 									</div>
-									<div>
-										<p className="text-sm text-muted-foreground">
-											IATA/TIDS number must be entered with every booking
-										</p>
+									<CardTitle className="text-2xl font-bold text-white font-alta tracking-wider">
+										RATE LESS LEVEL
+										<span className="block text-4xl font-extrabold luxury-text--gold mt-2">5%</span>
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="p-8 pt-0">
+									<div className="space-y-6">
+										<div className="bg-white/10 border border-white/20 rounded-xl p-6">
+											<p className="font-semibold text-white">Rate level is "Best Available Rate" less 5%!</p>
+										</div>
+										<div className="flex items-center justify-center space-x-3">
+											<span className="text-white/60 line-through">Regular Rate</span>
+											<span className="text-lg font-bold text-yellow-300">-5% Partner Rate</span>
+										</div>
 									</div>
-									<div className="flex items-center justify-center">
-										<Badge variant="outline" className="border-secondary/30 text-foreground">
-											Automatic Payment
-										</Badge>
+								</CardContent>
+							</Card>
+						</motion.div>
+
+						{/* Commission Level */}
+						<motion.div
+							initial={{ opacity: 0, y: 30 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.3 }}
+							viewport={{ once: true }}
+						>
+							<Card className="glass-dark hover-lift h-full group text-center">
+								<CardHeader className="p-8">
+									<div className="w-20 h-20 gradient-luxury rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-transform duration-300">
+										<span className="text-2xl font-bold text-gray-900">10%</span>
 									</div>
-								</div>
-							</CardContent>
-						</Card>
-					</motion.div>
+									<CardTitle className="text-2xl font-bold text-white font-alta tracking-wider">
+										COMMISSION LEVEL
+										<span className="block text-4xl font-extrabold luxury-text--gold mt-2">10%</span>
+									</CardTitle>
+								</CardHeader>
+								<CardContent className="p-8 pt-0">
+									<div className="space-y-6">
+										<div className="bg-white/10 border border-white/20 rounded-xl p-6">
+											<p className="font-semibold text-white">
+												Automatic commission payment upon client departure
+											</p>
+										</div>
+										<div className="space-y-3">
+											<p className="text-white/70">
+												IATA/TIDS number must be entered with every booking
+											</p>
+											<Badge className="bg-yellow-300/20 text-yellow-300 border-yellow-300/30">
+												Automatic Payment
+											</Badge>
+										</div>
+									</div>
+								</CardContent>
+							</Card>
+						</motion.div>
+					</div>
 				</div>
 
 				{/* Summary Card */}
-				<div className="mt-12">
-					<Card className="border-0">
-						<CardContent className="p-8 text-center">
-							<h3 className="text-2xl font-bold mb-4">Why Choose Our LTP Programme?</h3>
-							<div className="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
-								<div className="flex items-center justify-center space-x-2">
-									<div className="w-3 h-3 bg-primary rounded-full"></div>
-									<span>Exclusive direct booking access</span>
+				<motion.div 
+					className="mt-20"
+					initial={{ opacity: 0, y: 30 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8, delay: 0.4 }}
+					viewport={{ once: true }}
+				>
+					<Card className="glass-dark border-0">
+						<CardContent className="p-10 text-center">
+							<h3 className="text-3xl font-bold mb-8 text-white font-alta">Why Choose Our LTP Programme?</h3>
+							<div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+								<div className="flex flex-col items-center space-y-3">
+									<div className="w-4 h-4 gradient-luxury rounded-full"></div>
+									<span className="text-white/90 leading-relaxed">Exclusive direct booking access</span>
 								</div>
-								<div className="flex items-center justify-center space-x-2">
-									<div className="w-3 h-3 bg-accent rounded-full"></div>
-									<span>Guaranteed best rates with 5% discount</span>
+								<div className="flex flex-col items-center space-y-3">
+									<div className="w-4 h-4 gradient-luxury rounded-full"></div>
+									<span className="text-white/90 leading-relaxed">Guaranteed best rates with 5% discount</span>
 								</div>
-								<div className="flex items-center justify-center space-x-2">
-									<div className="w-3 h-3 bg-primary rounded-full"></div>
-									<span>Automatic 10% commission payment</span>
+								<div className="flex flex-col items-center space-y-3">
+									<div className="w-4 h-4 gradient-luxury rounded-full"></div>
+									<span className="text-white/90 leading-relaxed">Automatic 10% commission payment</span>
 								</div>
 							</div>
 						</CardContent>
 					</Card>
-				</div>
+				</motion.div>
 			</section>
 
 			<Separator className="my-10" />

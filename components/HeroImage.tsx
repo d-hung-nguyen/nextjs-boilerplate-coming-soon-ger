@@ -39,7 +39,7 @@ export default function HeroImage({
 				/>
 
 				{/* Overlay */}
-				<div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
+				<div className="absolute inset-0 gradient-navy" style={{ opacity: overlayOpacity }} />
 
 				{/* Content */}
 				<div className="relative z-10 flex h-full items-center justify-center mt-20">

@@ -86,8 +86,9 @@ export default function Form() {
 			{/* Hero Section */}
 
 			{/* Sign-Up Form */}
-			<section className="bg-white shadow-xl p-8 rounded-2xl">
-				<h2 className="text-2xl font-semibold mb-6">Application Form</h2>
+			<section className="card-luxury shadow-xl p-8 rounded-2xl">
+				<h2 className="text-2xl font-semibold mb-6 text-gray-900">Application Form</h2>
+				<div className="w-24 h-1 gradient-luxury rounded-full mb-6" />
 
 				{submitStatus === "success" && (
 					<div className="mb-6 p-4 bg-green-100 text-green-800 rounded-md">
@@ -209,7 +210,7 @@ export default function Form() {
 						/>
 					</div>
 					<div className="md:col-span-2">
-						<Button type="submit" disabled={isSubmitting} className="w-full">
+						<Button type="submit" disabled={isSubmitting} className="w-full card-luxury hover-lift shimmer">
 							{isSubmitting ? "Submitting Application..." : "Submit Application"}
 						</Button>
 					</div>

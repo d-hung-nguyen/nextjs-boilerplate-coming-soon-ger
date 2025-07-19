@@ -1,61 +1,152 @@
 // app/layout.tsx
 
-import type { Metadata } from "next"
+import type { Metadata, Viewport } from "next"
 import localFont from "next/font/local"
 import "@/src/styles/globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import ConditionalLayout from "@/components/ConditionalLayout"
 import ChromeRuntimeListener from "@/components/ChromeRuntimeListener"
+import ErrorBoundary from "@/components/ErrorBoundary"
 import Script from "next/script"
 
+// Font definitions with better optimization
 const lagusans = localFont({
-	src: "./fonts/lagusans-light.otf",
-	weight: "400",
-	style: "normal",
-	fallback: ["sans-serif"],
+	src: [
+		{
+			path: "./fonts/lagusans-regular.otf",
+			weight: "400",
+			style: "normal",
+		},
+	],
+	fallback: ["system-ui", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "sans-serif"],
 	variable: "--font-lagusans",
 	display: "swap",
+	preload: true,
 })
 
 const alta = localFont({
 	src: "./fonts/Alta.otf",
 	weight: "400",
 	style: "normal",
-	fallback: ["sans-serif"],
+	fallback: ["Georgia", "Times New Roman", "serif"],
 	variable: "--font-alta",
 	display: "swap",
+	preload: true,
 })
 
+// Viewport configuration
+export const viewport: Viewport = {
+	width: "device-width",
+	initialScale: 1,
+	maximumScale: 5,
+	userScalable: true,
+	themeColor: [
+		{ media: "(prefers-color-scheme: light)", color: "#ffffff" },
+		{ media: "(prefers-color-scheme: dark)", color: "#111827" },
+	],
+}
+
+// Enhanced metadata
 export const metadata: Metadata = {
 	metadataBase: new URL("https://globaleliteassociates.com"),
-	title: "Global Elite & Associates",
-	description: "Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
+	title: {
+		default: "Global Elite & Associates",
+		template: "%s | Global Elite & Associates",
+	},
+	description:
+		"Global Elite is a luxury travel partner programme by Address Hotels + Resorts. Bespoke luxury hospitality sales in DACH, Nordics, CEE and UK.",
+	keywords: [
+		"luxury travel",
+		"hospitality",
+		"Address Hotels",
+		"premium service",
+		"DACH",
+		"Nordics",
+		"CEE",
+		"UK",
+	],
+	authors: [{ name: "Hung Nguyen", url: "https://globaleliteassociates.com" }],
+	creator: "Hung Nguyen - Web Developer",
+	publisher: "Global Elite & Associates",
+	formatDetection: {
+		email: false,
+		address: false,
+		telephone: false,
+	},
 	openGraph: {
-		title: "Global Elite & Associates",
-		description: "Bespoke luxury hospitality sales in DACH, Nordics, CEE and UK.",
+		type: "website",
+		locale: "en_US",
 		url: "https://globaleliteassociates.com",
 		siteName: "Global Elite & Associates",
-		type: "website",
+		title: "Global Elite & Associates",
+		description: "Bespoke luxury hospitality sales in DACH, Nordics, CEE and UK.",
 		images: [
 			{
-				url: "/images/ge-mono.png",
+				url: "/images/og-image.jpg",
 				width: 1200,
 				height: 630,
-				alt: "Global Elite Logo",
+				alt: "Global Elite & Associates - Luxury Travel Partners",
+				type: "image/jpeg",
+			},
+			{
+				url: "/images/og-image-square.jpg",
+				width: 1200,
+				height: 1200,
+				alt: "Global Elite & Associates Logo",
+				type: "image/jpeg",
 			},
 		],
 	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Global Elite & Associates",
+		description: "Bespoke luxury hospitality sales in DACH, Nordics, CEE and UK.",
+		images: ["/images/twitter-image.jpg"],
+		creator: "@globaleliteassoc",
+	},
+	robots: {
+		index: true,
+		follow: true,
+		googleBot: {
+			index: true,
+			follow: true,
+			"max-video-preview": -1,
+			"max-image-preview": "large",
+			"max-snippet": -1,
+		},
+	},
+	verification: {
+		google: "your-google-site-verification-code",
+		// yandex: "your-yandex-verification-code",
+		// yahoo: "your-yahoo-verification-code",
+	},
 }
+
+// TypeScript declarations for global objects - moved to CookieConsent component
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en">
+		<html lang="en" suppressHydrationWarning>
 			<head>
-				<meta charSet="utf-8" />
-				<meta name="viewport" content="width=device-width, initial-scale=1" />
-				<meta name="developer" content="Hung Nguyen - Web Developer" />
-				<meta name="author" content="Hung Nguyen" />
+				{/* Security Headers - X-Frame-Options moved to next.config.ts */}
+				<meta httpEquiv="X-Content-Type-Options" content="nosniff" />
+				<meta httpEquiv="X-XSS-Protection" content="1; mode=block" />
+				<meta httpEquiv="Referrer-Policy" content="strict-origin-when-cross-origin" />
 
+				{/* Preconnect to external domains for performance */}
+
+				<link rel="preconnect" href="https://vitals.vercel-analytics.com" />
+
+				{/* DNS prefetch for better performance */}
+				<link rel="dns-prefetch" href="//consent.cookiebot.com" />
+
+				{/* Favicon and app icons */}
+				<link rel="icon" href="/favicon.ico" sizes="any" />
+				<link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+				<link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+				<link rel="manifest" href="/manifest.json" />
+
+				{/* Font preloading with proper MIME types */}
 				<link
 					rel="preload"
 					href="/fonts/lagusans-light.otf"
@@ -70,219 +161,91 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					type="font/otf"
 					crossOrigin="anonymous"
 				/>
-
-				{/* Simplified Cookiebot Styles - Black/White/Gray Theme */}
-				<style>{`
-                    /* Main dialog container - FIXED */
-                    #CybotCookiebotDialog {
-                        max-width: 420px !important;
-                        width: 90% !important;
-                        padding: 24px !important;
-                        border-radius: 8px !important;
-                        background: white !important;
-                        border: 1px solid #e5e7eb !important;
-                        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1) !important;
-                        font-family: var(--font-lagusans), -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif !important;
-                    }
-
-                    /* Remove all icons and branding */
-                    #CybotCookiebotDialogBodyLogo,
-                    #CybotCookiebotDialogPoweredbyText,
-                    #CybotCookiebotDialogBodyContentLogoWrapper,
-                    .CybotCookiebotDialogBodyLevelButtonIcon,
-                    #CybotCookiebotDialogBodyContentIcon {
-                        display: none !important;
-                    }
-
-                    /* Content area */
-                    #CybotCookiebotDialogBodyContent {
-                        padding: 0 !important;
-                        margin: 0 !important;
-                    }
-
-                    /* Title styling - FIXED */
-                    #CybotCookiebotDialogBodyContentTitle {
-                        font-size: 20px !important;
-                        font-weight: 600 !important;
-                        color: #111827 !important;
-                        margin-bottom: 12px !important;
-                        font-family: var(--font-alta), sans-serif !important;
-                        line-height: 1.2 !important;
-                    }
-
-                    /* Description text - FIXED */
-                    #CybotCookiebotDialogBodyContentText {
-                        font-size: 14px !important;
-                        line-height: 1.5 !important;
-                        color: #6b7280 !important;
-                        margin-bottom: 20px !important;
-                        font-family: var(--font-lagusans), sans-serif !important;
-                    }
-
-                    /* Button container */
-                    #CybotCookiebotDialogBodyButtons {
-                        display: flex !important;
-                        gap: 12px !important;
-                        flex-wrap: wrap !important;
-                        justify-content: flex-end !important;
-                        margin-top: 20px !important;
-                    }
-
-                    /* Base button styles - FIXED */
-                    #CybotCookiebotDialogBodyButtonAccept,
-                    #CybotCookiebotDialogBodyButtonDecline,
-                    #CybotCookiebotDialogBodyButtonSettings {
-                        padding: 10px 20px !important;
-                        font-size: 14px !important;
-                        font-weight: 500 !important;
-                        border-radius: 6px !important;
-                        border: none !important;
-                        cursor: pointer !important;
-                        transition: all 0.2s ease !important;
-                        font-family: var(--font-lagusans), sans-serif !important;
-                        text-decoration: none !important;
-                    }
-
-                    /* Accept button - FIXED */
-                    #CybotCookiebotDialogBodyButtonAccept {
-                        background-color: #111827 !important;
-                        color: white !important;
-                        border: 1px solid #111827 !important;
-                    }
-
-                    #CybotCookiebotDialogBodyButtonAccept:hover {
-                        background-color: #374151 !important;
-                        border-color: #374151 !important;
-                        color: white !important;
-                    }
-
-                    /* Decline button - FIXED */
-                    #CybotCookiebotDialogBodyButtonDecline {
-                        background-color: white !important;
-                        color: #6b7280 !important;
-                        border: 1px solid #d1d5db !important;
-                    }
-
-                    #CybotCookiebotDialogBodyButtonDecline:hover {
-                        background-color: #f9fafb !important;
-                        color: #374151 !important;
-                        border-color: #9ca3af !important;
-                    }
-
-                    /* Settings button */
-                    #CybotCookiebotDialogBodyButtonSettings {
-                        background-color: transparent !important;
-                        color: #9ca3af !important;
-                        border: none !important;
-                        text-decoration: underline !important;
-                        padding: 8px 12px !important;
-                        font-size: 13px !important;
-                    }
-
-                    #CybotCookiebotDialogBodyButtonSettings:hover {
-                        color: #6b7280 !important;
-                    }
-
-                    /* Hide cookie level buttons icons */
-                    .CybotCookiebotDialogBodyLevelButton::before,
-                    .CybotCookiebotDialogBodyLevelButton::after {
-                        display: none !important;
-                    }
-
-                    /* Settings dialog styling - FIXED */
-                    #CybotCookiebotDialogDetailBody {
-                        font-family: var(--font-lagusans), sans-serif !important;
-                        background: white !important;
-                        color: #374151 !important;
-                    }
-
-                    #CybotCookiebotDialogDetailBodyContent {
-                        font-family: var(--font-lagusans), sans-serif !important;
-                    }
-
-                    /* Tab styling - FIXED */
-                    .CybotCookiebotDialogDetailBodyContentTab {
-                        background-color: #f9fafb !important;
-                        color: #374151 !important;
-                        border: 1px solid #e5e7eb !important;
-                        font-family: var(--font-lagusans), sans-serif !important;
-                    }
-
-                    .CybotCookiebotDialogDetailBodyContentTab.CybotCookiebotDialogDetailBodyContentTabActive {
-                        background-color: #111827 !important;
-                        color: white !important;
-                        border-color: #111827 !important;
-                    }
-
-                    /* Mobile responsiveness */
-                    @media (max-width: 768px) {
-                        #CybotCookiebotDialog {
-                            max-width: 340px !important;
-                            padding: 20px !important;
-                            margin: 0 16px !important;
-                        }
-
-                        #CybotCookiebotDialogBodyContentTitle {
-                            font-size: 18px !important;
-                        }
-
-                        #CybotCookiebotDialogBodyContentText {
-                            font-size: 13px !important;
-                        }
-
-                        #CybotCookiebotDialogBodyButtons {
-                            flex-direction: column !important;
-                            gap: 8px !important;
-                        }
-
-                        #CybotCookiebotDialogBodyButtonAccept,
-                        #CybotCookiebotDialogBodyButtonDecline {
-                            width: 100% !important;
-                            text-align: center !important;
-                        }
-                    }
-
-                    /* Position adjustments */
-                    #CybotCookiebotDialog.bottom-right {
-                        bottom: 20px !important;
-                        right: 20px !important;
-                    }
-
-                    #CybotCookiebotDialog.bottom-left {
-                        bottom: 20px !important;
-                        left: 20px !important;
-                    }
-                `}</style>
 			</head>
 			<body
-				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground`}
+				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground antialiased`}
+				suppressHydrationWarning
 			>
-				<ChromeRuntimeListener />
-				<ConditionalLayout>
-					{children}
-					<Analytics />
-				</ConditionalLayout>
+				{/* Skip to main content for accessibility */}
+				<a
+					href="#main-content"
+					className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-50 focus:px-4 focus:py-2 focus:bg-black focus:text-white focus:rounded-md"
+				>
+					Skip to main content
+				</a>
 
-				{/* Simplified Cookiebot Script */}
+				{/* Chrome extension listener */}
+				<ChromeRuntimeListener />
+
+				{/* Main application wrapper */}
+				<ErrorBoundary>
+					<ConditionalLayout>
+						<main id="main-content" role="main">
+							{children}
+						</main>
+
+						{/* Analytics */}
+						<Analytics />
+					</ConditionalLayout>
+				</ErrorBoundary>
+
+				{/* Structured Data for Organization */}
 				<Script
-					id="CookieDeclaration"
-					src="https://consent.cookiebot.com/0eff1881-d3a9-49af-b46c-7db22a44adaf/cd.js"
-					type="text/javascript"
-					async
+					id="structured-data"
+					type="application/ld+json"
+					dangerouslySetInnerHTML={{
+						__html: JSON.stringify({
+							"@context": "https://schema.org",
+							"@type": "Organization",
+							name: "Global Elite & Associates",
+							url: "https://globaleliteassociates.com",
+							logo: "https://globaleliteassociates.com/images/logo.png",
+							description:
+								"Global Elite is a luxury travel partner programme by Address Hotels + Resorts.",
+							contactPoint: {
+								"@type": "ContactPoint",
+								contactType: "customer service",
+								areaServed: ["DE", "AT", "CH", "DK", "NO", "SE", "FI", "CZ", "PL", "HU", "GB"],
+							},
+							sameAs: [
+								"https://linkedin.com/company/global-elite-associates",
+								// Add other social media URLs
+							],
+						}),
+					}}
 				/>
 
-				{/* Cookiebot Configuration for Simple Website */}
-				<Script id="cookiebot-config" strategy="afterInteractive">
-					{`
-                        window.addEventListener('CookiebotOnLoad', function () {
-                            // Override default texts for simple company website
-                            if (window.Cookiebot) {
-                                // Customize the dialog text if needed
-                                console.log('Simple company website cookie consent loaded');
-                            }
-                        });
-                    `}
-				</Script>
+				{/* Performance and error monitoring */}
+				{process.env.NODE_ENV === "production" && (
+					<>
+						{/* Web Vitals reporting */}
+						<Script
+							id="web-vitals"
+							strategy="afterInteractive"
+							dangerouslySetInnerHTML={{
+								__html: `
+									import('web-vitals').then(({ getCLS, getFID, getFCP, getLCP, getTTFB }) => {
+										function sendToAnalytics(metric) {
+											if (window.gtag) {
+												window.gtag('event', metric.name, {
+													event_category: 'Web Vitals',
+													event_label: metric.id,
+													value: Math.round(metric.name === 'CLS' ? metric.value * 1000 : metric.value),
+													non_interaction: true,
+												});
+											}
+										}
+										getCLS(sendToAnalytics);
+										getFID(sendToAnalytics);
+										getFCP(sendToAnalytics);
+										getLCP(sendToAnalytics);
+										getTTFB(sendToAnalytics);
+									});
+								`,
+							}}
+						/>
+					</>
+				)}
 			</body>
 		</html>
 	)

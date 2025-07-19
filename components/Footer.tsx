@@ -1,15 +1,11 @@
 import { Separator } from "@/components/ui/separator"
 import Image from "next/image"
 import Link from "next/link"
-import { Mail, Phone, MapPin, ExternalLink, Linkedin, Globe } from "lucide-react"
+import { motion } from "framer-motion"
+import { Mail, Phone, MapPin, ExternalLink, Linkedin, Globe, ArrowRight } from "lucide-react"
+import { luxuryFadeIn, staggerContainer, magneticHover } from "@/src/lib/animations"
 
-declare global {
-	interface Window {
-		Cookiebot?: {
-			show: () => void
-		}
-	}
-}
+// Global types are now defined in types/global.d.ts
 
 export default function Footer() {
 	const currentYear = new Date().getFullYear()
@@ -62,137 +58,248 @@ export default function Footer() {
 	]
 
 	return (
-		<footer className="relative overflow-hidden bg-black text-white ">
-			<div className="container mx-auto px-4 py-16 border-t border-border/50 items-center">
+		<footer className="relative overflow-hidden gradient-navy text-white">
+			{/* Background Pattern */}
+			<div className="absolute inset-0 opacity-5">
+				<div
+					className="absolute inset-0"
+					style={{
+						backgroundImage: `radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+					                  radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.2) 0%, transparent 50%)`,
+					}}
+				/>
+			</div>
+
+			<div className="relative z-10 max-w-7xl mx-auto px-6 py-24">
 				{/* Main Footer Content */}
-				<div className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-12">
+				<motion.div
+					className="grid grid-cols-1 lg:grid-cols-4 gap-12 mb-16"
+					variants={staggerContainer}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+				>
 					{/* Company Info */}
-					<div className="lg:col-span-2 space-y-6">
-						<div>
-							<Image
-								src="/images/ge2.png"
-								alt="Global Elite & Associates"
-								width={240}
-								height={60}
-								className="h-8 w-auto object-contain mb-4"
-								priority
-							/>
-							<p className="text-muted-foreground leading-relaxed max-w-md">
-								Bridging luxury brands with Europe's leading travel brands.
+					<motion.div className="lg:col-span-2 space-y-8" variants={luxuryFadeIn}>
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.1 }}
+							viewport={{ once: true }}
+						>
+							<div className="mb-6">
+								<Image
+									src="/images/ge2.png"
+									alt="Global Elite & Associates"
+									width={240}
+									height={60}
+									className="h-10 w-auto object-contain mb-6 brightness-0 invert"
+									priority
+								/>
+							</div>
+							<p className="text-body-lg text-white/80 leading-relaxed max-w-md">
+								Bridging luxury brands with Europe's leading travel brands through exceptional
+								hospitality partnerships.
 							</p>
-						</div>
+						</motion.div>
 
 						{/* Contact Information */}
-						<div className="space-y-3">
+						<motion.div
+							className="space-y-6"
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							viewport={{ once: true }}
+						>
 							{contactInfo.map((item, index) => (
-								<div key={index} className="flex items-start space-x-3">
-									<div className="text-primary mt-0.5">{item.icon}</div>
-									<div className="flex-1 min-w-0">
-										<p className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-											{item.label}
-										</p>
+								<motion.div
+									key={index}
+									className="flex items-start space-x-4 group"
+									whileHover={{ x: 4 }}
+									transition={{ duration: 0.2 }}
+								>
+									<div className="w-10 h-10   flex items-center justify-center flex-shrink-0">
+										{item.icon}
+									</div>
+									<div className="flex-1">
+										<p className="text-luxury-caption text-yellow-300 mb-1">{item.label}</p>
 										{item.href ? (
 											<Link
 												href={item.href}
-												className="text-sm text-foreground hover:text-primary transition-colors duration-200"
+												className="text-body-md text-white hover:text-yellow-300 transition-colors duration-300 group-hover:underline"
 											>
 												{item.value}
 											</Link>
 										) : (
-											<p className="text-sm text-foreground">{item.value}</p>
+											<p className="text-body-md text-white">{item.value}</p>
 										)}
 									</div>
-								</div>
+								</motion.div>
 							))}
-						</div>
+						</motion.div>
 
 						{/* Social Links */}
-						<div className="flex items-center space-x-4">
-							<span className="text-sm font-medium text-muted-foreground">Follow us:</span>
-							<div className="flex space-x-3">
+						<motion.div
+							className="flex items-center space-x-6"
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.3 }}
+							viewport={{ once: true }}
+						>
+							<span className="text-luxury-caption text-yellow-300">Follow us:</span>
+							<div className="flex space-x-4">
 								{socialLinks.map((social, index) => (
-									<Link
+									<motion.div
 										key={index}
-										href={social.href}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="p-2 rounded-full bg-primary/10 text-primary hover:bg-primary hover:text-white transition-all duration-300 transform hover:scale-110"
-										aria-label={social.label}
+										variants={magneticHover}
+										whileHover="hover"
+										whileTap="tap"
 									>
-										{social.icon}
-									</Link>
+										<Link
+											href={social.href}
+											target="_blank"
+											rel="noopener noreferrer"
+											className="w-12 h-12 glass-dark rounded-full flex items-center justify-center text-yellow-300 hover:text-gray-900 hover:bg-yellow-300 transition-all duration-300"
+											aria-label={social.label}
+										>
+											{social.icon}
+										</Link>
+									</motion.div>
 								))}
 							</div>
-						</div>
-					</div>
+						</motion.div>
+					</motion.div>
 
-					{/* Navigation Links */}
-					<div className="space-y-6">
-						<h3 className="text-lg font-semibold text-foreground">Navigation</h3>
-						<nav className="space-y-3">
-							{navigationLinks.map(link => (
-								<Link
+					{/* Navigation Links - FIXED */}
+					<motion.div className="space-y-8" variants={luxuryFadeIn}>
+						<h3 className="text-luxury-caption">Navigation</h3>
+						<nav className="space-y-4">
+							{navigationLinks.map((link, index) => (
+								<motion.div
 									key={link.href}
-									href={link.href}
-									className="block text-sm text-muted-foreground hover:text-primary transition-colors duration-200 hover:translate-x-1 transform"
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									transition={{ duration: 0.5, delay: index * 0.1 }}
+									viewport={{ once: true }}
 								>
-									{link.label}
-								</Link>
+									<Link
+										href={link.href}
+										className="group flex items-center space-x-2 text-body-md text-white/80 hover:text-yellow-300 transition-all duration-300"
+									>
+										<ArrowRight
+											className="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={1.5}
+										/>
+										<span className="group-hover:translate-x-1 transition-transform duration-300">
+											{link.label}
+										</span>
+									</Link>
+								</motion.div>
 							))}
 						</nav>
-					</div>
+					</motion.div>
 
-					{/* Legal & Resources */}
-					<div className="space-y-16 ">
-						<h3 className="text-lg font-semibold text-foreground"> Company</h3>
-						<nav className="space-y-3">
-							{legalLinks.map(link => (
-								<Link
+					{/* Legal & Resources - FIXED */}
+					<motion.div className="space-y-8" variants={luxuryFadeIn}>
+						<h3 className="text-luxury-caption">Company</h3>
+						<nav className="space-y-4">
+							{legalLinks.map((link, index) => (
+								<motion.div
 									key={link.href}
-									href={link.href}
-									className="block text-sm text-muted-foreground hover:text-primary transition-colors duration-200 hover:translate-x-1 transform"
+									initial={{ opacity: 0, x: -20 }}
+									whileInView={{ opacity: 1, x: 0 }}
+									transition={{ duration: 0.5, delay: index * 0.1 }}
+									viewport={{ once: true }}
 								>
-									{link.label}
-								</Link>
+									<Link
+										href={link.href}
+										className="group flex items-center space-x-2 text-body-md text-white/80 hover:text-yellow-300 transition-all duration-300"
+									>
+										<ArrowRight
+											className="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+											fill="none"
+											stroke="currentColor"
+											strokeWidth={1.5}
+										/>
+										<span className="group-hover:translate-x-1 transition-transform duration-300">
+											{link.label}
+										</span>
+									</Link>
+								</motion.div>
 							))}
-							<button
-								className="btn-secondary text-left text-sm text-muted-foreground hover:text-primary transition-colors duration-200 hover:translate-x-1 transform block"
-								onClick={() => window.Cookiebot && window.Cookiebot.show()}
+							<motion.div
+								initial={{ opacity: 0, x: -20 }}
+								whileInView={{ opacity: 1, x: 0 }}
+								transition={{ duration: 0.5, delay: legalLinks.length * 0.1 }}
+								viewport={{ once: true }}
 							>
-								Cookie Settings
-							</button>
+								<button
+									className="group flex items-center space-x-2 text-body-md text-white/80 hover:text-yellow-300 transition-all duration-300 text-left"
+									onClick={() => {
+										if (window.Cookiebot && typeof window.Cookiebot.show === "function") {
+											window.Cookiebot.show()
+										}
+									}}
+								>
+									<ArrowRight
+										className="w-4 h-4 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all duration-300"
+										fill="none"
+										stroke="currentColor"
+										strokeWidth={1.5}
+									/>
+									<span className="group-hover:translate-x-1 transition-transform duration-300">
+										Cookie Settings
+									</span>
+								</button>
+							</motion.div>
 						</nav>
+					</motion.div>
+				</motion.div>
 
-						{/* Website Link */}
-						<div className="pt-4">
-							<Link
-								href="https://www.globaleliteassociates.com"
-								target="_blank"
-								rel="noopener noreferrer"
-								className="inline-flex items-center space-x-2 text-sm text-primary hover:text-primary/80 transition-colors duration-200"
-							></Link>
-						</div>
-					</div>
-				</div>
-
-				<Separator className="my-16" />
+				{/* Separator */}
+				<motion.div
+					initial={{ opacity: 0, scaleX: 0 }}
+					whileInView={{ opacity: 1, scaleX: 1 }}
+					transition={{ duration: 1, delay: 0.2 }}
+					viewport={{ once: true }}
+				>
+					<div className="w-full h-px bg-gradient-to-r from-transparent via-yellow-300/50 to-transparent my-16" />
+				</motion.div>
 
 				{/* Bottom Footer */}
-				<div className="flex flex-col items-center border-t border-border/50 pt-8">
-					<div className="flex flex-col items-center space-y-2 md:space-y-0 md:space- text-sm text-muted-foreground">
-						<p>globaleliteassociates.com</p>
-
-						<p>© {currentYear} Global Elite & Associates. All rights reserved.</p>
+				<motion.div
+					className="text-center space-y-6"
+					initial={{ opacity: 0, y: 20 }}
+					whileInView={{ opacity: 1, y: 0 }}
+					transition={{ duration: 0.8, delay: 0.3 }}
+					viewport={{ once: true }}
+				>
+					<div className="space-y-3">
+						<motion.p
+							className="text-body-lg text-yellow-300 font-medium"
+							whileHover={{ scale: 1.05 }}
+							transition={{ duration: 0.2 }}
+						>
+							globaleliteassociates.com
+						</motion.p>
+						<p className="text-body-md text-white/80">
+							© {currentYear} Global Elite & Associates. All rights reserved.
+						</p>
 					</div>
-					<div className="text-xs text-muted text-white/45">
-						Designed & developed by Hung Nguyen
-					</div>
-				</div>
-			</div>
 
-			{/* Background Pattern */}
-			<div className="absolute inset-0 opacity-5 pointer-events-none">
-				<div className="absolute bottom-0 left-0 w-full h-32 bg-gradient-to-t from-primary/20 to-transparent"></div>
+					<div className="flex items-center justify-center space-x-2 text-white/60">
+						<span className="text-sm">Designed & developed by</span>
+						<motion.span
+							className="text-sm font-medium text-yellow-300"
+							whileHover={{ scale: 1.05 }}
+							transition={{ duration: 0.2 }}
+						>
+							Hung Nguyen
+						</motion.span>
+					</div>
+				</motion.div>
 			</div>
 		</footer>
 	)

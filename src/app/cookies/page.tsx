@@ -5,7 +5,7 @@ export default function CookiePolicy() {
 	return (
 		<>
 			<div className="relative ">
-				<div className="bg-black">
+				<div className="gradient-navy">
 					<HeroColor
 						className="min-h-[calc(100vh*2/3)]"
 						title="Cookie Policy"

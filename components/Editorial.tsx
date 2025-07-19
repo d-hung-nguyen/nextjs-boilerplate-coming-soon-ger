@@ -11,8 +11,8 @@ export function EditorialBlock({ title, text, imageSrc, reversed = false }) {
 				<Image src={imageSrc} alt={title} fill className="object-cover " />
 			</div>
 			<div className="md:w-1/2 p-6">
-				<h2 className="text-3xl font-serif mb-4">{title}</h2>
-				<p className="text-muted-foreground">{text}</p>
+				<h2 className="text-3xl font-alta mb-4 text-gray-900">{title}</h2>
+				<p className="text-readable leading-relaxed">{text}</p>
 			</div>
 		</div>
 	)

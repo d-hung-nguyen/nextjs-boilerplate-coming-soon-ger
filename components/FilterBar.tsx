@@ -34,7 +34,7 @@ export default function FilterBar({
 	filtered,
 }: BookingBarProps) {
 	return (
-		<section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b">
+		<section className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
 			<div className="container mx-auto px-4 py-4">
 				<div className="flex flex-col md:flex-row gap-4 items-center">
 					<div className="flex items-center gap-2 text-sm font-medium">

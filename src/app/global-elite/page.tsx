@@ -12,6 +12,25 @@ import HeroVideo1 from "@/components/HeroVideo1"
 import { EditorialBlock } from "@/components/Editorial"
 import Form from "@/components/Form"
 import ContactModalProps from "@/components/ContactModalProps"
+import {
+	ArrowRight,
+	Network,
+	TrendingUp,
+	Star,
+	BarChart3,
+	Users,
+	Heart,
+	Lightbulb,
+	Target,
+} from "lucide-react"
+import {
+	luxuryFadeIn,
+	staggerContainer,
+	slideUpBounce,
+	magneticHover,
+	luxuryCardHover,
+	sectionEntrance,
+} from "@/src/lib/animations"
 
 const features = [
 	{ img: "/images/a1.webp", title: "By invitation only", desc: "" },
@@ -118,324 +137,508 @@ export default function GlobalElitePage() {
 			<HeroVideo1 />
 
 			{/* Luxury Showcase Section */}
-			<section id="luxury-showcase" className=" py-16 w-screen bg-white">
-				<div className="space-y-16">
-					<motion.section
-						initial={{ opacity: 0, y: 40 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.8, ease: [0.39, 0.575, 0.565, 1], delay: 0.2 }}
-						className="relative py-16 md:py-24 px-6 md:px-16 text-center rounded-lg overflow-hidden"
-						style={{
-							backgroundColor: "rgb(247, 247, 247)",
-							backgroundImage: "url(/images/a5.webp)",
-							backgroundRepeat: "no-repeat",
-							backgroundSize: "auto 100%",
-							backgroundPosition: "100% 0%",
-						}}
-					>
-						<div className="absolute inset-0 bg-gradient-to-r from-primary/10 to-accent/10 rounded-lg" />
-						<div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-12">
-							{/* Content */}
-							<div className="flex-1 max-w-lg">
-								<Card className="card bg-transparent border-0">
-									<CardContent className="p-6 md:p-8 lg:p-12">
-										<motion.h2
-											className="text-2xl md:text-3xl lg:text-4xl luxury-text bg-black luxury-text--premium mb-4"
-											initial={{ opacity: 0, y: 20 }}
-											whileInView={{ opacity: 1, y: 0 }}
-											transition={{ duration: 0.6, delay: 0.5 }}
-										>
-											Rooted in Europe, Dedicated to Luxury
-										</motion.h2>
-										<p className="text-sm md:text-base text-muted-foreground leading-relaxed tracking-wide font-sans mb-6">
-											Our mission is simple: Exceptional luxury brands deserve exceptional
-											consultancy. Based in Germany, Global Elite & Associates boasts a network of
-											associates located across Europe.
-										</p>
-										<Link href="/portfolio">
-											<motion.button className="btn-primary ">View Our Portfolio </motion.button>
-										</Link>
-									</CardContent>
-								</Card>
-							</div>
-							{/* Image */}
-							<motion.div
-								className="flex-1 relative overflow-hidden "
-								initial={{ opacity: 0, scale: 1.1 }}
-								whileInView={{ opacity: 1, scale: 1 }}
-								transition={{ duration: 0.8, delay: 0.3 }}
-							>
-								<div className="w-full aspect-square lg:aspect-[4/3]">
-									<Image
-										src="/images/a4.webp"
-										alt="Luxury Hotel Experience"
-										fill
-										className="object-cover transition-transform duration-700 hover:scale-105 rounded-lg"
-										sizes="(max-width: 768px) 100vw, 50vw"
-									/>
-								</div>
-							</motion.div>
-						</div>
-					</motion.section>
+			<section id="luxury-showcase" className="relative py-24 px-6 gradient-cream overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-10">
+					<div className="absolute top-1/4 left-1/4 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
+					<div className="absolute bottom-1/4 right-1/4 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
 				</div>
+
+				<motion.div
+					className="relative z-10 max-w-7xl mx-auto"
+					variants={sectionEntrance}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
+				>
+					<div className="grid lg:grid-cols-2 gap-16 items-center luxury-text--elegant">
+						{/* Content */}
+						<motion.div className="space-y-8" variants={luxuryFadeIn}>
+							<div className="space-y-6">
+								<motion.div
+									initial={{ opacity: 0, y: 20 }}
+									whileInView={{ opacity: 1, y: 0 }}
+									transition={{ duration: 0.8, delay: 0.2 }}
+									viewport={{ once: true }}
+								>
+									<span className="text-luxury-caption">European Excellence</span>
+								</motion.div>
+								<h2 className="text-display-lg luxury-text--elegant mt-6">
+									<span className="block text-gray-900">
+										<h2>Rooted in Europe,</h2>
+									</span>
+									<span className="block text-luxury-display text-right mt-2">
+										<h2>Dedicated to Luxury</h2>
+									</span>
+								</h2>
+								<div className="w-24 h-1 gradient-luxury rounded-full" />
+								<p className="text-body-lg text-readable leading-relaxed">
+									Our mission is simple: Exceptional luxury brands deserve exceptional consultancy.
+									Based in Germany, Global Elite & Associates boasts a network of associates located
+									across Europe's most prestigious markets.
+								</p>
+							</div>
+
+							<motion.div variants={magneticHover} whileHover="hover" whileTap="tap">
+								<Link href="/portfolio">
+									<button className="btn-secondary shimmer">
+										<span className="">View Our Portfolio</span>
+									</button>
+								</Link>
+							</motion.div>
+						</motion.div>
+
+						{/* Enhanced Image Section */}
+						<motion.div
+							className="relative"
+							variants={luxuryFadeIn}
+							whileHover={{ scale: 1.02 }}
+							transition={{ duration: 0.4 }}
+						>
+							<div className="relative overflow-hidden rounded-2xl">
+								{/* Glass morphism overlay */}
+								<div className="absolute inset-0 z-10 bg-gradient-to-t from-black/60 via-transparent to-transparent rounded-2xl" />
+
+								<Image
+									src="/images/a4.webp"
+									alt="Luxury Hotel Experience"
+									width={600}
+									height={400}
+									className="object-cover transition-transform duration-700 hover:scale-110 rounded-2xl"
+									sizes="(max-width: 768px) 100vw, 50vw"
+								/>
+
+								{/* Floating stats card */}
+							</div>
+						</motion.div>
+					</div>
+				</motion.div>
 			</section>
 
 			{/* Why Partner with Us Section */}
-			<section className=" w-screen pt-70 pb-0">
-				<div className="text-center mb-16">
+			<section className="relative py-24 px-6 gradient-navy text-white overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-5">
+					<div
+						className="absolute inset-0"
+						style={{
+							backgroundImage: `radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),
+						                  radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.2) 0%, transparent 50%)`,
+						}}
+					/>
+				</div>
+
+				<div className="relative z-10 max-w-7xl mx-auto">
+					{/* Section Header */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						className="text-center mb-20"
+						variants={luxuryFadeIn}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
 					>
-						<h2 className="text-4xl md:text-5xl font-bold luxury-text bg-white mb-6">
-							Why Partner with Us
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							viewport={{ once: true }}
+						>
+							<span className="text-luxury-caption">Partnership Excellence</span>
+						</motion.div>
+
+						<h2 className="text-display-lg luxury-text--elegant mt-6">
+							<span className="font-alta text-white">Why Partner</span>
+							<span className="block text-luxury-display mt-2">with Us</span>
 						</h2>
-						<p className="text-lg text-muted-foreground luxury-text bg-white max-w-3xl mx-auto leading-relaxed">
+
+						<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full" />
+
+						<p className="text-body-lg text-readable-light max-w-3xl mx-auto">
 							Unlock exclusive opportunities in Europe's most prestigious hospitality markets
 							through our proven partnership approach.
 						</p>
 					</motion.div>
-				</div>
 
-				<div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center p-8 bg-white ">
-					{/* Left Column - Partnership Benefits */}
+					{/* Partnership Benefits Grid */}
+					<motion.div
+						className="grid grid-cols-1 md:grid-cols-2 gap-8"
+						variants={staggerContainer}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
+					>
+						{[
+							{
+								icon: Network,
+								title: "Access an Elite Network",
+								description:
+									"Gain entry to high-value trade partners across key European markets—no cold calls, just curated introductions.",
+								delay: 0.1,
+							},
+							{
+								icon: TrendingUp,
+								title: "Tailored Distribution Plans",
+								description:
+									"From bespoke consortia agreements to targeted trade shows, we craft a B2B roadmap that's unique to your brand.",
+								delay: 0.2,
+							},
+							{
+								icon: Star,
+								title: "Brand-First Positioning",
+								description:
+									"We slot you alongside the continent's most exclusive hotel portfolios—elevating your visibility with the right buyers.",
+								delay: 0.3,
+							},
+							{
+								icon: BarChart3,
+								title: "Transparent Performance",
+								description:
+									"Quarterly reviews, real-time dashboards and proactive strategy tweaks ensure every partnership drives revenue.",
+								delay: 0.4,
+							},
+						].map((benefit, index) => {
+							const IconComponent = benefit.icon
+							return (
+								<motion.div
+									key={index}
+									className="rounded-2xl p-8 hover-lift group"
+									variants={luxuryFadeIn}
+									whileHover={{
+										scale: 1.02,
+										y: -4,
+										transition: { duration: 0.3 },
+									}}
+								>
+									<div className="flex items-start space-x-6">
+										{/* Enhanced Icon */}
+										<motion.div className="w8 h-8   flex items-center justify-center flex-shrink-0 shimmer">
+											<IconComponent className="w-8 h-8 text-gray-900" />
+										</motion.div>
 
-					{[
-						{
-							icon: "/images/icons/network.svg",
-							title: "Access an Elite Network",
-							description:
-								"Gain entry to high-value trade partners across key European markets—no cold calls, just curated introductions.",
-							delay: 0.1,
-						},
-						{
-							icon: "/images/icons/strategy.svg",
-							title: "Tailored Distribution Plans",
-							description:
-								"From bespoke consortia agreements to targeted trade shows, we craft a B2B roadmap that's unique to your brand.",
-							delay: 0.2,
-						},
-						{
-							icon: "/images/icons/positioning.svg",
-							title: "Brand-First Positioning",
-							description:
-								"We slot you alongside the continent's most exclusive hotel portfolios—elevating your visibility with the right buyers.",
-							delay: 0.3,
-						},
-						{
-							icon: "/images/icons/analytics.svg",
-							title: "Transparent Performance",
-							description:
-								"Quarterly reviews, real-time dashboards and proactive strategy tweaks ensure every partnership drives revenue.",
-							delay: 0.4,
-						},
-					].map((benefit, index) => (
-						<motion.div
-							key={index}
-							initial={{ opacity: 0, x: -30 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.7, delay: benefit.delay }}
-							className="flex items-start space-x-6  bg-white"
-						>
-							{/* Icon */}
-							<div className="grid grid-rows-2">
-								<div className=" flex items-center justify-center ">
-									<svg
-										className="w-4 h-4 text-primary"
-										fill="none"
-										stroke="currentColor"
-										viewBox="0 0 24 24"
-									>
-										{index === 0 && (
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-											/>
-										)}
-										{index === 1 && (
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-											/>
-										)}
-										{index === 2 && (
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 2.888a1 1 0 00-.363 1.118l1.518 4.674c.3.922-.755 1.688-1.538 1.118l-3.976-2.888a1 1 0 00-1.176 0l-3.976 2.888c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.363-1.118l-3.976-2.888c-.784-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z"
-											/>
-										)}
-										{index === 3 && (
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"
-											/>
-										)}
-									</svg>
-								</div>
-							</div>
-
-							{/* Content */}
-							<div className="flex flex-col px-10 h-full">
-								<h3 className="text-xl font-bold luxury-text bg-black mb-3  ">{benefit.title}</h3>
-								<p className="text-muted-foreground leading-relaxed h-full">
-									{benefit.description}
-								</p>
-							</div>
-						</motion.div>
-					))}
+										{/* Content */}
+										<div className="flex-1">
+											<h3 className="text-heading-md font-bold text-white mb-4 group-hover:text-yellow-300 transition-colors">
+												{benefit.title}
+											</h3>
+											<p className="text-white/80 leading-relaxed text-body-md">
+												{benefit.description}
+											</p>
+										</div>
+									</div>
+								</motion.div>
+							)
+						})}
+					</motion.div>
 				</div>
 			</section>
 
 			{/* Team Section */}
-			<section className=" bg-gray-100 md:px-30 py-30 flex gap-3 sm:*:gap-8 flex-col md:flex-row mx-0">
-				{" "}
-				<div className="text-center mb-12">
+			<section className="relative py-24 px-6 gradient-cream overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-10">
+					<div className="absolute top-1/3 right-1/3 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
+				</div>
+
+				<div className="relative z-10 max-w-7xl mx-auto">
+					{/* Section Header */}
 					<motion.div
-						initial={{ opacity: 0, y: 20 }}
-						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						className="text-center mb-20"
+						variants={luxuryFadeIn}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
 					>
-						<h2 className="text-4xl font-bold luxury-text bg-black mb-4">
-							Experts in Luxury Hospitality Sales
+						<motion.div
+							initial={{ opacity: 0, y: 20 }}
+							whileInView={{ opacity: 1, y: 0 }}
+							transition={{ duration: 0.8, delay: 0.2 }}
+							viewport={{ once: true }}
+						>
+							<span className="text-luxury-caption">Leadership Excellence</span>
+						</motion.div>
+
+						<h2 className="text-display-lg luxury-text--elegant mt-6 mb-0">
+							<span className="block text-gray-900">
+								<h2>Expert in Luxury</h2>
+							</span>
+							<span className="block text-luxury-display mt-0">
+								<h2>Hospitality Sales</h2>
+							</span>
 						</h2>
-						<p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
+
+						<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full" />
+
+						<p className="text-body-lg text-readable max-w-4xl mx-auto">
 							Our team combines deep market knowledge with a passion for perfection—so your brand
 							always shines.
 						</p>
-						<div className="flex justify-center">
-							<Button className="btn-secondary w-10 mt-4 h-auto" onClick={handleContact}>
-								Get in Touch{" "}
-							</Button>
-						</div>
-					</motion.div>
-				</div>
-				<div className="flex justify-center flex-col item-center md:flex-row gap-8 mx-auto">
-					{[
-						{
-							name: "Patricia de Mayer",
-							title: "Founder & Managing Director",
-							email: "pdemayer@globaleliteassociates.com",
-							image: "/images/pde.png",
-							expertise: [
-								"20+ years in luxury hospitality sector development",
-								"Deep knowledge of European luxury travel markets",
-								"Extensive network across luxury hospitality brands",
-							],
-						},
-						{
-							name: "Hung Nguyen",
-							title: "Director of Sales",
-							email: "hung@globaleliteassociates.com",
-							image: "/images/hung.png",
-							expertise: [
-								"15+ years proven track record in luxury travel partnership development",
-								"Specialist in building long-term strategic partnerships",
-								"Expert in European market expansion strategies",
-							],
-						},
-					].map((member, i) => (
-						<motion.div
-							key={i}
-							initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.6, delay: i * 0.1 }}
-						>
-							<Card className="  bg-white max-w-sm min-w-sm group overflow-hidden  ">
-								<CardContent className="">
-									<div className="px-4 mb-4overflow-hidden relative">
-										<Image
-											src={member.image}
-											alt={member.name}
-											width={160}
-											height={160}
-											className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
-											priority
-										/>
-									</div>
-									<div className="px-4 ">
-										<h3 className="text-2xl md:text-3xl mb-0 mt-4 font-bold luxury-text  bg-black text-left">
-											{member.name}
-										</h3>
-										<h6 className="text-md mt-0 font-semibold text-muted-foreground text-left m-auto">
-											{member.title}
-										</h6>
-									</div>
-									<div className="px-4">
-										{member.expertise.map((skill, i) => (
-											<div key={i} className="flex">
-												<p className="text-sm text-muted-foreground">
-													<span className="font-semibold text-foreground"></span> {skill}
-												</p>
-											</div>
-										))}
-									</div>
-								</CardContent>
-							</Card>
+
+						<motion.div className="mt-8" variants={magneticHover} whileHover="hover" whileTap="tap">
+							<button className="btn-secondary shimmer" onClick={handleContact}>
+								<span className="mr-3">Get in Touch</span>
+								<ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+							</button>
 						</motion.div>
-					))}
+					</motion.div>
+
+					{/* Team Cards */}
+					<motion.div
+						className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto"
+						variants={staggerContainer}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
+					>
+						{[
+							{
+								name: "Patricia de Mayer",
+								title: "Founder & Managing Director",
+								email: "pdemayer@globaleliteassociates.com",
+								image: "/images/pde.png",
+								expertise: [
+									"20+ years in luxury hospitality sector development",
+									"Deep knowledge of European luxury travel markets",
+									"Extensive network across luxury hospitality brands",
+								],
+							},
+							{
+								name: "Hung Nguyen",
+								title: "Director of Sales",
+								email: "hung@globaleliteassociates.com",
+								image: "/images/hung.png",
+								expertise: [
+									"15+ years proven track record in luxury travel partnership development",
+									"Specialist in building long-term strategic partnerships",
+									"Expert in European market expansion strategies",
+								],
+							},
+						].map((member, index) => (
+							<motion.div
+								key={index}
+								variants={luxuryFadeIn}
+								whileHover={{
+									scale: 1.02,
+									y: -1,
+									transition: { duration: 0.3 },
+								}}
+							>
+								<Card className="card-luxury hover-lift h-full group overflow-hidden">
+									<CardContent className="p-0">
+										{/* Image Section */}
+										<div className="relative h-80 overflow-hidden">
+											<Image
+												src={member.image}
+												alt={member.name}
+												fill
+												className="object-contain transition-transform duration-700 group-hover:scale-105"
+												sizes="(max-width: 768px) 100vw, 50vw"
+											/>
+											{/* Gradient overlay */}
+											<div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+										</div>
+
+										{/* Content Section */}
+										<div className="p-8 space-y-6">
+											<div className="text-center">
+												<h3 className="text-heading-lg font-bold text-gray-900 mb-2 group-hover:text-luxury-gold transition-colors">
+													{member.name}
+												</h3>
+												<p className="text-luxury-caption text-gray-600">{member.title}</p>
+											</div>
+
+											{/* Expertise */}
+											<div className="space-y-4">
+												{member.expertise.map((skill, skillIndex) => (
+													<motion.div
+														key={skillIndex}
+														className="flex items-start space-x-3"
+														initial={{ opacity: 0, x: -20 }}
+														whileInView={{ opacity: 1, x: 0 }}
+														transition={{ duration: 0.5, delay: skillIndex * 0.1 }}
+														viewport={{ once: true }}
+													>
+														<div className="w-2 h-2 gradient-luxury rounded-full mt-2 flex-shrink-0" />
+														<p className="text-body-md text-gray-700 leading-relaxed">{skill}</p>
+													</motion.div>
+												))}
+											</div>
+
+											{/* Contact Button */}
+											<motion.div
+												className="pt-4"
+												whileHover={{ scale: 1.05 }}
+												whileTap={{ scale: 0.95 }}
+											>
+												<a
+													href={`mailto:${member.email}`}
+													className="inline-flex items-center space-x-2 text-luxury-gold hover:text-luxury-gold-dark transition-colors"
+												>
+													<span className="text-sm font-medium">
+														Contact {member.name.split(" ")[0]}
+													</span>
+													<ArrowRight className="w-4 h-4" />
+												</a>
+											</motion.div>
+										</div>
+									</CardContent>
+								</Card>
+							</motion.div>
+						))}
+					</motion.div>
 				</div>
 			</section>
 			{/* Contact Modal */}
 			<ContactModalProps isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
 
 			{/* Team Qualities */}
-			<section className="  bg-turquoise opacity-70 px-20 min-sm:px-2 md:px-30 pt-40 ">
-				<div className=" card relative overflow-hidden  bg-white ">
-					{/* Background Image */}
+			<section className="relative py-24 px-6  text-white overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-5">
+					<div
+						className="absolute inset-0"
+						style={{
+							backgroundImage: `radial-gradient(circle at 25% 25%, rgba(212, 175, 55, 0.3) 0%, transparent 50%),radial-gradient(circle at 75% 75%, rgba(212, 175, 55, 0.2) 0%, transparent 50%)`,
+						}}
+					/>
+				</div>
 
-					<CardContent className="p-8 z-0 m-8 bg-white">
-						<h2 className="z-10 text-2xl md:text-3xl font-bold luxury-text bg-black mb-4 text-center">
-							What Sets Our Team Apart
+				<div className="relative z-10 max-w-7xl mx-auto">
+					{/* Section Header */}
+					<motion.div
+						className="text-center mb-20"
+						variants={luxuryFadeIn}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
+					>
+						<h2 className="text-display-md luxury-text--elegant">
+							<span className="font-alta text-white">What Sets Our</span>
+							<span className="block text-luxury-display mt-2">Team Apart</span>
 						</h2>
-						<p className="text-muted-foreground mb-8 text-center">
+
+						<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full" />
+
+						<p className="text-body-lg text-readable-light max-w-3xl mx-auto">
 							Our success is built on the exceptional qualities and expertise of our team members.
 						</p>
-						<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-							{teamQualities.map((quality, k) => (
-								<div key={k} className="text-center  p-6 rounded-lg">
-									<div className="w-16 h-16 flex items-center justify-center mx-auto mb-4">
-										{/* inline SVG icon */}
-									</div>
-									<h3 className="font-semibold text-xl md:text-2xl luxury-text bg-black mb-2">
+					</motion.div>
+
+					{/* Qualities Grid */}
+					<motion.div
+						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8"
+						variants={staggerContainer}
+						initial="hidden"
+						whileInView="visible"
+						viewport={{ once: true }}
+					>
+						{[
+							{
+								icon: Lightbulb,
+								title: "Deep Knowledge",
+								description: "Comprehensive understanding of luxury hospitality sector dynamics",
+							},
+							{
+								icon: Heart,
+								title: "Passion for Excellence",
+								description: "Genuine enthusiasm for delivering exceptional luxury experiences",
+							},
+							{
+								icon: Users,
+								title: "Industry Connections",
+								description: "Extensive network of industry and media contacts across Europe",
+							},
+							{
+								icon: Target,
+								title: "Strategic Approach",
+								description: "Holistic methodology delivering measurable, exceptional results",
+							},
+						].map((quality, index) => {
+							const IconComponent = quality.icon
+							return (
+								<motion.div
+									key={index}
+									className="glass-dark rounded-xl p-6 text-center hover-lift group"
+									variants={luxuryFadeIn}
+									whileHover={{
+										scale: 1.05,
+										y: -8,
+										transition: { duration: 0.3 },
+									}}
+								>
+									<motion.div
+										className="w-16 h-16 gradient-luxury rounded-full flex items-center justify-center mx-auto mb-6 shimmer"
+										whileHover={{ rotate: 360, scale: 1.1 }}
+										transition={{ duration: 0.8 }}
+									>
+										<IconComponent className="w-8 h-8 text-gray-900" />
+									</motion.div>
+
+									<h3 className="text-heading-md font-bold text-white mb-4 group-hover:text-yellow-300 transition-colors">
 										{quality.title}
 									</h3>
-									<p className="text-sm">{quality.description}</p>
-								</div>
-							))}
-						</div>
-					</CardContent>
+
+									<p className="text-white/80 text-body-md leading-relaxed">
+										{quality.description}
+									</p>
+								</motion.div>
+							)
+						})}
+					</motion.div>
 				</div>
 			</section>
 
 			{/* Call to Action */}
-			<section className=" m-0 bg-black py-20 text-white">
+			<section className="relative py-24 px-6 gradient-cream overflow-hidden">
+				{/* Background Pattern */}
+				<div className="absolute inset-0 opacity-10">
+					<div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-96 h-96 gradient-luxury rounded-full blur-3xl" />
+				</div>
+
 				<motion.div
-					initial={{ opacity: 0, y: 40 }}
-					whileInView={{ opacity: 1, y: 0 }}
-					transition={{ duration: 0.8, ease: [0.39, 0.575, 0.565, 1], delay: 0.4 }}
-					className="relative w-screen left-1/2 right-1/2 -translate-x-1/2 mt-16"
+					className="relative z-10 max-w-4xl mx-auto text-center"
+					variants={sectionEntrance}
+					initial="hidden"
+					whileInView="visible"
+					viewport={{ once: true }}
 				>
-					<div className="relative z-10 p-8 flex flex-col items-center justify-center h-full text-center">
-						<h3 className="text-3xl md:text-4xl font-bold mb-4">
-							Ready to Elevate Your European Presence?
-						</h3>
-						<p className="text-lg text-override-white mb-6 max-w-2xl mx-auto">
-							Join Europe's most exclusive hospitality network and transform your distribution
-							strategy today.
-						</p>
-						<div className="flex flex-col sm:flex-row gap-4 justify-center">
-							<button className="btn-secondary">Schedule Consultation</button>
+					<motion.div className="space-y-8" variants={luxuryFadeIn}>
+						<div className="space-y-6">
+							<motion.div
+								initial={{ opacity: 0, y: 20 }}
+								whileInView={{ opacity: 1, y: 0 }}
+								transition={{ duration: 0.8, delay: 0.2 }}
+								viewport={{ once: true }}
+							>
+								<span className="text-luxury-caption">Ready to Begin?</span>
+							</motion.div>
+
+							<h3 className="text-display-md luxury-text--elegant">
+								<span className="block font-alta text-gray-900">Ready to Elevate Your</span>
+								<span className="block text-luxury-display mt-2">European Presence?</span>
+							</h3>
+
+							<div className="w-32 h-1 gradient-luxury mx-auto rounded-full" />
+
+							<p className="text-body-lg text-readable max-w-2xl mx-auto">
+								Join Europe's most exclusive hospitality network and transform your distribution
+								strategy today.
+							</p>
 						</div>
-					</div>
+
+						<motion.div
+							className="flex flex-col sm:flex-row gap-6 justify-center items-center"
+							variants={staggerContainer}
+							initial="hidden"
+							animate="visible"
+						>
+							<motion.div variants={magneticHover} whileHover="hover" whileTap="tap">
+								<button className="btn-secondary shimmer" onClick={handleContact}>
+									<span className="mr-3">Schedule Consultation</span>
+									<ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
+								</button>
+							</motion.div>
+						</motion.div>
+					</motion.div>
 				</motion.div>
 			</section>
 		</>

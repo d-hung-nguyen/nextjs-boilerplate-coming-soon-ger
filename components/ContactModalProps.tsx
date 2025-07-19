@@ -59,7 +59,7 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 					initial={{ opacity: 0 }}
 					animate={{ opacity: 1 }}
 					exit={{ opacity: 0 }}
-					className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+					className="absolute inset-0 gradient-navy/80 backdrop-blur-sm"
 					onClick={onClose}
 				/>
 
@@ -72,28 +72,28 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
 					className="relative bg-white rounded-2xl shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto"
 				>
 					{/* Header */}
-					<div className="relative p-8 bg-gradient-to-r from-primary to-accent text-white">
+					<div className="relative p-8 gradient-navy text-white">
 						<button
 							onClick={onClose}
 							className="absolute top-4 right-4 p-2 rounded-full bg-white/20 hover:bg-white/30 transition-colors"
 						>
 							<X className="w-5 h-5" />
 						</button>
-						<h2 className="text-3xl font-bold luxury-text bg-black mb-2">Get in Touch</h2>
+						<h2 className="text-3xl font-bold text-white mb-2">Get in Touch</h2>
 
-						<p className="text-black/90 mb-6">Let's discuss your brand's needs</p>
+						<p className="text-white/90 mb-6">Let's discuss your brand's needs</p>
 
 						{/* Team Members */}
 						<div>
 							<div className="grid gap-4">
 								{teamMembers.map((teamMember, index) => (
 									<div key={index}>
-										<div className="p-4 bg-gray-50 rounded-lg">
-											<h4 className="font-bold luxury-text bg-black">{teamMember.name}</h4>
-											<p className="text-sm text-black font-medium mb-2">{teamMember.title}</p>
+										<div className="p-4 glass-dark rounded-lg">
+											<h4 className="font-bold text-white">{teamMember.name}</h4>
+											<p className="text-sm text-yellow-300 font-medium mb-2">{teamMember.title}</p>
 											<Link
 												href={`mailto:${teamMember.email}`}
-												className="text-sm text-black hover:text-primary transition-colors"
+												className="text-sm text-white hover:text-yellow-300 transition-colors"
 											>
 												{teamMember.email}
 												<br />

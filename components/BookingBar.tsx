@@ -35,7 +35,7 @@ export default function BookingBar({
 }: BookingBarProps) {
 	return (
 		<div className="relative w-full">
-			<section className="sticky top-16 z-40 bg-white border-b border-gray-200 shadow-sm">
+			<section className="sticky top-16 z-40 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
 				<div className="container mx-auto px-4 py-4">
 					<div className="flex flex-col md:flex-row md:items-center gap-4">
 						{/* Search input */}

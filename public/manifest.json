@@ -1,0 +1,26 @@
+{
+  "name": "Global Elite & Associates",
+  "short_name": "Global Elite",
+  "description": "Luxury travel partner programme by Address Hotels + Resorts",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1b1b1b",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon"
+    }
+  ],
+  "categories": ["travel", "business", "lifestyle"],
+  "lang": "en",
+  "dir": "ltr",
+  "orientation": "portrait-primary"
+}

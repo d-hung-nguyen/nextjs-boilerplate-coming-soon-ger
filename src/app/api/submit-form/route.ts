@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server"
 import { createClient } from "@supabase/supabase-js"
 import { z } from "zod"
+import DOMPurify from 'isomorphic-dompurify'
 
 // Better approach with validation
 const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL
@@ -79,16 +80,16 @@ export async function POST(request: NextRequest) {
 		console.log("=== Form submission started ===")
 		const formData = await request.formData()
 
-		// Extract form fields
-		const agencyName = formData.get("agencyName") as string
-		const fullName = formData.get("fullName") as string
-		const email = formData.get("email") as string
-		const phoneNumber = formData.get("phoneNumber") as string
-		const vatNumber = formData.get("vatNumber") as string
-		const iataNumber = formData.get("iataNumber") as string
-		const pccCode = formData.get("pccCode") as string
-		const gdsAccessCode = formData.get("gdsAccessCode") as string
-		const message = formData.get("message") as string
+		// Extract and sanitize form fields
+		const agencyName = DOMPurify.sanitize(formData.get("agencyName") as string || "").trim()
+		const fullName = DOMPurify.sanitize(formData.get("fullName") as string || "").trim()
+		const email = DOMPurify.sanitize(formData.get("email") as string || "").trim()
+		const phoneNumber = DOMPurify.sanitize(formData.get("phoneNumber") as string || "").trim()
+		const vatNumber = DOMPurify.sanitize(formData.get("vatNumber") as string || "").trim()
+		const iataNumber = DOMPurify.sanitize(formData.get("iataNumber") as string || "").trim()
+		const pccCode = DOMPurify.sanitize(formData.get("pccCode") as string || "").trim()
+		const gdsAccessCode = DOMPurify.sanitize(formData.get("gdsAccessCode") as string || "").trim()
+		const message = DOMPurify.sanitize(formData.get("message") as string || "").trim()
 		const tradeLicense = formData.get("tradeLicense") as File
 		const vatRegistration = formData.get("vatRegistration") as File
 
@@ -99,7 +100,29 @@ export async function POST(request: NextRequest) {
 			phoneNumber,
 		})
 
-		// Validate required fields
+		// Validate required fields and schema
+		try {
+			const validatedData = ltpRegistrationSchema.parse({
+				agencyName,
+				fullName,
+				email,
+				phoneNumber,
+				vatNumber: vatNumber || undefined,
+				iataNumber: iataNumber || undefined,
+				pccCode: pccCode || undefined,
+				gdsAccessCode: gdsAccessCode || undefined,
+				message: message || undefined,
+			})
+		} catch (validationError) {
+			if (validationError instanceof z.ZodError) {
+				return NextResponse.json(
+					{ error: "Invalid input data", details: validationError.issues },
+					{ status: 400 }
+				)
+			}
+		}
+
+		// Additional validation for required fields
 		if (!agencyName || !fullName || !email || !phoneNumber) {
 			console.log("Validation failed - missing required fields")
 			return NextResponse.json(

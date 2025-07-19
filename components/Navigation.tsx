@@ -59,10 +59,10 @@ export default function Navigation() {
 		<div className="fixed top-0 left-0 w-full z-50">
 			<nav
 				className={cn(
-					"text-white transition-all duration-500 ease-out ",
+					"text-white transition-all duration-500 ease-out",
 					isScrolled
-						? "bg-white shadow-lg border-b border-gray"
-						: "bg-transparent border-b border-gray"
+						? "bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200"
+						: "gradient-navy/90 backdrop-blur-sm border-b border-white/10"
 				)}
 			>
 				<div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -90,7 +90,7 @@ export default function Navigation() {
 									className={cn(
 										"px-4 py-2  text-sm text-white font-medium transition-all duration-300 hover:bg-white/10",
 										isScrolled ? "text-black  " : "text-white",
-										isScrolled ? "hover:text-primary" : "hover:text-white"
+										isScrolled ? "hover:text-yellow-600" : "hover:text-yellow-300"
 									)}
 								>
 									{item.label}
@@ -140,7 +140,7 @@ export default function Navigation() {
 							"px-4 py-6 space-y-2",
 							isScrolled
 								? "bg-white/95 backdrop-blur-md border-t border-gray-100"
-								: "bg-black/80 backdrop-blur-md border-t border-white/10"
+								: "gradient-navy/90 backdrop-blur-md border-t border-white/10"
 						)}
 						onClick={e => e.stopPropagation()}
 					>

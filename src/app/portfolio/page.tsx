@@ -198,8 +198,15 @@ export default function PortfolioPage() {
 						role="status"
 						className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
 					>
-						{[...Array(8)].map((_, i) => (
-							<div key={i} className="animate-pulse bg-muted rounded-lg h-80" />
+						{[...Array(12)].map((_, i) => (
+							<div key={i} className="card-luxury animate-pulse rounded-lg h-80 overflow-hidden shimmer">
+								<div className="h-64 bg-gradient-to-br from-gray-200 to-gray-300 mb-4" />
+								<div className="p-4 space-y-3">
+									<div className="h-4 bg-gradient-to-r from-gray-200 to-gray-300 rounded w-3/4" />
+									<div className="h-3 bg-gradient-to-r from-gray-200 to-gray-300 rounded w-1/2" />
+									<div className="h-3 bg-gradient-to-r from-gray-200 to-gray-300 rounded w-2/3" />
+								</div>
+							</div>
 						))}
 					</div>
 				) : error ? (
@@ -245,6 +252,8 @@ export default function PortfolioPage() {
 											height={300}
 											className="h-64 w-full object-cover object-center transition-transform duration-300 group-hover:scale-105"
 											loading="lazy"
+											quality={60}
+											sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
 										/>
 									</div>
 
@@ -300,21 +309,23 @@ export default function PortfolioPage() {
 				whileInView={{ opacity: 1, y: 0 }}
 				viewport={{ once: true, amount: 0.2 }}
 				transition={{ duration: 0.6 }}
-				className="bg-gradient-to-r from-primary/10 to-accent/10 py-20"
+				className="gradient-navy text-white py-20"
 				aria-labelledby="cta-title"
 			>
 				<div className="container mx-auto px-4 text-center">
 					<h2 id="cta-title" className="text-3xl md:text-4xl font-bold mb-6 text-white">
-						Ready to Partner with Excellence?
+						<span className="font-alta">Ready to Partner with</span>
+						<span className="block text-luxury-display mt-2">Excellence?</span>
 					</h2>
-					<p className="text-lg text-muted-white max-w-2xl mx-auto mb-8">
+					<div className="w-32 h-1 gradient-luxury mx-auto mb-8 rounded-full shimmer" />
+					<p className="text-lg text-white/80 max-w-2xl mx-auto mb-8">
 						Join our exclusive network of luxury hospitality brands and unlock new opportunities in
 						the European market.
 					</p>
 					<Button
 						size="lg"
 						asChild
-						className="focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-primary"
+						className="card-luxury hover-lift px-8 py-4 text-lg font-medium shimmer"
 					>
 						<Link href="/join-ltp">Let's Talk</Link>
 					</Button>

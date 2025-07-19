@@ -26,10 +26,10 @@ export default function HeroColor({
 				transition={{ duration: 0.8 }}
 			>
 				{/* Background */}
-				<div className="absolute bg-black inset-0" />
+				<div className="absolute gradient-navy inset-0" />
 
 				{/* Overlay */}
-				<div className="absolute inset-0 bg-black" style={{ opacity: overlayOpacity }} />
+				<div className="absolute inset-0 gradient-navy" style={{ opacity: overlayOpacity }} />
 
 				{/* Content */}
 				<div className="relative z-10 flex h-full items-center justify-center mt-20">
