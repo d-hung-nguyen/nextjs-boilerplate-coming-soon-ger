@@ -106,18 +106,17 @@ export default function HeroImage({
 				</div>
 			)}
 
-			{/* HubSpot Cookie Settings Button */}
+			{/* HubSpot Cookie Settings Link */}
 			<div className="absolute bottom-8 right-8 z-10">
 				<button
 					type="button"
-					id="hs_show_banner_button"
 					onClick={() => {
-						const _hsp = (window._hsp = window._hsp || [])
-						_hsp.push(["showBanner"])
+						if (typeof window !== "undefined" && window._hsp) {
+							window._hsp.push(["showBanner"])
+						}
 					}}
-					className="bg-slate-600 hover:bg-slate-700 border border-slate-600 hover:border-slate-700 
-					          rounded-md px-4 py-2.5 text-white font-normal text-sm transition-colors 
-					          duration-200 shadow-lg hover:shadow-xl backdrop-blur-sm bg-opacity-90"
+					className="text-white/60 hover:text-white/90 text-xs underline transition-colors 
+					          duration-200 backdrop-blur-sm"
 				>
 					Cookie Settings
 				</button>

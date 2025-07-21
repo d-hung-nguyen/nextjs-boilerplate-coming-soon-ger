@@ -5,6 +5,7 @@ import { Analytics } from "@vercel/analytics/next"
 import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import ConditionalLayout from "@/components/ConditionalLayout"
+import CookieBanner from "@/components/CookieBanner"
 
 const lagusans = localFont({
 	src: "./fonts/lagusans-light.otf",
@@ -66,6 +67,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				<ConditionalLayout>
 					{children}
 					<Analytics />
+					<CookieBanner />
 				</ConditionalLayout>
 			</body>
 		</html>
