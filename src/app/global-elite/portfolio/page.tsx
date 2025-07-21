@@ -133,67 +133,69 @@ export default function PortfolioPage() {
 
 	return (
 		<div className="relative bg-accent text-foreground">
-			{/* Hero Section */}
+			<section className="bg-background/95 backdrop-blur-sm border-b">
+				{/* Hero Section */}
 
-			<HeroImage
-				backgroundImage="/images/villa-alula.webp"
-				title="Hotel Portfolio"
-				subtitle="Discover our curated collection of luxury hotels"
-			/>
+				<HeroImage
+					backgroundImage="/images/villa-alula.webp"
+					title="Hotel Portfolio"
+					subtitle="Discover our curated collection of luxury hotels"
+				/>
 
-			{/* Filters Section */}
-			<section className=" bg-background/95 backdrop-blur-sm border-b">
-				<div className="container mx-auto px-4 py-4">
-					<div className="flex flex-col md:flex-row gap-4 items-center">
-						<div className="flex items-center gap-2 text-sm font-medium">
-							<Filter className="w-4 h-4" />
-							Filters:
-						</div>
-
-						<div className="flex flex-1 gap-4 w-full md:w-auto">
-							<div className="relative flex-1 md:w-64">
-								<Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
-								<Input
-									placeholder="Search hotels..."
-									value={searchTerm}
-									onChange={e => setSearchTerm(e.target.value)}
-									className="pl-10"
-								/>
+				{/* Filters Section */}
+				<section className=" bg-background/95 backdrop-blur-sm border-b">
+					<div className="container mx-auto px-4 py-4">
+						<div className="flex flex-col md:flex-row gap-4 items-center">
+							<div className="flex items-center gap-2 text-sm font-medium">
+								<Filter className="w-4 h-4" />
+								Filters:
 							</div>
 
-							<Select value={brandFilter} onValueChange={setBrandFilter}>
-								<SelectTrigger className="w-32">
-									<SelectValue placeholder="Brand" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="all">All Brands</SelectItem>
-									{uniqueBrands.map(brand => (
-										<SelectItem key={brand} value={brand}>
-											{brand}
-										</SelectItem>
-									))}
-								</SelectContent>
-							</Select>
+							<div className="flex flex-1 gap-4 w-full md:w-auto">
+								<div className="relative flex-1 md:w-64">
+									<Search className="w-4 h-4 absolute left-3 top-3 text-muted-foreground" />
+									<Input
+										placeholder="Search hotels..."
+										value={searchTerm}
+										onChange={e => setSearchTerm(e.target.value)}
+										className="pl-10"
+									/>
+								</div>
 
-							<Select value={regionFilter} onValueChange={setRegionFilter}>
-								<SelectTrigger className="w-32">
-									<SelectValue placeholder="Region" />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="all">All Regions</SelectItem>
-									<SelectItem value="dach">DACH</SelectItem>
-									<SelectItem value="nordics">Nordics</SelectItem>
-									<SelectItem value="cee">CEE</SelectItem>
-									<SelectItem value="uk">UK</SelectItem>
-								</SelectContent>
-							</Select>
-						</div>
+								<Select value={brandFilter} onValueChange={setBrandFilter}>
+									<SelectTrigger className="w-32">
+										<SelectValue placeholder="Brand" />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="all">All Brands</SelectItem>
+										{uniqueBrands.map(brand => (
+											<SelectItem key={brand} value={brand}>
+												{brand}
+											</SelectItem>
+										))}
+									</SelectContent>
+								</Select>
 
-						<div className="text-sm text-muted-foreground">
-							{filteredHotels.length} of {hotels.length} hotels
+								<Select value={regionFilter} onValueChange={setRegionFilter}>
+									<SelectTrigger className="w-32">
+										<SelectValue placeholder="Region" />
+									</SelectTrigger>
+									<SelectContent>
+										<SelectItem value="all">All Regions</SelectItem>
+										<SelectItem value="dach">DACH</SelectItem>
+										<SelectItem value="nordics">Nordics</SelectItem>
+										<SelectItem value="cee">CEE</SelectItem>
+										<SelectItem value="uk">UK</SelectItem>
+									</SelectContent>
+								</Select>
+							</div>
+
+							<div className="text-sm text-muted-foreground">
+								{filteredHotels.length} of {hotels.length} hotels
+							</div>
 						</div>
 					</div>
-				</div>
+				</section>
 			</section>
 
 			{/* World Map Section - Above Filters */}
