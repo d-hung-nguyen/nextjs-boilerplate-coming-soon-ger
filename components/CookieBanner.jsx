@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "framer-motion"
 import { Button } from "@/components/ui/button"
 import { X, Cookie, Settings, Globe } from "lucide-react"
+import { showHubSpotCookieBanner } from "./HubSpotTracking"
 
 export default function CookieBanner() {
 	const [isVisible, setIsVisible] = useState(false)
@@ -80,20 +81,26 @@ export default function CookieBanner() {
 		localStorage.setItem("cookieConsent", "accepted")
 		setIsVisible(false)
 
-		// Initialize HubSpot tracking if available
-		if (typeof window !== "undefined" && window._hsp) {
-			window._hsp.push(["setTrackingEnabled", true])
-		}
+		// Trigger storage event for HubSpot component to pick up the change
+		window.dispatchEvent(
+			new StorageEvent("storage", {
+				key: "cookieConsent",
+				newValue: "accepted",
+			})
+		)
 	}
 
 	const handleRejectAll = () => {
 		localStorage.setItem("cookieConsent", "rejected")
 		setIsVisible(false)
 
-		// Disable HubSpot tracking if available
-		if (typeof window !== "undefined" && window._hsp) {
-			window._hsp.push(["setTrackingEnabled", false])
-		}
+		// Trigger storage event for HubSpot component to pick up the change
+		window.dispatchEvent(
+			new StorageEvent("storage", {
+				key: "cookieConsent",
+				newValue: "rejected",
+			})
+		)
 	}
 
 	const handleCustomize = () => {
@@ -106,10 +113,19 @@ export default function CookieBanner() {
 		setIsVisible(false)
 		setShowSettings(false)
 
-		// Apply custom preferences to HubSpot if available
-		if (typeof window !== "undefined" && window._hsp) {
-			window._hsp.push(["setTrackingEnabled", preferences.analytics])
-		}
+		// Trigger storage events for HubSpot component to pick up the changes
+		window.dispatchEvent(
+			new StorageEvent("storage", {
+				key: "cookieConsent",
+				newValue: "custom",
+			})
+		)
+		window.dispatchEvent(
+			new StorageEvent("storage", {
+				key: "cookiePreferences",
+				newValue: JSON.stringify(preferences),
+			})
+		)
 	}
 
 	const toggleLanguage = () => {
@@ -119,9 +135,7 @@ export default function CookieBanner() {
 	}
 
 	const showHubSpotBanner = () => {
-		if (typeof window !== "undefined" && window._hsp) {
-			window._hsp.push(["showBanner"])
-		}
+		showHubSpotCookieBanner()
 	}
 
 	if (!isVisible && !showSettings) return null

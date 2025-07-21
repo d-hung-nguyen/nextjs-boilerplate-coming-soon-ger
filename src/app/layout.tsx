@@ -6,6 +6,7 @@ import Navigation from "@/components/Navigation"
 import Footer from "@/components/Footer"
 import ConditionalLayout from "@/components/ConditionalLayout"
 import CookieBanner from "@/components/CookieBanner"
+import HubSpotTracking from "@/components/HubSpotTracking"
 
 const lagusans = localFont({
 	src: "./fonts/lagusans-light.otf",
@@ -49,18 +50,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
 		<html lang="en">
-			<head>
-				{/* Add this script to handle extension errors */}
-				<script
-					dangerouslySetInnerHTML={{
-						__html: `
-              if (typeof chrome !== 'undefined' && chrome.runtime) {
-                chrome.runtime.onMessage.addListener(() => {});
-              }
-            `,
-					}}
-				/>
-			</head>
+			<head>{/* HubSpot Tracking will be loaded by the component */}</head>
 			<body
 				className={`${lagusans.variable} ${alta.variable} font-lagusans bg-background text-foreground`}
 			>
@@ -68,6 +58,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					{children}
 					<Analytics />
 					<CookieBanner />
+					{/* Replace YOUR_HUBSPOT_ID with your actual HubSpot ID */}
+					<HubSpotTracking hubspotId="7971615" />
 				</ConditionalLayout>
 			</body>
 		</html>

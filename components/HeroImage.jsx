@@ -3,6 +3,7 @@
 import Image from "next/image"
 import React from "react"
 import { motion } from "framer-motion"
+import { showHubSpotCookieBanner } from "./HubSpotTracking"
 
 export default function HeroImage({
 	backgroundImage = "/images/av-poster.png",
@@ -110,11 +111,7 @@ export default function HeroImage({
 			<div className="absolute bottom-8 right-8 z-10">
 				<button
 					type="button"
-					onClick={() => {
-						if (typeof window !== "undefined" && window._hsp) {
-							window._hsp.push(["showBanner"])
-						}
-					}}
+					onClick={showHubSpotCookieBanner}
 					className="text-white/60 hover:text-white/90 text-xs underline transition-colors 
 					          duration-200 backdrop-blur-sm"
 				>
