@@ -38,7 +38,7 @@
 		sans-serif;
 	--font-family-serif: "lagusans-light", "Times New Roman", Times, serif;
 	--background: oklch(0.97 0 0); /* oklch(0.205 0 0), Light taupe/beige tone */
-	--foreground: oklch(0.145 0 0); /* #8
+
 	--foreground: oklch(0.556 0 0); /* #8D887E, Soft warm gray */
 }
 
@@ -69,6 +69,13 @@ html {
 	font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
 	font-variant-ligatures: common-ligatures;
 	font-kerning: auto;
+	letter-spacing: 0.01em; /* Slightly increased letter spacing for better readability */
+	text-wrap: balance; /* Better text wrapping for long lines */
+	overflow-wrap: break-word; /* Prevents overflow in long words */
+	hyphens: auto; /* Enables hyphenation for better text flow */
+	-webkit-text-size-adjust: 100%; /* Prevents font size adjustments on mobile */
+	-moz-text-size-adjust: 100%; /* Prevents font size adjustments on mobile */
+	-webkit-tap-highlight-color: transparent; /* Removes tap highlight color on mobile */
 }
 
 h1,
@@ -78,6 +85,13 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family-sans);
+	font-weight: 900; /* Slightly bolder for better hierarchy */
+	line-height: 1.2; /* Tighter line height for headings */
+	letter-spacing: -0.02em; /* Slight negative tracking for larger text */
+	font-feature-settings: "kern" 1, "liga" 1, "case" 1;
+	text-wrap: balance; /* Better text wrapping for headings */
+	overflow-wrap: break-word; /* Prevents overflow in long headings */
+	hyphens: auto; /* Enables hyphenation for better text flow */
 }
 p,
 span,
@@ -90,6 +104,14 @@ textarea {
 body {
 	font-family: var(--font-family-serif);
 	line-height: 1.6; /* Improved from 1.5 for better readability */
+	letter-spacing: 0.005em; /* Slightly increased letter spacing for better readability */
+	font-feature-settings: "kern" 1, "liga" 1;
+	text-wrap: balance; /* Better text wrapping for body text */
+	overflow-wrap: break-word; /* Prevents overflow in long words */
+	hyphens: auto; /* Enables hyphenation for better text flow */
+	-webkit-text-size-adjust: 100%; /* Prevents font size adjustments on mobile */
+	-moz-text-size-adjust: 100%; /* Prevents font size adjustments on mobile */
+	-webkit-tap-highlight-color: transparent; /* Removes tap highlight color on mobile */
 }
 
 :root {
@@ -179,7 +201,6 @@ body {
 	background-color: var(--color-background);
 	font-size: var(--font-size-base);
 	line-height: var(--line-height-base);
-
 	font-weight: 400;
 	letter-spacing: 0;
 	text-decoration: none;
@@ -190,17 +211,17 @@ body {
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 
-	--transition: background-color 0.3s ease, color 0.3s ease;
+	--transition: --color-background 0.3s ease, color 0.3s ease;
 	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-delay: 0.1s;
 	--transition-duration: 0.3s;
 
 	overflow-x: hidden;
-	--transition: background-color 0.3s ease, color 0.3s ease;
+	--transition: --color-background 0.3s ease, color 0.3s ease;
 	--transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 	--transition-delay: 0.1s;
 	--transition-duration: 0.3s;
-	--transition-property: background-color, color;
+	--transition-property: --color-background, color;
 }
 
 html,
@@ -218,7 +239,7 @@ h4,
 h5,
 h6 {
 	font-family: var(--font-family-sans);
-	font-weight: 600; /* Slightly bolder for better hierarchy */
+	font-weight: 900; /* Slightly bolder for better hierarchy */
 	line-height: 1.2; /* Tighter line height for headings */
 	letter-spacing: -0.02em; /* Slight negative tracking for larger text */
 	font-feature-settings: "kern" 1, "liga" 1, "case" 1;
@@ -228,21 +249,21 @@ h6 {
 /* Specific heading improvements */
 h1 {
 	font-size: clamp(2rem, 5vw, 4rem);
-	font-weight: 700;
+	font-weight: 900;
 	letter-spacing: -0.03em;
 	line-height: 1.1;
 }
 
 h2 {
 	font-size: clamp(1.5rem, 4vw, 3rem);
-	font-weight: 600;
+	font-weight: 800;
 	letter-spacing: -0.02em;
 	line-height: 1.15;
 }
 
 h3 {
 	font-size: clamp(1.25rem, 3vw, 2rem);
-	font-weight: 600;
+	font-weight: 700;
 	letter-spacing: -0.01em;
 }
 
@@ -280,8 +301,9 @@ a {
 	text-decoration-thickness: 1px;
 
 	&:hover {
-		text-decoration: underline;
-		text-decoration-color: var(--color-primary);
+		-moz-text-decoration-line: underline;
+		-webkit-text-decoration-line: underline;
+		text-decoration-line: underline;
 	}
 }
 
@@ -338,7 +360,6 @@ pre {
 	body {
 		font-size: 12pt;
 		line-height: 1.4;
-		color: #000;
 	}
 
 	h1,
@@ -361,6 +382,15 @@ pre {
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 	body {
 		-webkit-font-smoothing: subpixel-antialiased;
+		-moz-osx-font-smoothing: grayscale;
+		-ms-overflow-style: scrollbar;
+		overflow-y: overlay; /* Better scrolling performance on high DPI displays */
+		overflow-x: hidden; /* Prevent horizontal scrolling */
+		transition: var(--transition);
+		transition-timing-function: var(--transition-timing-function);
+		transition-delay: var(--transition-delay);
+		transition-duration: var(--transition-duration);
+		transition-property: var(--transition-property);
 	}
 }
 
@@ -383,9 +413,7 @@ pre {
 
 /* Focus improvements for accessibility */
 :focus-visible {
-	outline: 2px solid var(--color-primary);
-	outline-offset: 2px;
-	border-radius: 2px;
+	outline: 1px solid var(--color-primary);
 }
 
 /* Selection styling */

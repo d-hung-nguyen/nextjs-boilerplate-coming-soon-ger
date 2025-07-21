@@ -106,18 +106,6 @@ export default function HeroImage({
 					</div>
 				</div>
 			)}
-
-			{/* HubSpot Cookie Settings Link */}
-			<div className="absolute bottom-8 right-8 z-10">
-				<button
-					type="button"
-					onClick={showHubSpotCookieBanner}
-					className="text-white/60 hover:text-white/90 text-xs underline transition-colors 
-					          duration-200 backdrop-blur-sm"
-				>
-					Cookie Settings
-				</button>
-			</div>
 		</div>
 	)
 }

@@ -37,7 +37,7 @@ export default function Navigation() {
 				<div className="max-w-7xl mx-auto px-4">
 					<div className="flex items-center justify-between h-16">
 						{/* Logo */}
-						<Link href="/" className="flex items-center">
+						<Link href="/global-elite" className="flex items-center">
 							<Image
 								src={isScrolled ? "/images/ge1.png" : "/images/ge2.png"} // You'll need a white version
 								alt="Global Elite Logo"
@@ -50,7 +50,7 @@ export default function Navigation() {
 						{/* Desktop Navigation Links */}
 						<div className="hidden md:flex items-center space-x-8">
 							<Link
-								href="/"
+								href="/global-elite"
 								className={cn(
 									"text-sm font-medium transition-all duration-300 hover:text-primary",
 									pathname === "/"
@@ -163,7 +163,7 @@ export default function Navigation() {
 						)}
 					>
 						<Link
-							href="/"
+							href="/global-elite"
 							className={cn(
 								"text-sm font-medium transition-all duration-300 hover:text-primary py-2",
 								pathname === "/"
