@@ -16,7 +16,10 @@ import { ExternalLink, Search, Filter, MapPin } from "lucide-react"
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs"
 import { toast } from "sonner"
 import Link from "next/link"
+import Image from "next/image"
 import { Separator } from "@/components/ui/separator"
+import WorldMap from "@/components/WorldMap"
+import HeroImage from "@/components/HeroImage"
 
 interface Hotel {
 	id: string
@@ -41,6 +44,7 @@ export default function PortfolioPage() {
 	const [searchTerm, setSearchTerm] = useState("")
 	const [brandFilter, setBrandFilter] = useState("all")
 	const [regionFilter, setRegionFilter] = useState("all")
+	const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
 
 	const supabase = createClientComponentClient()
 
@@ -84,7 +88,34 @@ export default function PortfolioPage() {
 			(regionFilter === "cee" && hotel.cee) ||
 			(regionFilter === "uk" && !!hotel.uk)
 
-		return matchesSearch && matchesBrand && matchesRegion
+		const matchesLocation = !selectedLocation || hotel.location === selectedLocation
+
+		return matchesSearch && matchesBrand && matchesRegion && matchesLocation
+	})
+
+	// Handle location click from world map
+	const handleLocationClick = (location: string) => {
+		if (selectedLocation === location) {
+			setSelectedLocation(null) // Deselect if clicking the same location
+		} else {
+			setSelectedLocation(location)
+		}
+	}
+
+	// Group hotels by location
+	const groupedHotels = filteredHotels.reduce((groups, hotel) => {
+		const location = hotel.location
+		if (!groups[location]) {
+			groups[location] = []
+		}
+		groups[location].push(hotel)
+		return groups
+	}, {} as Record<string, Hotel[]>)
+
+	// Sort locations alphabetically and sort hotels within each location
+	const sortedLocations = Object.keys(groupedHotels).sort()
+	sortedLocations.forEach(location => {
+		groupedHotels[location].sort((a, b) => a.hotel_name.localeCompare(b.hotel_name))
 	})
 
 	// Get unique brands for filter
@@ -101,30 +132,17 @@ export default function PortfolioPage() {
 	}
 
 	return (
-		<div className="min-h-screen bg-accent text-foreground">
+		<div className="relative bg-accent text-foreground">
 			{/* Hero Section */}
-			<section className="relative bg-gradient-to-r from-primary/20 to-accent/20 py-20">
-				<div className="container mx-auto px-4 text-center">
-					<h1 className="text-4xl md:text-6xl font-bold mb-6 text-white">Our Hotel Portfolio</h1>
-					<p className="text-lg md:text-xl text-muted-primary max-w-3xl mx-auto mb-8">
-						Discover our curated collection of luxury hotels across Europe and beyond. Each property
-						represents excellence in hospitality and unique experiences.
-					</p>
-					<div className="flex items-center justify-center gap-4 text-sm">
-						<div className="flex items-center gap-2">
-							<div className="w-3 h-3  bg-accent rounded-full"></div>
-							<span className="">{hotels.length} Hotels</span>
-						</div>
-						<div className="flex items-center gap-2">
-							<div className="w-3 h-3 bg-accent rounded-full"></div>
-							<span>{uniqueBrands.length} Brands</span>
-						</div>
-					</div>
-				</div>
-			</section>
+
+			<HeroImage
+				backgroundImage="/images/villa-alula.webp"
+				title="Hotel Portfolio"
+				subtitle="Discover our curated collection of luxury hotels"
+			/>
 
 			{/* Filters Section */}
-			<section className="sticky top-16 z-40 bg-background/95 backdrop-blur-sm border-b">
+			<section className=" bg-background/95 backdrop-blur-sm border-b">
 				<div className="container mx-auto px-4 py-4">
 					<div className="flex flex-col md:flex-row gap-4 items-center">
 						<div className="flex items-center gap-2 text-sm font-medium">
@@ -178,6 +196,26 @@ export default function PortfolioPage() {
 				</div>
 			</section>
 
+			{/* World Map Section - Above Filters */}
+			{!loading && hotels.length > 0 && (
+				<section className="bg-background/50 backdrop-blur-sm border-b">
+					<div className="container mx-auto px-4 py-8">
+						<WorldMap
+							hotels={hotels}
+							onLocationClick={handleLocationClick}
+							highlightedLocation={selectedLocation}
+						/>
+						{selectedLocation && (
+							<div className="mt-6 text-center">
+								<Badge variant="secondary" className="bg-primary/10 text-primary border-primary/20">
+									Showing hotels in {selectedLocation} • Click again to deselect
+								</Badge>
+							</div>
+						)}
+					</div>
+				</section>
+			)}
+
 			{/* Hotels Grid */}
 			<section className="container mx-auto px-4 py-12">
 				{loading ? (
@@ -200,80 +238,130 @@ export default function PortfolioPage() {
 								setSearchTerm("")
 								setBrandFilter("all")
 								setRegionFilter("all")
+								setSelectedLocation(null)
 							}}
 						>
 							Clear Filters
 						</Button>
 					</div>
 				) : (
-					<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-						{filteredHotels.map(hotel => (
-							<Card
-								key={hotel.id}
-								className="group overflow-hidden border-0 p-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
-							>
-								<div className="relative h-90 w-auto">
-									{/* Background Image */}
-									<div
-										className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-										style={{
-											backgroundImage: `url(${hotel.image || "/placeholder.jpg"})`,
-										}}
-									>
-										{/* Overlay */}
-										<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+					<div className="space-y-12">
+						{sortedLocations.map(location => (
+							<div key={location} className="space-y-6">
+								{/* Location Heading */}
+								<div className="flex items-center gap-4">
+									<div className="flex items-center gap-3">
+										<MapPin className="w-6 h-6 text-primary" />
+										<h2 className="text-2xl md:text-3xl font-bold text-white">{location}</h2>
 									</div>
-
-									{/* Content */}
-									<CardContent className="absolute inset-0 p-6 flex flex-col justify-between text-white">
-										{/* Top Badges */}
-										<div className="flex flex-wrap gap-2">
-											<Badge
-												variant="secondary"
-												className="bg-white/20 text-white border-white/30 backdrop-blur-sm"
-											>
-												{hotel.brand}
-											</Badge>
-											{getHotelRegions(hotel).map(region => (
-												<Badge
-													key={region}
-													variant="outline"
-													className="border-white/50 text-white bg-white/10 backdrop-blur-sm"
-												>
-													{region}
-												</Badge>
-											))}
-										</div>
-
-										{/* Bottom Content */}
-										<div className="space-y-4">
-											<div>
-												<h3 className="text-xl font-bold mb-2 line-clamp-2">{hotel.hotel_name}</h3>
-												<div className="flex items-center gap-2 text-white/90">
-													<MapPin className="w-4 h-4" />
-													<span className="text-sm">{hotel.location}</span>
-												</div>
-											</div>
-
-											{/* Explore Button */}
-											<Button
-												size="sm"
-												className="w-full bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-sm text-white transition-all duration-300"
-												asChild
-											>
-												<Link
-													href={hotel.hotel_website || "#"}
-													target="_blank"
-													className="flex items-center justify-center gap-2"
-												>
-													<span>Explore More</span>
-													<ExternalLink className="w-4 h-4" />
-												</Link>
-											</Button>
-										</div>
-									</CardContent>
+									<div className="flex-1 h-px bg-gradient-to-r from-primary/50 to-transparent"></div>
+									<Badge
+										variant="secondary"
+										className="bg-primary/20 text-primary border-primary/30"
+									>
+										{groupedHotels[location].length}{" "}
+										{groupedHotels[location].length === 1 ? "Hotel" : "Hotels"}
+									</Badge>
 								</div>
-							</Card>
+
+								{/* Hotels Grid for this location */}
+								<div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+									{groupedHotels[location].map(hotel => {
+										// More permissive image URL validation
+										const isValidImageUrl =
+											hotel.image &&
+											hotel.image.trim() !== "" &&
+											(hotel.image.includes(".jpg") ||
+												hotel.image.includes(".jpeg") ||
+												hotel.image.includes(".png") ||
+												hotel.image.includes(".webp") ||
+												hotel.image.includes(".avif") ||
+												hotel.image.includes(".gif") ||
+												hotel.image.startsWith("/images/") ||
+												hotel.image.startsWith("/public/") ||
+												hotel.image.startsWith("https://") ||
+												hotel.image.startsWith("http://"))
+
+										// Log for debugging (remove in production)
+										if (!isValidImageUrl && hotel.image) {
+											console.log(`Invalid image URL for ${hotel.hotel_name}:`, hotel.image)
+										}
+
+										const imageUrl = isValidImageUrl ? hotel.image : "/images/a1.webp"
+
+										return (
+											<Card
+												key={hotel.id}
+												className="group overflow-hidden border-0 p-0 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1"
+											>
+												<div className="relative h-90 w-auto">
+													{/* Background Image with error handling */}
+													<div
+														className="absolute inset-0 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
+														style={{
+															backgroundImage: `url(${imageUrl})`,
+														}}
+														onError={e => {
+															// Fallback if the image fails to load
+															e.currentTarget.style.backgroundImage = `url(/images/a1.webp)`
+														}}
+													>
+														{/* Overlay */}
+														<div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent"></div>
+													</div>
+
+													{/* Content */}
+													<CardContent className="absolute inset-0 p-6 flex flex-col justify-between text-white">
+														{/* Top Badges */}
+														<div className="flex flex-wrap gap-2">
+															<Badge
+																variant="secondary"
+																className="bg-white/20 text-white border-white/30 backdrop-blur-sm"
+															>
+																{hotel.brand}
+															</Badge>
+															{getHotelRegions(hotel).map(region => (
+																<Badge
+																	key={region}
+																	variant="outline"
+																	className="border-white/50 text-white bg-white/10 backdrop-blur-sm"
+																>
+																	{region}
+																</Badge>
+															))}
+														</div>
+
+														{/* Bottom Content */}
+														<div className="space-y-4">
+															<div>
+																<h3 className="text-xl font-bold mb-2 line-clamp-2">
+																	{hotel.hotel_name}
+																</h3>
+															</div>
+
+															{/* Explore Button */}
+															<Button
+																size="sm"
+																className="w-full bg-white/20 hover:bg-white/30 border border-white/30 backdrop-blur-sm text-white transition-all duration-300"
+																asChild
+															>
+																<Link
+																	href={hotel.hotel_website || "#"}
+																	target="_blank"
+																	className="flex items-center justify-center gap-2"
+																>
+																	<span>Explore More</span>
+																	<ExternalLink className="w-4 h-4" />
+																</Link>
+															</Button>
+														</div>
+													</CardContent>
+												</div>
+											</Card>
+										)
+									})}
+								</div>
+							</div>
 						))}
 					</div>
 				)}

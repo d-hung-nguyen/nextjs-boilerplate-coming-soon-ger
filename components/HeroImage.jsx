@@ -10,6 +10,7 @@ export default function HeroImage({
 	logo2 = "",
 	title = "",
 	subtitle = "",
+	span = "",
 	overlayOpacity = 0.4,
 	showScrollIndicator = false,
 	logoWidth = 40,
@@ -20,7 +21,7 @@ export default function HeroImage({
 	alt = "Hero Background",
 }) {
 	return (
-		<div className={`relative w-full h-auto py-8 overflow-hidden ${className}`}>
+		<div className={`relative w-full h-auto min-h-[50vh] py-8 overflow-hidden ${className}`}>
 			<motion.div
 				initial={{ opacity: 0, y: 20 }}
 				animate={{ opacity: 1, y: 0 }}
@@ -85,6 +86,11 @@ export default function HeroImage({
 										</p>
 									)}
 								</div>
+								{span && (
+									<p className="text-sm md:text-base text-white/70 mt-4">
+										<span className="font-semibold">{span}</span>
+									</p>
+								)}
 							</motion.div>
 						</div>
 					</div>
