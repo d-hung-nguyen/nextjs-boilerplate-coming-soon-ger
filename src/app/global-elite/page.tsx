@@ -219,7 +219,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-primary">
+								<CardTitle className="text-xl font-bold">
 									Reporting and Insights
 								</CardTitle>
 							</CardHeader>
@@ -230,7 +230,7 @@ export default function GlobalElitePage() {
 									presentations for client engagement and feedback.
 								</p>
 								<div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-primary">Monthly & Annual Reports</p>
+									<p className="text-sm font-medium">Monthly & Annual Reports</p>
 									<p className="text-xs text-muted-foreground">With client presentations</p>
 								</div>
 							</CardContent>
@@ -260,7 +260,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-accent">
+								<CardTitle className="text-xl font-bold">
 									Independent Marketing Assessment
 								</CardTitle>
 							</CardHeader>
@@ -270,7 +270,7 @@ export default function GlobalElitePage() {
 									strategic pillars, synchronized with consumer booking patterns.
 								</p>
 								<div className="bg-accent/5 border border-accent/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-accent">Strategic Budget Planning</p>
+									<p className="text-sm font-medium">Strategic Budget Planning</p>
 									<p className="text-xs text-muted-foreground">5 pillars approach</p>
 								</div>
 							</CardContent>
@@ -300,7 +300,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-secondary">
+								<CardTitle className="text-xl font-bold">
 									Geographical Range & Responsiveness
 								</CardTitle>
 							</CardHeader>
@@ -310,7 +310,7 @@ export default function GlobalElitePage() {
 									providing a single point of contact and accountability.
 								</p>
 								<div className="bg-secondary/5 border border-secondary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-secondary">Unified Contact Point</p>
+									<p className="text-sm font-medium">Unified Contact Point</p>
 									<p className="text-xs text-muted-foreground">High standards maintained</p>
 								</div>
 							</CardContent>
@@ -340,7 +340,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-primary">
+								<CardTitle className="text-xl font-bold">
 									Aligned Regional Strategy
 								</CardTitle>
 							</CardHeader>
@@ -350,7 +350,7 @@ export default function GlobalElitePage() {
 									our senior market leader.
 								</p>
 								<div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-primary">Consistent Approach</p>
+									<p className="text-sm font-medium">Consistent Approach</p>
 									<p className="text-xs text-muted-foreground">Senior market leadership</p>
 								</div>
 							</CardContent>
@@ -380,7 +380,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-accent">
+								<CardTitle className="text-xl font-bold">
 									Comprehensive Strategic Planning
 								</CardTitle>
 							</CardHeader>
@@ -391,7 +391,7 @@ export default function GlobalElitePage() {
 									competitive analysis, SWOT analysis, and annual planners.
 								</p>
 								<div className="bg-accent/5 border border-accent/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-accent">Annual Commercial Plans</p>
+									<p className="text-sm font-medium">Annual Commercial Plans</p>
 									<p className="text-xs text-muted-foreground">Including SWOT analysis</p>
 								</div>
 							</CardContent>
@@ -421,7 +421,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-secondary">
+								<CardTitle className="text-xl font-bold">
 									Strategic Partnerships
 								</CardTitle>
 							</CardHeader>
@@ -432,7 +432,7 @@ export default function GlobalElitePage() {
 									airlines.
 								</p>
 								<div className="bg-secondary/5 border border-secondary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-secondary">Luxury Brand Partnerships</p>
+									<p className="text-sm font-medium">Luxury Brand Partnerships</p>
 									<p className="text-xs text-muted-foreground">Travel trade activation</p>
 								</div>
 							</CardContent>
