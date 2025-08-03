@@ -206,7 +206,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-primary"
+										className="w-8 h-8 services-card-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -219,7 +219,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-primary">
+								<CardTitle className="text-xl font-bold services-card-title">
 									Reporting and Insights
 								</CardTitle>
 							</CardHeader>
@@ -230,7 +230,7 @@ export default function GlobalElitePage() {
 									presentations for client engagement and feedback.
 								</p>
 								<div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-primary">Monthly & Annual Reports</p>
+									<p className="text-sm font-medium services-feature-text">Monthly & Annual Reports</p>
 									<p className="text-xs text-muted-foreground">With client presentations</p>
 								</div>
 							</CardContent>
@@ -247,7 +247,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-accent/10 to-accent/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-accent"
+										className="w-8 h-8 services-assessment-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -260,7 +260,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-accent">
+								<CardTitle className="text-xl font-bold services-assessment-title">
 									Independent Marketing Assessment
 								</CardTitle>
 							</CardHeader>
@@ -270,7 +270,7 @@ export default function GlobalElitePage() {
 									strategic pillars, synchronized with consumer booking patterns.
 								</p>
 								<div className="bg-accent/5 border border-accent/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-accent">Strategic Budget Planning</p>
+									<p className="text-sm font-medium services-assessment-feature">Strategic Budget Planning</p>
 									<p className="text-xs text-muted-foreground">5 pillars approach</p>
 								</div>
 							</CardContent>
@@ -287,7 +287,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-secondary"
+										className="w-8 h-8 services-geographic-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -300,7 +300,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-secondary">
+								<CardTitle className="text-xl font-bold services-geographic-title">
 									Geographical Range & Responsiveness
 								</CardTitle>
 							</CardHeader>
@@ -310,7 +310,7 @@ export default function GlobalElitePage() {
 									providing a single point of contact and accountability.
 								</p>
 								<div className="bg-secondary/5 border border-secondary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-secondary">Unified Contact Point</p>
+									<p className="text-sm font-medium services-geographic-feature">Unified Contact Point</p>
 									<p className="text-xs text-muted-foreground">High standards maintained</p>
 								</div>
 							</CardContent>
@@ -327,7 +327,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-primary/10 to-primary/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-primary"
+										className="w-8 h-8 services-strategy-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -340,7 +340,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-primary">
+								<CardTitle className="text-xl font-bold services-strategy-title">
 									Aligned Regional Strategy
 								</CardTitle>
 							</CardHeader>
@@ -350,7 +350,7 @@ export default function GlobalElitePage() {
 									our senior market leader.
 								</p>
 								<div className="bg-primary/5 border border-primary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-primary">Consistent Approach</p>
+									<p className="text-sm font-medium services-strategy-feature">Consistent Approach</p>
 									<p className="text-xs text-muted-foreground">Senior market leadership</p>
 								</div>
 							</CardContent>
@@ -367,7 +367,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-accent/10 to-accent/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-accent"
+										className="w-8 h-8 services-planning-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -380,7 +380,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-accent">
+								<CardTitle className="text-xl font-bold services-planning-title">
 									Comprehensive Strategic Planning
 								</CardTitle>
 							</CardHeader>
@@ -391,7 +391,7 @@ export default function GlobalElitePage() {
 									competitive analysis, SWOT analysis, and annual planners.
 								</p>
 								<div className="bg-accent/5 border border-accent/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-accent">Annual Commercial Plans</p>
+									<p className="text-sm font-medium services-planning-feature">Annual Commercial Plans</p>
 									<p className="text-xs text-muted-foreground">Including SWOT analysis</p>
 								</div>
 							</CardContent>
@@ -408,7 +408,7 @@ export default function GlobalElitePage() {
 							<CardHeader className="text-center">
 								<div className="mx-auto w-16 h-16 bg-gradient-to-br from-secondary/10 to-secondary/20 rounded-full flex items-center justify-center mb-4">
 									<svg
-										className="w-8 h-8 text-secondary"
+										className="w-8 h-8 services-partnership-icon"
 										fill="none"
 										stroke="currentColor"
 										viewBox="0 0 24 24"
@@ -421,7 +421,7 @@ export default function GlobalElitePage() {
 										/>
 									</svg>
 								</div>
-								<CardTitle className="text-xl font-bold text-secondary">
+								<CardTitle className="text-xl font-bold services-partnership-title">
 									Strategic Partnerships
 								</CardTitle>
 							</CardHeader>
@@ -432,7 +432,7 @@ export default function GlobalElitePage() {
 									airlines.
 								</p>
 								<div className="bg-secondary/5 border border-secondary/20 rounded-lg p-3">
-									<p className="text-sm font-medium text-secondary">Luxury Brand Partnerships</p>
+									<p className="text-sm font-medium services-partnership-feature">Luxury Brand Partnerships</p>
 									<p className="text-xs text-muted-foreground">Travel trade activation</p>
 								</div>
 							</CardContent>
