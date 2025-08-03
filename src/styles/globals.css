@@ -378,6 +378,80 @@ pre {
 	}
 }
 
+/* Services section semantic classes for "Our Comprehensive Services" */
+.services-card-title {
+	color: oklch(var(--color-primary));
+}
+
+.services-feature-text {
+	color: oklch(var(--color-primary));
+}
+
+.services-assessment-title {
+	color: oklch(var(--color-accent));
+}
+
+.services-assessment-feature {
+	color: oklch(var(--color-accent));
+}
+
+.services-geographic-title {
+	color: oklch(var(--color-secondary));
+}
+
+.services-geographic-feature {
+	color: oklch(var(--color-secondary));
+}
+
+.services-strategy-title {
+	color: oklch(var(--color-primary));
+}
+
+.services-strategy-feature {
+	color: oklch(var(--color-primary));
+}
+
+.services-planning-title {
+	color: oklch(var(--color-accent));
+}
+
+.services-planning-feature {
+	color: oklch(var(--color-accent));
+}
+
+.services-partnership-title {
+	color: oklch(var(--color-secondary));
+}
+
+.services-partnership-feature {
+	color: oklch(var(--color-secondary));
+}
+
+/* SVG icons for service cards */
+.services-card-icon {
+	color: oklch(var(--color-primary));
+}
+
+.services-assessment-icon {
+	color: oklch(var(--color-accent));
+}
+
+.services-geographic-icon {
+	color: oklch(var(--color-secondary));
+}
+
+.services-strategy-icon {
+	color: oklch(var(--color-primary));
+}
+
+.services-planning-icon {
+	color: oklch(var(--color-accent));
+}
+
+.services-partnership-icon {
+	color: oklch(var(--color-secondary));
+}
+
 /* High DPI display optimizations */
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
 	body {
