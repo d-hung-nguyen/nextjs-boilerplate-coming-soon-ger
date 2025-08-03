@@ -5,22 +5,17 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { AspectRatio } from "@/components/ui/aspect-ratio"
-import { Menubar, MenubarMenu } from "@/components/ui/menubar"
 import { Badge } from "@/components/ui/badge"
-import { Download, Clock, ArrowUp, Coffee, Star, CreditCard } from "lucide-react"
 import { motion } from "framer-motion"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
-import HeroVideo from "@/components/HeroVideo"
-import Form from "@/components/Form"
 import { FullscreenVideoWrapper } from "@/components/ui/video-wrapper"
 
 const features = [
 	{
 		img: "/images/a1.webp",
 		title: "By invitation only",
-		desc: "",
+		desc: "Exclusive access to curated luxury experiences reserved for our distinguished clientele.",
 	},
 	{
 		img: "/images/a2.webp",
@@ -134,14 +129,17 @@ export default function GlobalElitePage() {
 			<motion.div
 				initial={{ opacity: 0, x: 20 }}
 				whileInView={{ opacity: 1, x: 0 }}
-				transition={{ duration: 0.6 }}
+				transition={{ 
+					duration: 0.4,
+					ease: "easeOut"
+				}}
 				className="absolute top-70 left-0 "
 			>
 				<div className="relative space-y-6 px-4">
 					<div className="space-y-8 max-w-4xl px-4 text-start">
-						<h3 className="text-md md:text-lg lg:text-xl font-bold text-white leaping-tight font-serif mb-4">
+						<h1 className="text-md md:text-lg lg:text-xl font-bold text-white leading-tight font-serif mb-4">
 							Global Elite & Associates
-						</h3>
+						</h1>
 						<p className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight font-serif">
 							Bespoke Luxury Hospitality Sales
 						</p>
@@ -175,7 +173,7 @@ export default function GlobalElitePage() {
 					<CardContent className="space-y-8">
 						{/* Programme Overview */}
 						<div className="text-center space-y-4">
-							<p className="text-lg text-muted-foreground max-w-3xl mx-auto">
+							<p className="text-lg text-foreground/80 max-w-3xl mx-auto">
 								Our mission is simple: Exceptional luxury brands deserve exceptional consultancy.
 								Based in Germany, Global Elite & Associates boasts a network of associates located
 								across Europe, including the UK, France, Belgium, and Romania.
@@ -191,7 +189,7 @@ export default function GlobalElitePage() {
 			<section className="max-w-6xl mx-auto px-4 py-16">
 				<div className="text-center mb-12">
 					<h2 className="text-4xl font-bold mb-4">Our Comprehensive Services</h2>
-					<p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+					<p className="text-lg text-foreground/80 max-w-2xl mx-auto">
 						Delivering strategic expertise and market intelligence across all aspects of luxury
 						hospitality
 					</p>
@@ -202,7 +200,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						transition={{ duration: 0.4, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -226,7 +224,7 @@ export default function GlobalElitePage() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="text-center">
-								<p className="text-muted-foreground mb-4">
+								<p className="text-foreground/80 mb-4">
 									Regular assessments of competitive standing, key industry developments, and market
 									trends. Monthly and annual reports are typically accompanied by Teams
 									presentations for client engagement and feedback.
@@ -243,7 +241,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.1 }}
+						transition={{ duration: 0.3, delay: 0.05, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-accent/20 hover:border-accent/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -267,7 +265,7 @@ export default function GlobalElitePage() {
 								</CardTitle>
 							</CardHeader>
 							<CardContent className="text-center">
-								<p className="text-muted-foreground mb-4">
+								<p className="text-foreground/80 mb-4">
 									We produce marketing budget proposals targeting brand visibility across five
 									strategic pillars, synchronized with consumer booking patterns.
 								</p>
@@ -283,7 +281,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.2 }}
+						transition={{ duration: 0.3, delay: 0.1, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-secondary/20 hover:border-secondary/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -323,7 +321,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.3 }}
+						transition={{ duration: 0.3, delay: 0.15, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-primary/20 hover:border-primary/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -363,7 +361,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.4 }}
+						transition={{ duration: 0.3, delay: 0.2, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-accent/20 hover:border-accent/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -404,7 +402,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.5 }}
+						transition={{ duration: 0.3, delay: 0.25, ease: "easeOut" }}
 					>
 						<Card className="h-full border-2 border-secondary/20 hover:border-secondary/40 transition-all duration-300">
 							<CardHeader className="text-center">
@@ -552,7 +550,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6 }}
+						transition={{ duration: 0.4, ease: "easeOut" }}
 					>
 						<h2 className="text-4xl font-bold mb-4">A Team Built for Excellence</h2>
 						<p className="text-lg text-muted-foreground max-w-4xl mx-auto leading-relaxed">
@@ -570,7 +568,7 @@ export default function GlobalElitePage() {
 							key={member.id}
 							initial={{ opacity: 0, x: index % 2 === 0 ? -20 : 20 }}
 							whileInView={{ opacity: 1, x: 0 }}
-							transition={{ duration: 0.6, delay: index * 0.2 }}
+							transition={{ duration: 0.4, delay: index * 0.1, ease: "easeOut" }}
 						>
 							<Card className="h-full bg-background  hover:border-primary/40 transition-all duration-300 overflow-hidden group">
 								<CardContent className="p-0 bg-accent">
@@ -646,7 +644,7 @@ export default function GlobalElitePage() {
 					<motion.div
 						initial={{ opacity: 0, y: 20 }}
 						whileInView={{ opacity: 1, y: 0 }}
-						transition={{ duration: 0.6, delay: 0.6 }}
+						transition={{ duration: 0.4, delay: 0.3, ease: "easeOut" }}
 					>
 						<Card className="bg-gradient-to-r from-primary/5 to-accent/5 border-2 border-primary/20">
 							<CardContent className="p-8">
@@ -727,7 +725,7 @@ export default function GlobalElitePage() {
 						<h2 className="text-3xl md:text-4xl font-bold mb-6 text-primary">
 							Ready to Partner with Excellence?
 						</h2>
-						<p className="text-lg text-muted-white max-w-2xl mx-auto mb-8">
+						<p className="text-lg text-foreground/90 max-w-2xl mx-auto mb-8">
 							Join our exclusive network of luxury hospitality brands and unlock new opportunities
 							in the European market.
 						</p>
